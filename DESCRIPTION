@@ -1,0 +1,32 @@
+Package: LEAVcore
+Title: Constitution of Core Collections using Length of Encoded Attribute Values
+Version: 0.0.0.9000
+Authors@R: c(
+    person(given = "J.", family = "Aravind",
+           email = "j.aravind@icar.gov.in",
+           role = c("aut", "cre"),
+		       comment = c(ORCID = "0000-0002-4791-442X")),
+		person("ICAR-NBGPR",
+           role = c("cph"),
+		       comment = c(url = "www.nbpgr.ernet.in")))
+Description: Construct core collections using the information measrue 'Length 
+    of Encoded Attribute Values' (LEAV) using qualitative and/or quantitative
+    trait data as described by Balakrishnan and Suresh (2001a) 
+    <https://www.ispgr.in/index.php/ijpgr/article/view/1480> and (2001b) 
+    <https://www.ispgr.in/index.php/ijpgr/article/view/1448>.
+Encoding: UTF-8
+RoxygenNote: 7.3.2
+BuildManual: TRUE
+Imports: dplyr,
+    stats,
+    utils
+Suggests: EvaluateCore,
+    knitr,
+    rmarkdown,
+    pander
+RdMacros: mathjaxr,
+    Rdpack
+Copyright: 2024-2025, ICAR-NBPGR
+URL: https://github.com/aravind-j/LEAVcore
+   https://aravind-j.github.io/LEAVcore/
+BugReports: https://github.com/aravind-j/LEAVcore/issues
