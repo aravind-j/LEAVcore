@@ -2,15 +2,21 @@
 
 prop.adj <- function(x, method = c("none", "log", "sqrt")) {
 
+  # Checks -----
+
+  if (is.vector(x) & !is.factor(x)) {
+    stop('"x" should be a vector of type factor.')
+  }
+
   method <- match.arg(method)
 
   counts <- summary(x)
 
-  # Relative frequency/proportion
+  # Relative frequency/proportion ----
   prop <- counts/sum(counts)
 
 
-  if (method == "log") {
+  if (method == "none") {
     prop <- prop
   }
 
