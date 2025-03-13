@@ -1,4 +1,4 @@
-inflen.qual <- function(freq, adj = TRUE) {
+inflen.qual <- function(x, freq, adj = TRUE) {
 
   # Checks -----
 
@@ -14,7 +14,17 @@ inflen.qual <- function(freq, adj = TRUE) {
     stop('"adj" should be a vector of type factor with unit length.')
   }
 
-  # Adjustment ----
+  if (!is.numeric(freq)) {
+    stop('"freq" should be a numeric vector.')
+  }
+
+  if (is.null(names(freq)) & !all(names(freq) %in% levels(x))) {
+    stop('"freq" should be a named numeric vector and',
+         'all the names should be present as levels of "x".')
+  }
+
+  # Adjustment (Biased estimate) ----
+  # This is different from prop.adj
 
   if (adj) {
 
