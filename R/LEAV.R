@@ -175,7 +175,7 @@ LEAV <- function(data, names,
   total_count <- nrow(data)
   subset_count <- sum(freq[[1]])
 
-  lt <- -log(total_count/subset_count)
+  lt <- log(total_count/subset_count)
 
   # LEAV ----
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
