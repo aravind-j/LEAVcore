@@ -1,3 +1,6 @@
+
+#' @param freq The absolute frequencies of the descriptor states of the
+#'   qualitative trait \code{x} in the subset of all accessions.
 inflen.qual <- function(x, freq, adj = TRUE) {
 
   # Checks -----
@@ -18,7 +21,9 @@ inflen.qual <- function(x, freq, adj = TRUE) {
     stop('"freq" should be a numeric vector.')
   }
 
-  if (is.null(names(freq)) & !all(names(freq) %in% levels(x))) {
+  fqlvl_chk <- identical(sort(names(freq)), sort(levels(droplevels(x))))
+
+  if (is.null(names(freq)) & !fqlvl_chk) {
     stop('"freq" should be a named numeric vector and',
          'all the names should be present as levels of "x".')
   }
