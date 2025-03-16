@@ -108,15 +108,29 @@ LEAV <- function(data, names,
   }
 
 
-  # check if freq sum is within nrows(data)
-  if (sum(freq) > nrow(data)) {
-    stop('Sum of frequencies specified in "freq" exceeds size of "data".')
-  }
+  # # check if freq sum is within nrows(data)
+  # if (sum(freq) > nrow(data)) {
+  #   stop('Sum of frequencies specified in "freq" exceeds size of "data".')
+  # }
 
   # check freq list
+  fqqual_chk <- identical(sort(qualitative), sort(names(freq)))
+  fqlvl_chk <- lapply(qualitative, function(x) {
+    identical(sort(names(freq[[x]])), sort(levels(droplevels(data[, x]))))
+  })
+  fqlvl_chk <- unlist(fqlvl_chk)
+  names(fqlvl_chk) <- qualitative
 
-  # all freq sum should be same
+  if (!is.list(freq) & !fqqual_chk & !all(fqlvl_chk)) {
+    stop('"freq" should be a named list with the absolute frequency')
+  }
 
+  fqsum <- lapply(qualitative, function(x) {
+    sum(freq[[x]])
+  })
+  fqsum <- unlist(fqsum)
+  names(fqsum) <- qualitative
+  fqsum_chk <- all(fqsum == fqsum[1])
 
   # Qualitative traits - Information length ----
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -185,7 +199,6 @@ LEAV <- function(data, names,
 
 
   return(LEAVdf)
-
 
 }
 
