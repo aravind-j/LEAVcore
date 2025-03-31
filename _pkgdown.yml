@@ -1,0 +1,50 @@
+template:
+  bootstrap: 5
+  light-switch: yes
+  bslib:
+    base_font:
+      google: Fira Sans
+    heading_font:
+      google: Fira Sans
+    code_font:
+      google: Fira Mono
+    primary: '#ff0f0f'
+    pkgdown-navbar-bg: '#0f0f0f'
+    navbar-light-color: '#f9f9f9'
+    navbar-light-hover-color: '#ff0f0f'
+    navbar-light-brand-color: '#ff0f0f'
+    navbar-light-brand-hover-color: '#ff0f0f'
+    link-color: '#ff0f0f'
+
+deploy:
+  install_metadata: yes
+url: https://aravind-j.github.io/LEAVcore/
+navbar:
+  structure:
+    left:
+    - home
+    - reference
+    - news
+    right:
+    - search
+    - github
+    - lightswitch
+  components:
+    home:
+      icon: fa-home fa-lg
+      text: Home
+      href: index.html
+    reference:
+      icon: fa-code
+      text: Reference
+      href: reference/index.html
+    news:
+      icon: far fa-newspaper
+      text: News
+      href: news/index.html
+    github:
+      icon: fab fa-github-alt
+      text: Github
+      href: https://github.com/aravind-j/LEAVcore
+search:
+  exclude: news/index.html
