@@ -18,6 +18,7 @@ Description: Construct core collections using the information measrue 'Length
     trait data as described by Balakrishnan and Suresh (2001a) 
     <https://www.ispgr.in/index.php/ijpgr/article/view/1480> and (2001b) 
     <https://www.ispgr.in/index.php/ijpgr/article/view/1448>.
+License: GPL (>= 2)
 Encoding: UTF-8
 RoxygenNote: 7.3.2
 BuildManual: TRUE
