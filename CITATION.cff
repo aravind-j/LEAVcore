@@ -1,0 +1,40 @@
+# --------------------------------------------
+# CITATION file created with {cffr} R package
+# See also: https://docs.ropensci.org/cffr/
+# --------------------------------------------
+ 
+cff-version: 1.2.0
+message: 'To cite package "LEAVcore" in publications use:'
+type: software
+license: GPL-2.0-or-later
+title: 'LEAVcore: Constitution of Core Collections using Length of Encoded Attribute
+  Values'
+version: 0.0.0.9000
+abstract: Construct core collections using the information measrue 'Length of Encoded
+  Attribute Values' (LEAV) using qualitative and/or quantitative trait data as described
+  by Balakrishnan and Suresh (2001a) <https://www.ispgr.in/index.php/ijpgr/article/view/1480>
+  and (2001b) <https://www.ispgr.in/index.php/ijpgr/article/view/1448>.
+authors:
+- family-names: Aravind
+  given-names: J.
+  email: j.aravind@icar.gov.in
+  orcid: https://orcid.org/0000-0002-4791-442X
+- family-names: Roy
+  given-names: Suman
+  email: suman.roy@icar.gov.in
+  orcid: https://orcid.org/0000-0001-5612-8415
+repository-code: https://github.com/aravind-j/LEAVcore
+url: https://aravind-j.github.io/LEAVcore/
+contact:
+- family-names: Aravind
+  given-names: J.
+  email: j.aravind@icar.gov.in
+  orcid: https://orcid.org/0000-0002-4791-442X
+keywords:
+- core-collections
+- genebank
+- germplasm
+- pgr
+- plant-genetic-resources
+- r
+
