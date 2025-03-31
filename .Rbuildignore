@@ -3,3 +3,6 @@
 ^RoughWork$
 ^Release\.R$
 ^vignettes$
+^CITATION\.cff$
+^\.github$
+^codemeta\.json$
