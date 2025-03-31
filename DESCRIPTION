@@ -6,9 +6,13 @@ Authors@R: c(
            email = "j.aravind@icar.gov.in",
            role = c("aut", "cre"),
 		       comment = c(ORCID = "0000-0002-4791-442X")),
+    person(given = "Suman", family = "Roy",
+           email = "suman.roy@icar.gov.in",
+           role = c("aut"),
+		       comment = c(ORCID = "0000-0001-5612-8415")),
 		person("ICAR-NBGPR",
            role = c("cph"),
-		       comment = c(url = "www.nbpgr.ernet.in")))
+		       comment = c(url = "www.nbpgr.org.in")))
 Description: Construct core collections using the information measrue 'Length 
     of Encoded Attribute Values' (LEAV) using qualitative and/or quantitative
     trait data as described by Balakrishnan and Suresh (2001a) 
