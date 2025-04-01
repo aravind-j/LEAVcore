@@ -29,7 +29,7 @@
 #' \mjsdeqn{c_{m,d,t} = -\ln p_{m,d,t}}
 #'
 #' @inheritParams prop.adj
-#' @param freq The absolute frequencies of the descriptor states of the
+#' @param freq The target absolute frequencies of the descriptor states of the
 #'   qualitative trait \code{x} in the subset of all accessions.
 #' @param adj logical. If \code{TRUE}, the proportion estimates are slightly
 #'   biased to include zero frequency descriptor states in the computation (See
@@ -37,6 +37,8 @@
 #'
 #' @returns A data frame with 2 columns: \describe{ \item{x}{The qualitative
 #'   trait data} \item{inflen}{Information length computed}}
+#'
+#' @seealso \code{\link[LEAVcore]{inflen.quant}}
 #'
 #' @import mathjaxr
 #' @export

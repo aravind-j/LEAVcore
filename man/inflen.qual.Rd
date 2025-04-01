@@ -10,7 +10,7 @@ inflen.qual(x, freq, adj = TRUE)
 \item{x}{Data of a qualitative trait for accessions in a collection as a
 vector of type factor.}
 
-\item{freq}{The absolute frequencies of the descriptor states of the
+\item{freq}{The target absolute frequencies of the descriptor states of the
 qualitative trait \code{x} in the subset of all accessions.}
 
 \item{adj}{logical. If \code{TRUE}, the proportion estimates are slightly
@@ -78,4 +78,7 @@ head(CUALinflen)
 }
 \references{
 \insertAllCited{}
+}
+\seealso{
+\code{\link[LEAVcore]{inflen.quant}}
 }
