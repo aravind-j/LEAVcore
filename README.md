@@ -32,7 +32,7 @@ Size](https://img.shields.io/github/languages/code-size/aravind-j/LEAVcore.svg)]
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2025--03--31-yellowgreen.svg)](https://github.com/aravind-j/LEAVcore/)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2025--04--01-yellowgreen.svg)](https://github.com/aravind-j/LEAVcore/)
 <!-- [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.zenodo.14889174.svg)](https://doi.org/10.5281/zenodo.14889174) -->
 [![Website -
 pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/LEAVcore.svg)](https://aravind-j.github.io/LEAVcore/)
@@ -158,17 +158,21 @@ To cite the methods in the package use:
 citation("LEAVcore")
 ```
 
-    Warning in citation("LEAVcore"): could not determine year for 'LEAVcore' from package DESCRIPTION file
     To cite package 'LEAVcore' in publications use:
 
-      Aravind J, Roy S (????). _LEAVcore: Constitution of Core Collections using Length of Encoded
-      Attribute Values_. R package version 0.0.0.9000, <https://github.com/aravind-j/LEAVcore>.
+      Aravind J, Roy S (2025). _LEAVcore: Constitution of Core Collections
+      using Length of Encoded Attribute Values_. R package version
+      0.0.0.9000,
+      <https://github.com/aravind-j/LEAVcorehttps://aravind-j.github.io/LEAVcore/>.
 
     A BibTeX entry for LaTeX users is
 
       @Manual{,
-        title = {LEAVcore: Constitution of Core Collections using Length of Encoded Attribute Values},
+        title = {LEAVcore: Constitution of Core Collections using Length of Encoded
+    Attribute Values},
         author = {J. Aravind and Suman Roy},
+        year = {2025},
         note = {R package version 0.0.0.9000},
-        url = {https://github.com/aravind-j/LEAVcore},
+        url = {https://github.com/aravind-j/LEAVcore
+    https://aravind-j.github.io/LEAVcore/},
       }
