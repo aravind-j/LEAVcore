@@ -1,8 +1,71 @@
 
-
+#' Compute the Length of Encoded Attribute Values
+#'
+#' For accessions in a collection compute the Length of Encoded Attribute Values
+#' (LEAV) information measure from qualitative and quantitative trait data
+#' \insertCite{wallace_information_1968,balakrishnan_Strategies_2001,balakrishnan_Strategies_2001a,balakrishnan_Strategies_2003}{LEAVcore}
+#' \loadmathjax.
+#'
+#' For each accession \mjseqn{s} in the collection, the message length
+#' \mjseqn{F_{s}} to optimally encode all the \mjseqn{d} traits/descriptors is
+#' computed as follows using the joint density distribution of the whole
+#' collection.
+#'
+#' \mjsdeqn{F_{s} = l_{t} + \sum_{i=1}^{p} c_{m_{s},d_{i},t} +
+#' \sum_{j=1}^{q} c_{x_{s},d_{j},t}}
+#'
+#' Here, the first expression \mjseqn{l_{t}} is the message length for the
+#' subset \mjseqn{t} to which an accession belongs when there are \mjseqn{N}
+#' accessions in the whole collection and \mjseqn{n_{t}} accessions in the
+#' subset \mjseqn{t}.
+#'
+#' \mjsdeqn{l_{t} = l_{t} = - \ln{\left ( \frac{N}{n_{t}} \right )}}
+#'
+#' Similarly \mjseqn{\sum_{i=1}^{p} c_{m_{s},d_{i},t}} is sum of the optimum
+#' message length for \mjseqn{p} qualitative traits, \mjseqn{\sum_{j=1}^{q}
+#' c_{x_{s},d_{j},t}} is sum of the optimum optimum message length for
+#' \mjseqn{q} quantitative traits. See \code{\link[LEAVcore]{inflen.qual}} and
+#' \code{\link[LEAVcore]{inflen.quant}} for more details.
+#'
+#'
+#' @inheritParams inflen.qual
+#' @param data The data as a data frame object. The data frame should possess
+#'   one row per individual and columns with the individual names and multiple
+#'   trait/character data.
+#' @param names Name of column with the individual names as a character string.
+#' @param quantitative Name of columns with the quantitative traits as a
+#'   character vector.
+#' @param qualitative Name of columns with the qualitative traits as a character
+#'   vector.
+#' @param freq A named list with the target absolute frequencies of the
+#'   descriptor states for each qualitative trait specified in
+#'   \code{qualitative}. The list names should be same as \code{qualitative}.
+#' @param mean A named numeric vector of target means for each quantitative
+#'   trait specified in \code{quantitative}. The list names should be same as
+#'   \code{quantitative}.
+#' @param sd A named numeric vector of target standard deviation for each
+#'   quantitative trait specified in \code{quantitative}. The list names should
+#'   be same as \code{quantitative}.
+#' @param e A named numeric vector of least count of measurement for each
+#'   quantitative trait specified in \code{quantitative}. The list names should
+#'   be same as \code{quantitative}.
+#'
+#' @returns A data frame with
+#'
+#' @seealso \code{\link[LEAVcore]{inflen.qual}},
+#'   \code{\link[LEAVcore]{inflen.quant}}
+#'
+#' @export
+#'
+#' @references
+#'
+#' \insertAllCited{}
+#'
+#' @examples
 LEAV <- function(data, names,
                  quantitative = NULL, qualitative = NULL,
-                 freq, mean, sd, e) {
+                 freq, adj = TRUE,
+                 mean, sd, e) {
 
   # Checks ----
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -132,13 +195,12 @@ LEAV <- function(data, names,
   names(fqsum) <- qualitative
   fqsum_chk <- all(fqsum == fqsum[1])
 
+  # Checks for sd, e and mean
+
   # Qualitative traits - Information length ----
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   if (!is.null(qualitative)) {
-    adj <- TRUE
-    # if (sum(freq) == nrow(data))
-
     qual_inflen <- lapply(qualitative, function(x) {
       out <- inflen.qual(x = data[, x], freq = freq[[x]], adj = adj)
       out <- data.frame(out[, "inflen"])
