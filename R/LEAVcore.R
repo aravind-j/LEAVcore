@@ -101,10 +101,12 @@ LEAVcore <- function(data, names,
   ## Estimate LEAV ----
   LEAVdf <- LEAV(data = data, names = names,
                  quantitative = quantitative, qualitative = qualitative,
+                 adj = FALSE,
                  freq = freq, mean = mean, sd = sd, e = e)
 
   LEAVdf <- sort_by(LEAVdf, LEAVdf$LEAV, decreasing = TRUE)
 
+  ## Find the strata boundaries ----
   nStrata <- nclass.Sturges(LEAVdf$LEAV)
   strat_out <-
     stratification::strata.cumrootf(x = LEAVdf$LEAV,
@@ -113,7 +115,8 @@ LEAVcore <- function(data, names,
                                     nclass = nStrata*15) # see Details
 
   LEAVdf$LEAVStrata <-  strat_out$stratumID
-  ##
+
+  ## Sampling within each strata ---- TODO with SampleCore
 
 
 
