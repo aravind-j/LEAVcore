@@ -42,10 +42,12 @@
 #'   numeric vector.
 #' @param mean The target mean.
 #' @param sd The target standard deviation
-#' @param e Th least count of measurement for the quantitative trait.
+#' @param e The least count of measurement for the quantitative trait.
 #'
 #' @returns A data frame with 2 columns: \describe{ \item{x}{The quantitative
 #'   trait data} \item{inflen}{Information length computed}}
+#'
+#' @seealso \code{\link[LEAVcore]{inflen.qual}}
 #'
 #' @export
 #'

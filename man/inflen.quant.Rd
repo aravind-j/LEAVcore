@@ -14,7 +14,7 @@ numeric vector.}
 
 \item{sd}{The target standard deviation}
 
-\item{e}{Th least count of measurement for the quantitative trait.}
+\item{e}{The least count of measurement for the quantitative trait.}
 }
 \value{
 A data frame with 2 columns: \describe{ \item{x}{The quantitative
@@ -80,4 +80,7 @@ head(AVPWinflen)
 }
 \references{
 \insertAllCited{}
+}
+\seealso{
+\code{\link[LEAVcore]{inflen.qual}}
 }
