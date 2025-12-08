@@ -5,8 +5,7 @@
 
 ## `LEAVcore`: Constitution of Core Collections using Length of Encoded Attribute Values
 
-<!-- <img src="https://raw.githubusercontent.com/aravind-j/LEAVcore/master/inst/extdata/LEAVcore.png" align="right" alt="logo" width="173" height = "200" style = "border: none; float: right;">
--->
+<img src="https://raw.githubusercontent.com/aravind-j/LEAVcore/master/inst/extdata/LEAVcore.png" align="right" alt="logo" width="173" height = "200" style = "border: none; float: right;">
 
 ###### Version : [0.0.0.9000](https://aravind-j.github.io/LEAVcore/); License: [GPL-2\|GPL-3](https://www.r-project.org/Licenses/)
 
@@ -24,15 +23,20 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 <!-- [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-last-release/LEAVcore)](https://cran.r-project.org/package=LEAVcore)
 [![Dependencies](https://tinyverse.netlify.app/status/LEAVcore)](https://cran.r-project.org/package=LEAVcore) -->
 <!-- [![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/LEAVcore?color=green)](https://CRAN.R-project.org/package=LEAVcore) -->
+
 <!-- 
 [![develVersion](https://img.shields.io/badge/devel%20version-0.0.0.9000-orange.svg)](https://github.com/aravind-j/LEAVcore)
---> [![Github Code
+-->
+
+[![Github Code
 Size](https://img.shields.io/github/languages/code-size/aravind-j/LEAVcore.svg)](https://github.com/aravind-j/LEAVcore)
+
 <!-- [![R-CMD-check](https://github.com/aravind-j/LEAVcore/workflows/R-CMD-check/badge.svg)](https://github.com/aravind-j/LEAVcore/actions) -->
+
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2025--03--31-yellowgreen.svg)](https://github.com/aravind-j/LEAVcore/)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2025--12--08-yellowgreen.svg)](https://github.com/aravind-j/LEAVcore/)
 <!-- [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.zenodo.14889174.svg)](https://doi.org/10.5281/zenodo.14889174) -->
 [![Website -
 pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/LEAVcore.svg)](https://aravind-j.github.io/LEAVcore/)
@@ -46,14 +50,14 @@ pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github
 
 ## Description
 
-<!-- Construct core collections using the information measrue 'Length of Encoded Attribute Values' (LEAV) using qualitative and/or quantitative trait data as described by Balakrishnan and Suresh (2001a) <https://www.ispgr.in/index.php/ijpgr/article/view/1480> and (2001b) <https://www.ispgr.in/index.php/ijpgr/article/view/1448>. -->
+<!-- Construct core collections using the information measrue 'Length      of Encoded Attribute Values' (LEAV) using qualitative and/or quantitative     trait data as described by Balakrishnan and Suresh (2001a)      <https://www.ispgr.in/index.php/ijpgr/article/view/1480> and (2001b)      <https://www.ispgr.in/index.php/ijpgr/article/view/1448>. -->
 
-Construct core collections using the information measrue ‘Lengthof
-Encoded Attribute Values’ (LEAV) using qualitative and/or
-quantitativetrait data as described by Balakrishnan and Suresh
-(2001a)\<<a href='https://www.ispgr.in/index.php/ijpgr/article/view/1480'>https://www.ispgr.in/index.php/ijpgr/article/view/1480</a>\>
-and
-(2001b)\<<a href='https://www.ispgr.in/index.php/ijpgr/article/view/1448'>https://www.ispgr.in/index.php/ijpgr/article/view/1448</a>\>.
+Construct core collections using the information measrue ‘Length of
+Encoded Attribute Values’ (LEAV) using qualitative and/or quantitative
+trait data as described by Balakrishnan and Suresh (2001a)
+\<<a href='https://www.ispgr.in/index.php/ijpgr/article/view/1480'>https://www.ispgr.in/index.php/ijpgr/article/view/1480</a>\>
+and (2001b)
+\<<a href='https://www.ispgr.in/index.php/ijpgr/article/view/1448'>https://www.ispgr.in/index.php/ijpgr/article/view/1448</a>\>.
 
 ## Installation
 
@@ -94,6 +98,7 @@ news(package='LEAVcore')
 [Documentation website](https://aravind-j.github.io/LEAVcore/)
 
 <!--[Zenodo DOI](https://doi.org/10.5281/zenodo.14889174) -->
+
 <!--
 ## CRAN checks
 &#10;
@@ -158,11 +163,13 @@ To cite the methods in the package use:
 citation("LEAVcore")
 ```
 
-    Warning in citation("LEAVcore"): could not determine year for 'LEAVcore' from package DESCRIPTION file
+    Warning in citation("LEAVcore"): could not determine year for 'LEAVcore' from package
+    DESCRIPTION file
     To cite package 'LEAVcore' in publications use:
 
-      Aravind J, Roy S (????). _LEAVcore: Constitution of Core Collections using Length of Encoded
-      Attribute Values_. R package version 0.0.0.9000, <https://github.com/aravind-j/LEAVcore>.
+      Aravind J, Roy S (????). _LEAVcore: Constitution of Core Collections using Length
+      of Encoded Attribute Values_. R package version 0.0.0.9000,
+      <https://github.com/aravind-j/LEAVcore>.
 
     A BibTeX entry for LaTeX users is
 

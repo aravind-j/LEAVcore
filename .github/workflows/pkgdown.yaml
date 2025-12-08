@@ -24,6 +24,7 @@ jobs:
           extra-packages: |
             local::.
             github::r-lib/pkgdown?reinstall
+            github::aravind-j/EvaluateCore?reinstall
 
       - name: Deploy package
         run: |

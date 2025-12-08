@@ -25,10 +25,10 @@ BuildManual: TRUE
 Imports: dplyr,
     stats,
     utils
-Suggests: EvaluateCore,
-    knitr,
+Suggests: knitr,
     rmarkdown,
     pander
+Remotes: github::aravind-j/EvaluateCore
 RdMacros: mathjaxr,
     Rdpack
 Copyright: 2024-2025, ICAR-NBPGR
