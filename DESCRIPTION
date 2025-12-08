@@ -22,7 +22,9 @@ License: GPL (>= 2)
 Encoding: UTF-8
 RoxygenNote: 7.3.2
 BuildManual: TRUE
-Imports: dplyr,
+Imports: mathjaxr, 
+    Rdpack,
+    dplyr,
     stats,
     utils
 Suggests: knitr,
