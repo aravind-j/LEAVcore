@@ -18,8 +18,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/aravind-j/LEAVcore/ma
 -->
 
 ## `LEAVcore`: Constitution of Core Collections using Length of Encoded Attribute Values
-<!-- <img src="https://raw.githubusercontent.com/aravind-j/LEAVcore/master/inst/extdata/LEAVcore.png" align="right" alt="logo" width="173" height = "200" style = "border: none; float: right;">
--->
+<img src="https://raw.githubusercontent.com/aravind-j/LEAVcore/master/inst/extdata/LEAVcore.png" align="right" alt="logo" width="173" height = "200" style = "border: none; float: right;">
 
 ```{r,echo = FALSE, message = FALSE}
 devtools::load_all(".", quiet = TRUE) # quiet = T for hiding macOS compiler warnings
@@ -38,6 +37,7 @@ Division of Germplasm Conservation, ICAR-National Bureau of Plant Genetic Resour
 <!-- [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-last-release/LEAVcore)](https://cran.r-project.org/package=LEAVcore)
 [![Dependencies](https://tinyverse.netlify.app/status/LEAVcore)](https://cran.r-project.org/package=LEAVcore) -->
 <!-- [![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/LEAVcore?color=green)](https://CRAN.R-project.org/package=LEAVcore) -->
+
 <!-- 
 ```{r, results='asis', echo=FALSE}
 dver <- ifelse(test = gsub("(.\\.)(\\d+)(\\..)", "", getNamespaceVersion("LEAVcore")) != "",
@@ -47,8 +47,11 @@ dver <- ifelse(test = gsub("(.\\.)(\\d+)(\\..)", "", getNamespaceVersion("LEAVco
 cat(paste("[![develVersion](https://img.shields.io/badge/devel%20version-", dver, "-orange.svg)](https://github.com/aravind-j/LEAVcore)", sep = ""))
 ```
 -->
+
 [![Github Code Size](https://img.shields.io/github/languages/code-size/aravind-j/LEAVcore.svg)](https://github.com/aravind-j/LEAVcore)
+
 <!-- [![R-CMD-check](https://github.com/aravind-j/LEAVcore/workflows/R-CMD-check/badge.svg)](https://github.com/aravind-j/LEAVcore/actions) -->
+
 [![Project Status: WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-yellowgreen.svg)](https://github.com/aravind-j/LEAVcore/)
