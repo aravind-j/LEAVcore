@@ -1,8 +1,8 @@
 pandoc: 3.1.11
-pkgdown: 2.1.1.9000
-pkgdown_sha: 66477c0dbb4f4925ec872cf64d5eaa316cc70bac
+pkgdown: 2.2.0.9000
+pkgdown_sha: c07d935583c90125586821e3b39ed52f16593e42
 articles: {}
-last_built: 2025-04-01T19:08Z
+last_built: 2025-12-08T17:49Z
 urls:
   reference: https://aravind-j.github.io/LEAVcore/reference
   article: https://aravind-j.github.io/LEAVcore/articles
