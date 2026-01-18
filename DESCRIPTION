@@ -3,11 +3,11 @@ Title: Constitution of Core Collections using Length of Encoded Attribute Values
 Version: 0.0.0.9000
 Authors@R: c(
     person(given = "J.", family = "Aravind",
-           email = "j.aravind@icar.gov.in",
+           email = "j.aravind@icar.org.in",
            role = c("aut", "cre"),
 		       comment = c(ORCID = "0000-0002-4791-442X")),
     person(given = "Suman", family = "Roy",
-           email = "suman.roy@icar.gov.in",
+           email = "suman.roy@icar.org.in",
            role = c("aut"),
 		       comment = c(ORCID = "0000-0001-5612-8415")),
 		person("ICAR-NBGPR",
