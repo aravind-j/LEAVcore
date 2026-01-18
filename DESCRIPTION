@@ -33,7 +33,7 @@ Suggests: knitr,
 Remotes: github::aravind-j/EvaluateCore
 RdMacros: mathjaxr,
     Rdpack
-Copyright: 2024-2025, ICAR-NBPGR
+Copyright: 2024-2026, ICAR-NBPGR
 URL: https://github.com/aravind-j/LEAVcore
    https://aravind-j.github.io/LEAVcore/
 BugReports: https://github.com/aravind-j/LEAVcore/issues
