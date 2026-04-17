@@ -1,15 +1,15 @@
 
 <!-- 
-<img src="https://raw.githubusercontent.com/aravind-j/LEAVcore/master/inst/extdata/LEAVcore.png" width="20%" />
+<img src="https://raw.githubusercontent.com/aravind-j/LEAVcore/master/inst/extdata/LEAVcore.png" alt="" width="20%" />
 -->
 
 ## `LEAVcore`: Constitution of Core Collections using Length of Encoded Attribute Values
 
 <img src="https://raw.githubusercontent.com/aravind-j/LEAVcore/master/inst/extdata/LEAVcore.png" align="right" alt="logo" width="173" height = "200" style = "border: none; float: right;">
 
-###### Version : [0.0.0.9000](https://aravind-j.github.io/LEAVcore/); License: [GPL-2\|GPL-3](https://www.r-project.org/Licenses/)
+###### Version : [0.0.0.9000](https://aravind-j.github.io/LEAVcore/); Copyright (C) 2024-2026: [ICAR-NBPGR](https://nbpgr.org.in/); License: [GPL-2\|GPL-3](https://www.r-project.org/Licenses/)
 
-##### Aravind, J. and Suman Roy
+##### *Aravind, J., Roy, Suman and Singh, Anju Mahendru*
 
 Division of Germplasm Conservation, ICAR-National Bureau of Plant
 Genetic Resources, New Delhi.
@@ -36,7 +36,7 @@ Size](https://img.shields.io/github/languages/code-size/aravind-j/LEAVcore.svg)]
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2025--12--08-yellowgreen.svg)](https://github.com/aravind-j/LEAVcore/)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2026--04--17-yellowgreen.svg)](https://github.com/aravind-j/LEAVcore/)
 <!-- [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.zenodo.14889174.svg)](https://doi.org/10.5281/zenodo.14889174) -->
 [![Website -
 pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/LEAVcore.svg)](https://aravind-j.github.io/LEAVcore/)
@@ -163,19 +163,16 @@ To cite the methods in the package use:
 citation("LEAVcore")
 ```
 
-    Warning in citation("LEAVcore"): could not determine year for 'LEAVcore' from package
-    DESCRIPTION file
+    Warning in citation("LEAVcore"): could not determine year for 'LEAVcore' from package DESCRIPTION file
     To cite package 'LEAVcore' in publications use:
 
-      Aravind J, Roy S (????). _LEAVcore: Constitution of Core Collections using Length
-      of Encoded Attribute Values_. R package version 0.0.0.9000,
-      <https://github.com/aravind-j/LEAVcore>.
 
     A BibTeX entry for LaTeX users is
 
       @Manual{,
         title = {LEAVcore: Constitution of Core Collections using Length of Encoded Attribute Values},
-        author = {J. Aravind and Suman Roy},
+        author = {J. Aravind},
         note = {R package version 0.0.0.9000},
         url = {https://github.com/aravind-j/LEAVcore},
+        year = {2026},
       }
