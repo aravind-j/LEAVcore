@@ -1,0 +1,28 @@
+year <- sub("-.*", "", meta$Date)
+vers <- sprintf("R package version %s", meta$Version)
+
+hd <- "To cite the R package 'LEAVcore' in publications use:"
+ft <- paste("This free and open-source software implements academic",
+            "research by the authors and co-workers. If you use it, please support",
+            "the project by citing the package.", collapse = "\n")
+
+bibentry(header = hd,
+         bibtype = "Manual",
+         title  = "LEAVcore: Constitution of Core Collections using Length of Encoded Attribute Values",
+         author = c(person(given = "J.", family = "Aravind",
+                           email = "j.aravind@icar.org.in",
+                           role = c("aut", "cre")),
+                    person(given = "Suman", family = "Roy",
+                           email = "suman.roy@icar.org.in",
+                           role = c("aut")),
+                    person(given = "Anju Mahendru", family = "Singh",
+                           email = "anju.singh@icar.org.in",
+		                       role = "aut")),
+         year = year,
+         textVersion = paste(
+           "Aravind, J. (",
+           year, ").  LEAVcore: Constitution of Core Collections using Length of Encoded Attribute Values. ",
+           vers, ", ", "https://aravind-j.github.io/LEAVcore/",
+           ".", sep=""),
+         note = paste(vers, "https://aravind-j.github.io/LEAVcore/"),
+         footer = ft)
