@@ -9,7 +9,7 @@
 
 ###### Version : [0.0.0.9000](https://aravind-j.github.io/LEAVcore/); Copyright (C) 2024-2026: [ICAR-NBPGR](https://nbpgr.org.in/); License: [GPL-2\|GPL-3](https://www.r-project.org/Licenses/)
 
-##### *Aravind, J., Roy, Suman and Singh, Anju Mahendru*
+##### *Aravind, J., Roy, Suman and Singh, Anju M.*
 
 Division of Germplasm Conservation, ICAR-National Bureau of Plant
 Genetic Resources, New Delhi.
@@ -36,7 +36,7 @@ Size](https://img.shields.io/github/languages/code-size/aravind-j/LEAVcore.svg)]
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2026--04--17-yellowgreen.svg)](https://github.com/aravind-j/LEAVcore/)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2026--04--21-yellowgreen.svg)](https://github.com/aravind-j/LEAVcore/)
 <!-- [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.zenodo.14889174.svg)](https://doi.org/10.5281/zenodo.14889174) -->
 [![Website -
 pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/LEAVcore.svg)](https://aravind-j.github.io/LEAVcore/)
@@ -171,7 +171,7 @@ citation("LEAVcore")
 
       @Manual{,
         title = {LEAVcore: Constitution of Core Collections using Length of Encoded Attribute Values},
-        author = {J. Aravind},
+        author = {J. Aravind and Suman Roy},
         note = {R package version 0.0.0.9000},
         url = {https://github.com/aravind-j/LEAVcore},
         year = {2026},
