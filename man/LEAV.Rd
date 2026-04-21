@@ -37,17 +37,17 @@ descriptor states for each qualitative trait specified in
 biased to include zero frequency descriptor states in the computation (See
 \strong{Details}). Default is \code{TRUE}.}
 
-\item{mean}{A named vector of target means for each quantitative trait
-specified in \code{quantitative}. The list names should be same as
-\code{quantitative}.}
-
-\item{sd}{A named vector of target standard deviation for each quantitative
+\item{mean}{A named numeric vector of target means for each quantitative
 trait specified in \code{quantitative}. The list names should be same as
 \code{quantitative}.}
 
-\item{e}{A named vector of least count of measurement for each quantitative
-trait specified in \code{quantitative}. The list names should be same as
-\code{quantitative}.}
+\item{sd}{A named numeric vector of target standard deviation for each
+quantitative trait specified in \code{quantitative}. The list names should
+be same as \code{quantitative}.}
+
+\item{e}{A named numeric vector of least count of measurement for each
+quantitative trait specified in \code{quantitative}. The list names should
+be same as \code{quantitative}.}
 }
 \value{
 A data frame with
@@ -79,6 +79,59 @@ message length for \mjseqn{p} qualitative traits, \mjseqn{\sum_{j=1}^{q}
 c_{x_{s},d_{j},t}} is sum of the optimum optimum message length for
 \mjseqn{q} quantitative traits. See \code{\link[LEAVcore]{inflen.qual}} and
 \code{\link[LEAVcore]{inflen.quant}} for more details.
+}
+\examples{
+suppressPackageStartupMessages(library(EvaluateCore))
+
+library(EvaluateCore)
+
+# Get data from EvaluateCore
+data("cassava_EC", package = "EvaluateCore")
+
+cassava_EC <- cbind(genotypes = rownames(cassava_EC), cassava_EC)
+
+
+quant <- c("NMSR", "TTRN", "TFWSR", "TTRW", "TFWSS", "TTSW", "TTPW", "AVPW",
+                  "ARSR", "SRDM")
+qual <- c("CUAL", "LNGS", "PTLC", "DSTA", "LFRT", "LBTEF", "CBTR", "NMLB",
+                 "ANGB", "CUAL9M", "LVC9M", "TNPR9M", "PL9M", "STRP", "STRC",
+                 "PSTR")
+
+cassava_EC[, qual] <- lapply(cassava_EC[, qual], as.factor)
+
+size <- 0.2
+
+freq_list <- lapply(qual, function(x) {
+  prop <-  prop.adj(cassava_EC[, x], method = "sqrt")
+  size.count <- ceiling(size * length(x))
+  round.to.target(prop * size.count)
+})
+names(freq_list) <- qual
+
+mean_vec <- sapply(cassava_EC[, quant],
+                   function(x) {
+                     floor(mean(x))
+                   })
+names(mean_vec) <- quant
+
+sd_vec <- sapply(cassava_EC[quant],
+             function(x) {
+               round(sd(x), 1)
+             })
+names(sd_vec) <- quant
+
+e_vec <- rep(1, length(quant))
+names(e_vec) <- quant
+
+
+# Compute LEAV
+LEAV_cassava <- LEAV(data = cassava_EC, names = "genotypes",
+                     quantitative = quant, qualitative = qual,
+                     freq = freq_list, adj = TRUE,
+                     mean = mean_vec, sd = sd_vec, e = e_vec)
+
+LEAV_cassava
+
 }
 \references{
 \insertAllCited{}
