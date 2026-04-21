@@ -57,20 +57,21 @@ LEAV(
 
 - mean:
 
-  A named vector of target means for each quantitative trait specified
-  in `quantitative`. The list names should be same as `quantitative`.
+  A named numeric vector of target means for each quantitative trait
+  specified in `quantitative`. The list names should be same as
+  `quantitative`.
 
 - sd:
 
-  A named vector of target standard deviation for each quantitative
-  trait specified in `quantitative`. The list names should be same as
-  `quantitative`.
+  A named numeric vector of target standard deviation for each
+  quantitative trait specified in `quantitative`. The list names should
+  be same as `quantitative`.
 
 - e:
 
-  A named vector of least count of measurement for each quantitative
-  trait specified in `quantitative`. The list names should be same as
-  `quantitative`.
+  A named numeric vector of least count of measurement for each
+  quantitative trait specified in `quantitative`. The list names should
+  be same as `quantitative`.
 
 ## Value
 
@@ -127,3 +128,62 @@ classification.” *The Computer Journal*, **11**(2), 185–194.
 
 [`inflen.qual`](https://aravind-j.github.io/LEAVcore/reference/inflen.qual.md),
 [`inflen.quant`](https://aravind-j.github.io/LEAVcore/reference/inflen.quant.md)
+
+## Examples
+
+``` r
+suppressPackageStartupMessages(library(EvaluateCore))
+
+library(EvaluateCore)
+
+# Get data from EvaluateCore
+data("cassava_EC", package = "EvaluateCore")
+
+cassava_EC <- cbind(genotypes = rownames(cassava_EC), cassava_EC)
+
+
+quant <- c("NMSR", "TTRN", "TFWSR", "TTRW", "TFWSS", "TTSW", "TTPW", "AVPW",
+                  "ARSR", "SRDM")
+qual <- c("CUAL", "LNGS", "PTLC", "DSTA", "LFRT", "LBTEF", "CBTR", "NMLB",
+                 "ANGB", "CUAL9M", "LVC9M", "TNPR9M", "PL9M", "STRP", "STRC",
+                 "PSTR")
+
+cassava_EC[, qual] <- lapply(cassava_EC[, qual], as.factor)
+
+size <- 0.2
+
+freq_list <- lapply(qual, function(x) {
+  prop <-  prop.adj(cassava_EC[, x], method = "sqrt")
+  size.count <- ceiling(size * length(x))
+  round.to.target(prop * size.count)
+})
+#> Error in round.to.target(prop * size.count): could not find function "round.to.target"
+names(freq_list) <- qual
+#> Error: object 'freq_list' not found
+
+mean_vec <- sapply(cassava_EC[, quant],
+                   function(x) {
+                     floor(mean(x))
+                   })
+names(mean_vec) <- quant
+
+sd_vec <- sapply(cassava_EC[quant],
+             function(x) {
+               round(sd(x), 1)
+             })
+names(sd_vec) <- quant
+
+e_vec <- rep(1, length(quant))
+names(e_vec) <- quant
+
+
+# Compute LEAV
+LEAV_cassava <- LEAV(data = cassava_EC, names = "genotypes",
+                     quantitative = quant, qualitative = qual,
+                     freq = freq_list, adj = TRUE,
+                     mean = mean_vec, sd = sd_vec, e = e_vec)
+#> Error: object 'freq_list' not found
+
+LEAV_cassava
+#> Error: object 'LEAV_cassava' not found
+```

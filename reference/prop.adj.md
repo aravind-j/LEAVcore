@@ -1,7 +1,7 @@
 # Relative Frequency Adjustments
 
-Compute and transform relative frequencies or accessions for a
-qualitative trait by the following methods (Balakrishnan and Suresh
+Compute and transform relative frequencies for a qualitative trait in a
+germplasm collection by the following methods (Balakrishnan and Suresh
 2001) :
 
 - Square root-proportion

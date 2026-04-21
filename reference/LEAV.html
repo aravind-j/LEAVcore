@@ -111,21 +111,21 @@ biased to include zero frequency descriptor states in the computation (See
 
 
 <dt id="arg-mean">mean<a class="anchor" aria-label="anchor" href="#arg-mean"></a></dt>
-<dd><p>A named vector of target means for each quantitative trait
-specified in <code>quantitative</code>. The list names should be same as
+<dd><p>A named numeric vector of target means for each quantitative
+trait specified in <code>quantitative</code>. The list names should be same as
 <code>quantitative</code>.</p></dd>
 
 
 <dt id="arg-sd">sd<a class="anchor" aria-label="anchor" href="#arg-sd"></a></dt>
-<dd><p>A named vector of target standard deviation for each quantitative
-trait specified in <code>quantitative</code>. The list names should be same as
-<code>quantitative</code>.</p></dd>
+<dd><p>A named numeric vector of target standard deviation for each
+quantitative trait specified in <code>quantitative</code>. The list names should
+be same as <code>quantitative</code>.</p></dd>
 
 
 <dt id="arg-e">e<a class="anchor" aria-label="anchor" href="#arg-e"></a></dt>
-<dd><p>A named vector of least count of measurement for each quantitative
-trait specified in <code>quantitative</code>. The list names should be same as
-<code>quantitative</code>.</p></dd>
+<dd><p>A named numeric vector of least count of measurement for each
+quantitative trait specified in <code>quantitative</code>. The list names should
+be same as <code>quantitative</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -169,6 +169,65 @@ c_{x_{s},d_{j},t}\) is sum of the optimum optimum message length for
   <code><a href="inflen.quant.html">inflen.quant</a></code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/aravind-j/EvaluateCore" class="external-link">EvaluateCore</a></span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/aravind-j/EvaluateCore" class="external-link">EvaluateCore</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Get data from EvaluateCore</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"cassava_EC"</span>, package <span class="op">=</span> <span class="st">"EvaluateCore"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cassava_EC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>genotypes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">cassava_EC</span><span class="op">)</span>, <span class="va">cassava_EC</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">quant</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NMSR"</span>, <span class="st">"TTRN"</span>, <span class="st">"TFWSR"</span>, <span class="st">"TTRW"</span>, <span class="st">"TFWSS"</span>, <span class="st">"TTSW"</span>, <span class="st">"TTPW"</span>, <span class="st">"AVPW"</span>,</span></span>
+<span class="r-in"><span>                  <span class="st">"ARSR"</span>, <span class="st">"SRDM"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">qual</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CUAL"</span>, <span class="st">"LNGS"</span>, <span class="st">"PTLC"</span>, <span class="st">"DSTA"</span>, <span class="st">"LFRT"</span>, <span class="st">"LBTEF"</span>, <span class="st">"CBTR"</span>, <span class="st">"NMLB"</span>,</span></span>
+<span class="r-in"><span>                 <span class="st">"ANGB"</span>, <span class="st">"CUAL9M"</span>, <span class="st">"LVC9M"</span>, <span class="st">"TNPR9M"</span>, <span class="st">"PL9M"</span>, <span class="st">"STRP"</span>, <span class="st">"STRC"</span>,</span></span>
+<span class="r-in"><span>                 <span class="st">"PSTR"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cassava_EC</span><span class="op">[</span>, <span class="va">qual</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">cassava_EC</span><span class="op">[</span>, <span class="va">qual</span><span class="op">]</span>, <span class="va">as.factor</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">size</span> <span class="op">&lt;-</span> <span class="fl">0.2</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">freq_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">qual</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">prop</span> <span class="op">&lt;-</span>  <span class="fu"><a href="prop.adj.html">prop.adj</a></span><span class="op">(</span><span class="va">cassava_EC</span><span class="op">[</span>, <span class="va">x</span><span class="op">]</span>, method <span class="op">=</span> <span class="st">"sqrt"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">size.count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="va">size</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">round.to.target</span><span class="op">(</span><span class="va">prop</span> <span class="op">*</span> <span class="va">size.count</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in round.to.target(prop * size.count):</span> could not find function "round.to.target"</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">freq_list</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">qual</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'freq_list' not found</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">mean_vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">cassava_EC</span><span class="op">[</span>, <span class="va">quant</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>                   <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>                     <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">floor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                   <span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">mean_vec</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">quant</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">sd_vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">cassava_EC</span><span class="op">[</span><span class="va">quant</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>             <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>               <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>             <span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sd_vec</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">quant</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">e_vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">quant</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">e_vec</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">quant</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Compute LEAV</span></span></span>
+<span class="r-in"><span><span class="va">LEAV_cassava</span> <span class="op">&lt;-</span> <span class="fu">LEAV</span><span class="op">(</span>data <span class="op">=</span> <span class="va">cassava_EC</span>, names <span class="op">=</span> <span class="st">"genotypes"</span>,</span></span>
+<span class="r-in"><span>                     quantitative <span class="op">=</span> <span class="va">quant</span>, qualitative <span class="op">=</span> <span class="va">qual</span>,</span></span>
+<span class="r-in"><span>                     freq <span class="op">=</span> <span class="va">freq_list</span>, adj <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                     mean <span class="op">=</span> <span class="va">mean_vec</span>, sd <span class="op">=</span> <span class="va">sd_vec</span>, e <span class="op">=</span> <span class="va">e_vec</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'freq_list' not found</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">LEAV_cassava</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'LEAV_cassava' not found</span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
