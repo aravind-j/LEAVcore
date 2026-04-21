@@ -17,8 +17,8 @@
 
 #' Relative Frequency Adjustments
 #'
-#' Compute and transform relative frequencies or accessions for a qualitative
-#' trait by the following methods
+#' Compute and transform relative frequencies for a qualitative trait in a
+#' germplasm collection by the following methods
 #' \insertCite{balakrishnan_Strategies_2001}{LEAVcore}:
 #'  \itemize{ \item Square root-proportion \item
 #' Log-frequency} \loadmathjax
