@@ -50,14 +50,14 @@ pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github
 
 ## Description
 
-<!-- Construct core collections using the information measrue 'Length      of Encoded Attribute Values' (LEAV) using qualitative and/or quantitative     trait data as described by Balakrishnan and Suresh (2001a)      <https://www.ispgr.in/index.php/ijpgr/article/view/1480> and (2001b)      <https://www.ispgr.in/index.php/ijpgr/article/view/1448>. -->
+<!-- Construct core collections using the information measrue 'Length of Encoded Attribute Values' (LEAV) using qualitative and/or quantitative trait data as described by Balakrishnan and Suresh (2001a) <https://www.ispgr.in/index.php/ijpgr/article/view/1480> and (2001b) <https://www.ispgr.in/index.php/ijpgr/article/view/1448>. -->
 
-Construct core collections using the information measrue ‘Length of
-Encoded Attribute Values’ (LEAV) using qualitative and/or quantitative
-trait data as described by Balakrishnan and Suresh (2001a)
-\<<a href='https://www.ispgr.in/index.php/ijpgr/article/view/1480'>https://www.ispgr.in/index.php/ijpgr/article/view/1480</a>\>
-and (2001b)
-\<<a href='https://www.ispgr.in/index.php/ijpgr/article/view/1448'>https://www.ispgr.in/index.php/ijpgr/article/view/1448</a>\>.
+Construct core collections using the information measrue ‘Lengthof
+Encoded Attribute Values’ (LEAV) using qualitative and/or
+quantitativetrait data as described by Balakrishnan and Suresh
+(2001a)\<<a href='https://www.ispgr.in/index.php/ijpgr/article/view/1480'>https://www.ispgr.in/index.php/ijpgr/article/view/1480</a>\>
+and
+(2001b)\<<a href='https://www.ispgr.in/index.php/ijpgr/article/view/1448'>https://www.ispgr.in/index.php/ijpgr/article/view/1448</a>\>.
 
 ## Installation
 
@@ -98,7 +98,6 @@ news(package='LEAVcore')
 [Documentation website](https://aravind-j.github.io/LEAVcore/)
 
 <!--[Zenodo DOI](https://doi.org/10.5281/zenodo.14889174) -->
-
 <!--
 ## CRAN checks
 &#10;
@@ -163,16 +162,21 @@ To cite the methods in the package use:
 citation("LEAVcore")
 ```
 
-    Warning in citation("LEAVcore"): could not determine year for 'LEAVcore' from package DESCRIPTION file
-    To cite package 'LEAVcore' in publications use:
+    To cite the R package 'LEAVcore' in publications use:
 
+      Aravind, J. (2026).  LEAVcore: Constitution of Core Collections using
+      Length of Encoded Attribute Values. R package version 0.0.0.9000,
+      https://aravind-j.github.io/LEAVcore/.
 
     A BibTeX entry for LaTeX users is
 
       @Manual{,
         title = {LEAVcore: Constitution of Core Collections using Length of Encoded Attribute Values},
-        author = {J. Aravind and Suman Roy},
-        note = {R package version 0.0.0.9000},
-        url = {https://github.com/aravind-j/LEAVcore},
+        author = {J. Aravind and Suman Roy and Anju Mahendru Singh},
+        note = {R package version 0.0.0.9000 https://aravind-j.github.io/LEAVcore/},
         year = {2026},
       }
+
+    This free and open-source software implements academic research by the
+    authors and co-workers. If you use it, please support the project by
+    citing the package.
