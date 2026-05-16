@@ -71,6 +71,7 @@
 #' @seealso \code{\link[LEAVcore]{inflen.qual}},
 #'   \code{\link[LEAVcore]{inflen.quant}}
 #'
+#' @importFrom Rdpack reprompt
 #' @export
 #'
 #' @references
