@@ -15,15 +15,38 @@
 #  A copy of the GNU General Public License is available at
 #  https://www.r-project.org/Licenses/
 
-LEAVcore <- function(data, names,
+#' Generate Core collections with Length of Encoded Attribute Values
+#'
+#' Generate a core collection with Length of Encoded Attribute Values (LEAV)
+#' \insertCite{wallace_information_1968,balakrishnan_Strategies_2001,balakrishnan_Strategies_2001a,balakrishnan_Strategies_2003}{LEAVcore}
+#' estimated from qualitative and/or quantitative trait data.
+#' \itemize{\item{LEAVcore1}{} \item{}{LEAVcore2}}. \loadmathjax
+#'
+#' @inheritParams LEAV data names quantitative qualitative
+#' @param sample.count
+#' @param prop.adj
+#' @param e
+#'
+#' @returns
+#'
+#' @name LEAVcore_functions
+#' @rdname LEAVcore_functions
+#'
+#' @importFrom grDevices nclass.Sturges
+#' @importFrom stratification strata.cumrootf
+#'
+#'
+#' @examples
+NULL
+
+# Method I : ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' @rdname LEAVcore_functions
+#' @export
+LEAVcore1 <- function(data, names,
                      quantitative = NULL, qualitative = NULL,
                      sample.count, prop.adj = c("none", "log", "sqrt"),
-                     method = c(), e) {
-
-
-
-  # Method I : ----
-  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                     e) {
 
   ## Find freq for qualitative traits ----
   freq1 <- lapply(qualitative, function(x) {
@@ -92,8 +115,18 @@ LEAVcore <- function(data, names,
     core <- LEAVdf1[core_ind, names]
   }
 
-  # Method II : ----
-  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  return(core)
+
+}
+
+# Method II : ----
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' @rdname LEAVcore_functions
+#' @export
+LEAVcore2 <- function(data, names,
+                     quantitative = NULL, qualitative = NULL,
+                     sample.count, prop.adj = c("none", "log", "sqrt"),
+                     e) {
 
   ## Find freq for qualitative traits ----
   freq <- lapply(qualitative, function(x) {
@@ -126,6 +159,7 @@ LEAVcore <- function(data, names,
 
   ## Find the strata boundaries ----
   nStrata <- nclass.Sturges(LEAVdf$LEAV)
+  # Use method by Dalenius and Hodges (1959)
   strat_out <-
     stratification::strata.cumrootf(x = LEAVdf$LEAV,
                                     n = size.count,
@@ -134,9 +168,7 @@ LEAVcore <- function(data, names,
 
   LEAVdf$LEAVStrata <-  strat_out$stratumID
 
-  ## Sampling within each strata ---- TODO with SampleCore
-
-
+  return(LEAVdf)
 
 }
 
