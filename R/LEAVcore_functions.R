@@ -33,6 +33,7 @@
 #' @rdname LEAVcore_functions
 #'
 #' @importFrom grDevices nclass.Sturges
+#' @importFrom stats approxfun density sd
 #' @importFrom stratification strata.cumrootf
 #'
 #'
