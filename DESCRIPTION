@@ -31,6 +31,7 @@ Imports: mathjaxr,
     dplyr,
     SampleCore,
     stats,
+    stratification,
     utils
 Suggests: knitr,
     rmarkdown,
