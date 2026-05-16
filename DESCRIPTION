@@ -29,14 +29,14 @@ BuildManual: TRUE
 Imports: mathjaxr, 
     Rdpack,
     dplyr,
-    SampleCore,
     stats,
     stratification,
     utils
-Suggests: knitr,
+Suggests: EvaluateCore,
+    knitr,
     rmarkdown,
+    SampleCore,
     pander
-Remotes: github::aravind-j/EvaluateCore
 RdMacros: mathjaxr,
     Rdpack
 Copyright: 2024-2026, ICAR-NBPGR
