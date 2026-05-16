@@ -18,18 +18,18 @@ Authors@R: c(
            role = c("cph"),
 		       comment = c(ROR = "https://ror.org/00scbd467",
 		                   url = "https://nbpgr.org.in/")))
-Description: Construct core collections using the information measrue 'Length 
+Description: Construct core collections using the information measure 'Length 
     of Encoded Attribute Values' (LEAV) using qualitative and/or quantitative
     trait data as described by Balakrishnan and Suresh (2001a) 
     <https://www.ispgr.in/index.php/ijpgr/article/view/1480> and (2001b) 
     <https://www.ispgr.in/index.php/ijpgr/article/view/1448>.
 License: GPL (>= 2)
 Encoding: UTF-8
-RoxygenNote: 7.3.2
 BuildManual: TRUE
 Imports: mathjaxr, 
     Rdpack,
     dplyr,
+    SampleCore,
     stats,
     utils
 Suggests: knitr,
@@ -42,3 +42,4 @@ Copyright: 2024-2026, ICAR-NBPGR
 URL: https://github.com/aravind-j/LEAVcore
    https://aravind-j.github.io/LEAVcore/
 BugReports: https://github.com/aravind-j/LEAVcore/issues
+Config/roxygen2/version: 8.0.0
