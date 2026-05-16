@@ -20,7 +20,7 @@ bibentry(header = hd,
 		                       role = "aut")),
          year = year,
          textVersion = paste(
-           "Aravind, J. (",
+           "Aravind, J., Roy, S., and Singh, A. M. (",
            year, ").  LEAVcore: Constitution of Core Collections using Length of Encoded Attribute Values. ",
            vers, ", ", "https://aravind-j.github.io/LEAVcore/",
            ".", sep=""),
