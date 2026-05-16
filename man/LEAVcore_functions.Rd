@@ -42,6 +42,6 @@ vector.}
 \description{
 Generate a core collection with Length of Encoded Attribute Values (LEAV)
 \insertCite{wallace_information_1968,balakrishnan_Strategies_2001,balakrishnan_Strategies_2001a,balakrishnan_Strategies_2003}{LEAVcore}
-estimated from qualitative and/or quantitative trait data
+estimated from qualitative and/or quantitative trait data.
 \itemize{\item{LEAVcore1}{} \item{}{LEAVcore2}}. \loadmathjax
 }
