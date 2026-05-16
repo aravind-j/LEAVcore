@@ -55,8 +55,8 @@ A data frame with
 \description{
 For accessions in a collection compute the Length of Encoded Attribute Values
 (LEAV) information measure from qualitative and quantitative trait data
-\insertCite{wallace_information_1968,balakrishnan_Strategies_2001,balakrishnan_Strategies_2001a,balakrishnan_Strategies_2003}{LEAVcore}
-\loadmathjax.
+\insertCite{wallace_information_1968,balakrishnan_Strategies_2001,balakrishnan_Strategies_2001a,balakrishnan_Strategies_2003}{LEAVcore}.
+\loadmathjax
 }
 \details{
 For each accession \mjseqn{s} in the collection, the message length
@@ -104,7 +104,7 @@ size <- 0.2
 freq_list <- lapply(qual, function(x) {
   prop <-  prop.adj(cassava_EC[, x], method = "sqrt")
   size.count <- ceiling(size * length(x))
-  round.to.target(prop * size.count)
+  round_to_target(prop * size.count)
 })
 names(freq_list) <- qual
 

@@ -19,8 +19,8 @@
 #'
 #' The function \code{inflen.qual} computes the length of information code that
 #' can indicate the possession of a descriptor state of a qualitative trait
-#' \insertCite{wallace_information_1968,balakrishnan_Strategies_2001,balakrishnan_Strategies_2001a,balakrishnan_Strategies_2003}{LEAVcore}
-#' \loadmathjax.
+#' \insertCite{wallace_information_1968,balakrishnan_Strategies_2001,balakrishnan_Strategies_2001a,balakrishnan_Strategies_2003}{LEAVcore}.
+#' \loadmathjax
 #'
 #' For each qualitative trait/descriptor \mjseqn{d} the probability of
 #' occurrence of a descriptor state \mjseqn{m} in the in a subset \mjseqn{t} is

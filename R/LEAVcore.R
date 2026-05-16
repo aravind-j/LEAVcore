@@ -31,7 +31,7 @@ LEAVcore <- function(data, names,
     fqout <- prop * size.count
     fq_overall <- summary(data[, x])
     fqout <- ifelse(fqout > fq_overall, fq_overall, fqout)
-    fqout <- round.to.target(fqout)
+    fqout <- round_to_target(fqout)
     return(fqout)
   })
   names(freq1) <- qualitative
@@ -99,7 +99,7 @@ LEAVcore <- function(data, names,
   freq <- lapply(qualitative, function(x) {
     prop <-  prop.adj(data[, x], method = prop.adj)
     fqout <- prop * nrow(data)
-    # fqout <- round.to.target(fqout)
+    # fqout <- round_to_target(fqout)
     return(fqout)
   })
   names(freq) <- qualitative
@@ -117,7 +117,8 @@ LEAVcore <- function(data, names,
 
   ## Estimate LEAV ----
   LEAVdf <- LEAV(data = data, names = names,
-                 quantitative = quantitative, qualitative = qualitative,
+                 quantitative = quantitative,
+                 qualitative = qualitative,
                  adj = FALSE,
                  freq = freq, mean = mean, sd = sd, e = e)
 
@@ -139,7 +140,7 @@ LEAVcore <- function(data, names,
 
 }
 
-round.to.target <- function(x, target = round(sum(x))) {
+round_to_target <- function(x, target = round(sum(x))) {
 
   while(sum(round(x)) - target > 0) {
     i <- which.min(ifelse(x %% 1 < 0.5, 1, x %% 1))
@@ -150,4 +151,18 @@ round.to.target <- function(x, target = round(sum(x))) {
     x[i] <- x[i] + 1
   }
   round(x)
+}
+
+# Hamilton rounding
+# largest remainder method
+round_preserve_sum <- function(x, target = round(sum(x))) {
+  y <- floor(x)
+  deficit <- target - sum(y)
+
+  if(deficit > 0) {
+    idx <- order(x - y, decreasing = TRUE)[1:deficit]
+    y[idx] <- y[idx] + 1
+  }
+
+  y
 }

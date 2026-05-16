@@ -19,8 +19,8 @@
 #'
 #' The function \code{inflen.quant} computes the length of information code that
 #' can indicate the possession of a specific value by a quantitative trait
-#' \insertCite{wallace_information_1968,balakrishnan_Strategies_2001,balakrishnan_Strategies_2001a,balakrishnan_Strategies_2003}{LEAVcore}
-#' \loadmathjax.
+#' \insertCite{wallace_information_1968,balakrishnan_Strategies_2001,balakrishnan_Strategies_2001a,balakrishnan_Strategies_2003}{LEAVcore}.
+#' \loadmathjax
 #'
 #' For each quantitative trait \mjseqn{d}, it is assumed that it is normally
 #' distributed within subset \mjseqn{t} with mean \mjseqn{\mu_{d,t}} and the

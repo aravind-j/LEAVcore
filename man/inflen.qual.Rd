@@ -24,8 +24,8 @@ A data frame with 2 columns: \describe{ \item{x}{The qualitative
 \description{
 The function \code{inflen.qual} computes the length of information code that
 can indicate the possession of a descriptor state of a qualitative trait
-\insertCite{wallace_information_1968,balakrishnan_Strategies_2001,balakrishnan_Strategies_2001a,balakrishnan_Strategies_2003}{LEAVcore}
-\loadmathjax.
+\insertCite{wallace_information_1968,balakrishnan_Strategies_2001,balakrishnan_Strategies_2001a,balakrishnan_Strategies_2003}{LEAVcore}.
+\loadmathjax
 }
 \details{
 For each qualitative trait/descriptor \mjseqn{d} the probability of
