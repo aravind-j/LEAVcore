@@ -38,7 +38,17 @@ LEAVcore3(
 )
 }
 \arguments{
-\item{e}{}
+\item{data}{The data as a data frame object. The data frame should possess
+one row per individual and columns with the individual names and multiple
+trait/character data.}
+
+\item{names}{Name of column with the individual names as a character string.}
+
+\item{quantitative}{Name of columns with the quantitative traits as a
+character vector.}
+
+\item{qualitative}{Name of columns with the qualitative traits as a character
+vector.}
 }
 \description{
 
