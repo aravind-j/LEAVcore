@@ -21,8 +21,8 @@ Authors@R: c(
 Description: Construct core collections using the information measure 'Length 
     of Encoded Attribute Values' (LEAV) using qualitative and/or quantitative
     trait data as described by Balakrishnan and Suresh (2001a) 
-    <https://www.ispgr.in/index.php/ijpgr/article/view/1480> and (2001b) 
-    <https://www.ispgr.in/index.php/ijpgr/article/view/1448>.
+    <https://indianjournals.com/article/ijpgr-14-1-006> and (2001b) 
+    <https://indianjournals.com/article/ijpgr-14-3-005>.
 License: GPL (>= 2)
 Encoding: UTF-8
 BuildManual: TRUE
@@ -30,8 +30,7 @@ Imports: mathjaxr,
     Rdpack,
     dplyr,
     stats,
-    stratification,
-    utils
+    stratification
 Suggests: EvaluateCore,
     knitr,
     rmarkdown,
@@ -44,3 +43,4 @@ URL: https://github.com/aravind-j/LEAVcore
    https://aravind-j.github.io/LEAVcore/
 BugReports: https://github.com/aravind-j/LEAVcore/issues
 Config/roxygen2/version: 8.0.0
+RoxygenNote: 7.3.3
