@@ -4,6 +4,7 @@
 \alias{LEAVcore_functions}
 \alias{LEAVcore1}
 \alias{LEAVcore2}
+\alias{LEAVcore3}
 \title{Generate Core collections with Length of Encoded Attribute Values}
 \usage{
 LEAVcore1(
@@ -25,13 +26,20 @@ LEAVcore2(
   prop.adj = c("none", "log", "sqrt"),
   e
 )
+
+LEAVcore3(
+  data,
+  names,
+  quantitative = NULL,
+  qualitative = NULL,
+  sample.count,
+  prop.adj = c("none", "log", "sqrt"),
+  e
+)
 }
 \arguments{
 \item{e}{}
 }
 \description{
-Generate a core collection with Length of Encoded Attribute Values (LEAV)
-\insertCite{wallace_information_1968,balakrishnan_Strategies_2001,balakrishnan_Strategies_2001a,balakrishnan_Strategies_2003}{LEAVcore}
-estimated from qualitative and/or quantitative trait data.
-\itemize{\item{LEAVcore1}{} \item{}{LEAVcore2}}. \loadmathjax
+
 }

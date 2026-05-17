@@ -3,6 +3,7 @@
 export(LEAV)
 export(LEAVcore1)
 export(LEAVcore2)
+export(LEAVcore3)
 export(inflen.qual)
 export(inflen.quant)
 export(prop.adj)
