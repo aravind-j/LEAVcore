@@ -31,10 +31,31 @@
 #' }.
 #' \loadmathjax
 #'
-#' @inheritParams LEAV data names quantitative qualitative
-#' @param sample.count
-#' @param prop.adj
-#' @param e
+#' \insertCite{balakrishnan_Strategies_2001,balakrishnan_Strategies_2001a;textual}{LEAVcore}
+#' describe three different methods of constructing core collections from
+#' estimates of Length of Encoded Attribute Values.
+#'
+#'  \subsection{Method I: Classification based on pre-determined diversity represented
+#'  by LEAV estimates}{
+#'
+#'  }
+#'
+#'  \subsection{Method II: Purposive selection of  accessions with highest rank of
+#' LEAV estimates}{
+#'
+#'  }
+#'
+#'  \subsection{Method III: Stratified sampling of accessions from diversity
+#' groups/strata computed from LEAV estimates}{
+#'
+#'  }
+#'
+#' @inheritParams LEAV data names quantitative qualitative e
+#' @param size The desired core set size proportion.
+#' @param prop.adj The method for relative frequency transformation for
+#'   qualitative traits. Either \code{"none"} for no transformation or
+#'   \code{"log"} for log-frequency transformation or \code{"sqrt"} for square
+#'   root-proportion transformation (see \code{\link[LEAVcore]{prop.adj}}).
 #'
 #' @returns
 #'
@@ -55,8 +76,25 @@ NULL
 #' @export
 LEAVcore1 <- function(data, names,
                      quantitative = NULL, qualitative = NULL,
-                     sample.count, prop.adj = c("none", "log", "sqrt"),
+                     size, prop.adj = c("none", "log", "sqrt"),
                      e) {
+
+  prop.adj <- match.arg(prop.adj)
+
+  # check if 'size' argument is numeric vector of unit length
+  if (!is.null(size)) {
+    if (!(is.numeric(size) && length(size) == 1)) {
+      stop('"size" should be a numeric vector of unit length.')
+    }
+  }
+
+  # check if 'size' is a proportion between 0 and 1
+  if (size <= 0 || size >= 1) {
+    stop('"size" should be a proportion between 0 and 1.')
+  }
+
+  N <- nrow(data)
+  size.count <- ceiling(size * N)
 
   ## Find freq for qualitative traits ----
   freq1 <- lapply(qualitative, function(x) {
@@ -104,15 +142,17 @@ LEAVcore1 <- function(data, names,
 
   ## Estimate LEAVs ----
 
+  # For Core
   LEAVdf1 <- LEAV(data = data, names = names,
                   quantitative = quantitative, qualitative = qualitative,
                   freq = freq1, mean = mean1, sd = sd1, e = e)
 
+  # For Non-Core
   LEAVdf2 <- LEAV(data = data, names = names,
                   quantitative = quantitative, qualitative = qualitative,
                   freq = freq2, mean = mean2, sd = sd2, e = e)
 
-  core_ind <- LEAVdf1$LEAV > LEAVdf2$LEAV
+  core_ind <- LEAVdf1$LEAV <= LEAVdf2$LEAV
 
   ## Correction ----
   ## When core size exceeds size.count
@@ -135,8 +175,25 @@ LEAVcore1 <- function(data, names,
 #' @export
 LEAVcore2 <- function(data, names,
                       quantitative = NULL, qualitative = NULL,
-                      sample.count, prop.adj = c("none", "log", "sqrt"),
+                      size, prop.adj = c("none", "log", "sqrt"),
                       e) {
+
+  prop.adj <- match.arg(prop.adj)
+
+  # check if 'size' argument is numeric vector of unit length
+  if (!is.null(size)) {
+    if (!(is.numeric(size) && length(size) == 1)) {
+      stop('"size" should be a numeric vector of unit length.')
+    }
+  }
+
+  # check if 'size' is a proportion between 0 and 1
+  if (size <= 0 || size >= 1) {
+    stop('"size" should be a proportion between 0 and 1.')
+  }
+
+  N <- nrow(data)
+  size.count <- ceiling(size * N)
 
   ## Find freq for qualitative traits ----
   freq <- lapply(qualitative, function(x) {
@@ -175,8 +232,25 @@ LEAVcore2 <- function(data, names,
 #' @export
 LEAVcore3 <- function(data, names,
                      quantitative = NULL, qualitative = NULL,
-                     sample.count, prop.adj = c("none", "log", "sqrt"),
+                     size, prop.adj = c("none", "log", "sqrt"),
                      e) {
+
+  prop.adj <- match.arg(prop.adj)
+
+  # check if 'size' argument is numeric vector of unit length
+  if (!is.null(size)) {
+    if (!(is.numeric(size) && length(size) == 1)) {
+      stop('"size" should be a numeric vector of unit length.')
+    }
+  }
+
+  # check if 'size' is a proportion between 0 and 1
+  if (size <= 0 || size >= 1) {
+    stop('"size" should be a proportion between 0 and 1.')
+  }
+
+  N <- nrow(data)
+  size.count <- ceiling(size * N)
 
   ## Find freq for qualitative traits ----
   freq <- lapply(qualitative, function(x) {

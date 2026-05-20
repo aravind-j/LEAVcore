@@ -12,7 +12,7 @@ LEAVcore1(
   names,
   quantitative = NULL,
   qualitative = NULL,
-  sample.count,
+  size,
   prop.adj = c("none", "log", "sqrt"),
   e
 )
@@ -22,7 +22,7 @@ LEAVcore2(
   names,
   quantitative = NULL,
   qualitative = NULL,
-  sample.count,
+  size,
   prop.adj = c("none", "log", "sqrt"),
   e
 )
@@ -32,7 +32,7 @@ LEAVcore3(
   names,
   quantitative = NULL,
   qualitative = NULL,
-  sample.count,
+  size,
   prop.adj = c("none", "log", "sqrt"),
   e
 )
@@ -49,6 +49,17 @@ character vector.}
 
 \item{qualitative}{Name of columns with the qualitative traits as a character
 vector.}
+
+\item{size}{The desired core set size proportion.}
+
+\item{prop.adj}{The method for relative frequency transformation for
+qualitative traits. Either \code{"none"} for no transformation or
+\code{"log"} for log-frequency transformation or \code{"sqrt"} for square
+root-proportion transformation (see \code{\link[LEAVcore]{prop.adj}}).}
+
+\item{e}{A named numeric vector of least count of measurement for each
+quantitative trait specified in \code{quantitative}. The list names should
+be same as \code{quantitative}.}
 }
 \description{
 Based on Length of Encoded Attribute Values (LEAV)
@@ -64,4 +75,24 @@ groups/strata computed from LEAV estimates partially implemented in
 \code{LEAVcore3}.}
 }.
 \loadmathjax
+}
+\details{
+\insertCite{balakrishnan_Strategies_2001,balakrishnan_Strategies_2001a;textual}{LEAVcore}
+describe three different methods of constructing core collections from
+estimates of Length of Encoded Attribute Values.
+
+ \subsection{Method I: Classification based on pre-determined diversity represented
+ by LEAV estimates}{
+
+ }
+
+ \subsection{Method II: Purposive selection of  accessions with highest rank of
+LEAV estimates}{
+
+ }
+
+ \subsection{Method III: Stratified sampling of accessions from diversity
+groups/strata computed from LEAV estimates}{
+
+ }
 }
