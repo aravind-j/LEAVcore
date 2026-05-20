@@ -50,7 +50,27 @@ quantitative trait specified in \code{quantitative}. The list names should
 be same as \code{quantitative}.}
 }
 \value{
-A data frame with
+A data frame with one row per accession in \code{data} and the
+  following columns:
+  \describe{
+    \item{\code{names}}{Accession identifiers, as specified by the
+      \code{names} argument.}
+    \item{\code{lt}}{The log-ratio message length term,
+      \mjseqn{\log(N / n)}, where \mjseqn{N} is the total number of accessions
+      in \code{data} and \mjseqn{n} is the sum of frequencies in
+      \code{freq}.}
+    \item{\code{<qualitative traits>}}{One column per trait specified in
+      \code{qualitative}, giving the information length
+      \mjseqn{-\log(p_k)} for the level \mjseqn{k} of that trait observed
+      for each accession.}
+    \item{\code{<quantitative traits>}}{One column per trait specified in
+      \code{quantitative}, giving the Gaussian information length
+      \mjseqn{\log(\sigma / c \varepsilon) + (x - \mu)^2 / 2\sigma^2}
+      for each accession, where \mjseqn{c = 1/\sqrt{2\pi}}.}
+    \item{\code{LEAV}}{The total information length for each accession,
+      equal to the row sum of \code{lt} and all trait information length
+      columns.}
+  }
 }
 \description{
 For accessions in a collection compute the Length of Encoded Attribute Values
@@ -82,8 +102,6 @@ c_{x_{s},d_{j},t}} is sum of the optimum optimum message length for
 }
 \examples{
 suppressPackageStartupMessages(library(EvaluateCore))
-
-library(EvaluateCore)
 
 # Get data from EvaluateCore
 data("cassava_EC", package = "EvaluateCore")

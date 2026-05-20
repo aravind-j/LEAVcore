@@ -55,8 +55,6 @@ possession of descriptor state \mjseqn{m} of trait \mjseqn{d} in the subset
 
 suppressPackageStartupMessages(library(EvaluateCore))
 
-library(EvaluateCore)
-
 # Get data from EvaluateCore
 
 data("cassava_EC", package = "EvaluateCore")

@@ -14,7 +14,8 @@ numeric vector.}
 
 \item{sd}{The target standard deviation}
 
-\item{e}{The least count of measurement for the quantitative trait.}
+\item{e}{The least count of measurement for the quantitative trait (i.e. the
+accuracy of measurement).}
 }
 \value{
 A data frame with 2 columns: \describe{ \item{x}{The quantitative
@@ -62,8 +63,6 @@ follows:
 \examples{
 
 suppressPackageStartupMessages(library(EvaluateCore))
-
-library(EvaluateCore)
 
 # Get data from EvaluateCore
 

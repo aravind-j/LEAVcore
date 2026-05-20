@@ -58,7 +58,8 @@
 #'   numeric vector.
 #' @param mean The target mean.
 #' @param sd The target standard deviation
-#' @param e The least count of measurement for the quantitative trait.
+#' @param e The least count of measurement for the quantitative trait (i.e. the
+#'   accuracy of measurement).
 #'
 #' @returns A data frame with 2 columns: \describe{ \item{x}{The quantitative
 #'   trait data} \item{inflen}{Information length computed}}
@@ -74,8 +75,6 @@
 #' @examples
 #'
 #' suppressPackageStartupMessages(library(EvaluateCore))
-#'
-#' library(EvaluateCore)
 #'
 #' # Get data from EvaluateCore
 #'

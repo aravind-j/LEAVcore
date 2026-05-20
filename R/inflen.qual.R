@@ -68,8 +68,6 @@
 #'
 #' suppressPackageStartupMessages(library(EvaluateCore))
 #'
-#' library(EvaluateCore)
-#'
 #' # Get data from EvaluateCore
 #'
 #' data("cassava_EC", package = "EvaluateCore")
