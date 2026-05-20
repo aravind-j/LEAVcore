@@ -26,15 +26,17 @@ Description: Construct core collections using the information measure 'Length
 License: GPL (>= 2)
 Encoding: UTF-8
 BuildManual: TRUE
-Imports: mathjaxr, 
+Imports: 
+    mathjaxr,
     Rdpack,
     dplyr,
     stats,
-    stratification
-Suggests: EvaluateCore,
+    stratification,
+    SampleCore (>= 0.0.0.9000)
+Suggests: 
+    EvaluateCore,
     knitr,
     rmarkdown,
-    SampleCore,
     pander
 RdMacros: mathjaxr,
     Rdpack
@@ -43,4 +45,6 @@ URL: https://github.com/aravind-j/LEAVcore
    https://aravind-j.github.io/LEAVcore/
 BugReports: https://github.com/aravind-j/LEAVcore/issues
 Config/roxygen2/version: 8.0.0
-RoxygenNote: 7.3.3
+RoxygenNote: 8.0.0
+Remotes:  
+    aravind-j/SampleCore
