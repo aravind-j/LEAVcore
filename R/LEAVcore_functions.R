@@ -104,7 +104,7 @@ LEAVcore1 <- function(data, names,
     fqout <- prop * size.count
     fq_overall <- summary(data[, x])
     fqout <- ifelse(fqout > fq_overall, fq_overall, fqout)
-    fqout <- round_to_target(fqout)
+    fqout <- round_preserve_sum(fqout)
     return(fqout)
   })
   names(freq1) <- qualitative
@@ -205,7 +205,7 @@ LEAVcore2 <- function(data, names,
   freq <- lapply(qualitative, function(x) {
     prop <-  prop.adj(data[, x], method = prop.adj)
     fqout <- prop * nrow(data)
-    # fqout <- round_to_target(fqout)
+    # fqout <- round_preserve_sum(fqout)
     return(fqout)
   })
   names(freq) <- qualitative
@@ -262,7 +262,7 @@ LEAVcore3 <- function(data, names,
   freq <- lapply(qualitative, function(x) {
     prop <-  prop.adj(data[, x], method = prop.adj)
     fqout <- prop * nrow(data)
-    # fqout <- round_to_target(fqout)
+    # fqout <- round_preserve_sum(fqout)
     return(fqout)
   })
   names(freq) <- qualitative

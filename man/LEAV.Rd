@@ -122,7 +122,7 @@ size <- 0.2
 freq_list <- lapply(qual, function(x) {
   prop <-  prop.adj(cassava_EC[, x], method = "sqrt")
   size.count <- ceiling(size * length(x))
-  round_to_target(prop * size.count)
+  round_preserve_sum(prop * size.count)
 })
 names(freq_list) <- qual
 
