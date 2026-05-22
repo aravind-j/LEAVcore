@@ -31,12 +31,12 @@ Imports:
     Rdpack,
     dplyr,
     stats,
-    stratification,
-    SampleCore (>= 0.0.0.9000)
+    stratification
 Suggests: 
     EvaluateCore,
     knitr,
     rmarkdown,
+    SampleCore,
     pander
 RdMacros: mathjaxr,
     Rdpack
