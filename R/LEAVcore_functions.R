@@ -97,6 +97,8 @@ LEAVcore1 <- function(data, names,
   size.count <- ceiling(size * N)
 
   ## Find freq for qualitative traits ----
+
+  # Core group
   freq1 <- lapply(qualitative, function(x) {
     prop <-  prop.adj(data[, x], method = prop.adj)
     fqout <- prop * size.count
@@ -107,6 +109,7 @@ LEAVcore1 <- function(data, names,
   })
   names(freq1) <- qualitative
 
+  # Non-Core group
   freq2 <- lapply(qualitative, function(x) {
     summary(data[, x]) - freq1[[x]]
   })
@@ -114,8 +117,9 @@ LEAVcore1 <- function(data, names,
 
 
   ## Find mean and variance for quantitative traits ----
+
+  # Core group
   # mean1 and sd1: From kernel density of size = size.count
-  # mean2 and sd2: From overall
   stat1 <- lapply(quantitative, function(x) {
     dens.obs <- density(data[,x], kernel = "gaussian", n = size.count)
     dens.fun <- approxfun(dens.obs)
@@ -129,6 +133,8 @@ LEAVcore1 <- function(data, names,
   })
   names(stat1) <- quantitative
 
+  # Non-Core group
+  # mean2 and sd2: From overall
   stat2 <- lapply(quantitative, function(x) {
     out <- data.frame(mean = mean(data[,x]), sd = sd(data[,x]))
     return(out)
@@ -294,31 +300,4 @@ LEAVcore3 <- function(data, names,
 
   return(LEAVdf)
 
-}
-
-round_to_target <- function(x, target = round(sum(x))) {
-
-  while(sum(round(x)) - target > 0) {
-    i <- which.min(ifelse(x %% 1 < 0.5, 1, x %% 1))
-    x[i] <- x[i] - 1
-  }
-  while(sum(round(x)) - target < 0) {
-    i <- which.max(ifelse(x %% 1 > 0.5, 0, x %% 1))
-    x[i] <- x[i] + 1
-  }
-  round(x)
-}
-
-# Hamilton rounding
-# largest remainder method
-round_preserve_sum <- function(x, target = round(sum(x))) {
-  y <- floor(x)
-  deficit <- target - sum(y)
-
-  if(deficit > 0) {
-    idx <- order(x - y, decreasing = TRUE)[1:deficit]
-    y[idx] <- y[idx] + 1
-  }
-
-  y
 }
