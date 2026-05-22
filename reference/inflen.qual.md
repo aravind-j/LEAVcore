@@ -3,9 +3,7 @@
 The function `inflen.qual` computes the length of information code that
 can indicate the possession of a descriptor state of a qualitative trait
 (Wallace and Boulton 1968; Balakrishnan and Suresh 2001; Balakrishnan
-and Suresh 2001; Balakrishnan and Nair 2003)
-
-.
+and Suresh 2001; Balakrishnan and Nair 2003) .
 
 ## Usage
 
@@ -73,7 +71,8 @@ is computed as
 Balakrishnan R, Nair NV (2003). “Strategies for developing core
 collections of sugarcane (*Saccharum officinarum* L.)
 germplasm-comparison of sampling from diversity groups constituted by
-three different methods.” *Plant Genetic Resources Newsletter*, 33–41.  
+three different methods.” *Plant Genetic Resources Newsletter*, **134**,
+33–41.  
   
 Balakrishnan R, Suresh KK (2001). “Strategies for developing core
 collections of safflower (*Carthamus tinctorius* L.) germplasm-part II.
@@ -96,9 +95,8 @@ classification.” *The Computer Journal*, **11**(2), 185–194.
 ## Examples
 
 ``` r
-suppressPackageStartupMessages(library(EvaluateCore))
 
-library(EvaluateCore)
+suppressPackageStartupMessages(library(EvaluateCore))
 
 # Get data from EvaluateCore
 

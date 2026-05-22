@@ -22,7 +22,7 @@ Size](https://img.shields.io/github/languages/code-size/aravind-j/LEAVcore.svg)]
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2026--04--21-yellowgreen.svg)](https://github.com/aravind-j/LEAVcore/)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2026--05--17-yellowgreen.svg)](https://github.com/aravind-j/LEAVcore/)
 [![Website -
 pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/LEAVcore.svg)](https://aravind-j.github.io/LEAVcore/)
 
@@ -30,17 +30,18 @@ pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github
 
 ## Description
 
-Construct core collections using the information measrue ‘Lengthof
-Encoded Attribute Values’ (LEAV) using qualitative and/or
-quantitativetrait data as described by Balakrishnan and Suresh
-(2001a)\<<https://www.ispgr.in/index.php/ijpgr/article/view/1480>\> and
-(2001b)\<<https://www.ispgr.in/index.php/ijpgr/article/view/1448>\>.
+Construct core collections using the information measure ‘Length of
+Encoded Attribute Values’ (LEAV) using qualitative and/or quantitative
+trait data as described by Balakrishnan and Suresh (2001a)
+\<<https://indianjournals.com/article/ijpgr-14-1-006>\> and (2001b)
+\<<https://indianjournals.com/article/ijpgr-14-3-005>\>.
 
 ## Installation
 
 The development version can be installed from github as follows:
 
 ``` r
+
 # Install development version from Github
 devtools::install_github("aravind-j/LEAVcore")
 ```
@@ -50,6 +51,7 @@ devtools::install_github("aravind-j/LEAVcore")
 To know whats new in this version type:
 
 ``` r
+
 news(package='LEAVcore')
 ```
 
@@ -64,15 +66,16 @@ news(package='LEAVcore')
 To cite the methods in the package use:
 
 ``` r
+
 citation("LEAVcore")
 ```
 
 ``` R
 To cite the R package 'LEAVcore' in publications use:
 
-  Aravind, J. (2026).  LEAVcore: Constitution of Core Collections using
-  Length of Encoded Attribute Values. R package version 0.0.0.9000,
-  https://aravind-j.github.io/LEAVcore/.
+  Aravind, J., Roy, S., and Singh, A. M. (2026).  LEAVcore: Constitution of Core
+  Collections using Length of Encoded Attribute Values. R package version
+  0.0.0.9000, https://aravind-j.github.io/LEAVcore/.
 
 A BibTeX entry for LaTeX users is
 
@@ -83,7 +86,6 @@ A BibTeX entry for LaTeX users is
     year = {2026},
   }
 
-This free and open-source software implements academic research by the
-authors and co-workers. If you use it, please support the project by
-citing the package.
+This free and open-source software implements academic research by the authors and
+co-workers. If you use it, please support the project by citing the package.
 ```
