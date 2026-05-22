@@ -81,18 +81,73 @@ groups/strata computed from LEAV estimates partially implemented in
 describe three different methods of constructing core collections from
 estimates of Length of Encoded Attribute Values.
 
- \subsection{Method I: Classification based on pre-determined diversity represented
- by LEAV estimates}{
+ \subsection{Method I: Classification based on pre-determined diversity
+ represented by LEAV estimates}{This is an objective classification scheme
+ that assigns accessions to either a "core" or "non-core" group based on
+ which group model they best fit.
+
+ The target frequency patterns for qualitative traits and distribution
+ parameters for quantitative traits are determined first for the two groups:
+ the Core and the Non-Core.
+
+ Target proportions for the core group are estimated from the base
+ proportions of the qualitative trait levels. These may be subjected to
+ transformations if required according to \code{"prop.adj"} argument to
+ increase rare trait representation. Target counts are set by scaling these
+ to the total count and capping them at the actual frequency available in
+ the collection. Similarly for the non-core group, the target proportions
+ are determined by subtracting the core model's frequencies from the total
+ counts of each trait level in the entire collection.
+
+ The target distribution for the core group is modeled by applying a
+ Gaussian kernel density function to the quantitative trait data, scaled to
+ the core size. The non-core parameters are set to the actual mean and
+ standard deviation of the entire collection.
+
+ Based on these target values, the message length (\mjseqn{F}) is estimated
+ for each accession against both the models using
+ \code{\link[LEAVcore]{LEAV}}. An accession is assigned to the core if
+ \mjseqn{F_{core} \leq F_{non-core}}.  If more accessions are selected than
+ the target core size, the core is refined by ranking individuals by
+ \mjseqn{F_{core}} values in ascending order and retaining only the top
+ matches.
 
  }
 
- \subsection{Method II: Purposive selection of  accessions with highest rank of
-LEAV estimates}{
+ \subsection{Method II: Purposive selection of  accessions with highest rank
+ of LEAV estimates}{This is a directed selection method that captures the
+ most unique and dispersed accessions to maximize diversity and
+ reduce redundancy.
+
+ Here the LEAV index for every accession relative to the entire base
+ collection is first estimated. Then the accessions are ranked in descending
+ order of their LEAV estimates.Finally the core collection is constituted by
+ selecting a pre-determined number of top-ranked accessions according to
+ \code{"size"} argument.
 
  }
 
  \subsection{Method III: Stratified sampling of accessions from diversity
-groups/strata computed from LEAV estimates}{
+ groups/strata computed from LEAV estimates}{This is a two-step approach
+ that first organizes the collection into optimized diversity groups based
+ on LEAV estimates followed by a group-wise representative sampling.
+
+ Here also the LEAV index for every accession relative to the entire base
+ collection is first estimated. These estimates are then divided into
+ \mjseqn{L} strata using the Dalenius formula to minimize pooled variance
+ \insertCite{dalenius_Minimum_1959}{LEAVcore}.
+
+ The number of entries to be sampled from each stratum is then determined
+ followed by stratified selection from each group to reach the final
+ core size.
+
+ In \code{LEAVcore3}, only the stratification based on LEAV estimates is
+ implemented. The downstream steps for allocation
+ (\link[SampleCore]{allocate.basic}, \link[SampleCore]{allocate.diversity},
+ \link[SampleCore]{allocate.distance}) and stratified selection
+ (\link[SampleCore]{select.random}, \link[SampleCore]{select.diversity},
+ \link[SampleCore]{select.distance}) are available from the sister package
+ \pkg{SampleCore}.
 
  }
 }
