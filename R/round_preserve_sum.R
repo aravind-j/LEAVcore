@@ -1,8 +1,8 @@
 #' Round Numeric Values While Preserving a Target Sum
 #'
 #' Applies the Hamilton (largest remainder or Hare-Niemeyer or Vinton) rounding
-#' method \insertCite{balinski_fair_2001} to a numeric vector so that the
-#' rounded values sum to a specified target.
+#' method \insertCite{balinski_fair_2001}{LEAVcore} to a numeric vector so that
+#' the rounded values sum to a specified target.
 #'
 #' Values are first rounded down using \code{floor()}, and the remaining deficit
 #' is allocated to elements with the largest fractional parts.
