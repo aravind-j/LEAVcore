@@ -28,14 +28,12 @@
 #' \item{Method III}{Stratified sampling of accessions from diversity
 #' groups/strata computed from LEAV estimates partially implemented in
 #' \code{LEAVcore3}.}
-#' }.
-#' \loadmathjax
+#' } \loadmathjax
 #'
 #' \insertCite{balakrishnan_Strategies_2001,balakrishnan_Strategies_2001a;textual}{LEAVcore}
 #' describe three different methods of constructing core collections from
 #' estimates of Length of Encoded Attribute Values.
 #'
-
 #'  \subsection{Method I: Classification based on pre-determined diversity
 #'  represented by LEAV estimates}{This is an objective classification scheme
 #'  that assigns accessions to either a "core" or "non-core" group based on
@@ -122,6 +120,9 @@
 #' @importFrom stats approxfun density sd
 #' @importFrom stratification strata.cumrootf
 #'
+#' @references
+#'
+#' \insertAllCited{}
 #'
 #' @examples
 NULL
@@ -350,7 +351,7 @@ LEAVcore3 <- function(data, names,
     stratification::strata.cumrootf(x = LEAVdf$LEAV,
                                     n = size.count,
                                     Ls = nStrata,
-                                    nclass = nStrata*15) # see Details
+                                    nclass = nStrata*15) # see strata.cumrootf Details
 
   LEAVdf$LEAVStrata <-  strat_out$stratumID
 

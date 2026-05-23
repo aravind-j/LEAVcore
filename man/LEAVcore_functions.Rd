@@ -73,8 +73,7 @@ LEAV estimates implemented in \code{LEAVcore2}.}
 \item{Method III}{Stratified sampling of accessions from diversity
 groups/strata computed from LEAV estimates partially implemented in
 \code{LEAVcore3}.}
-}.
-\loadmathjax
+} \loadmathjax
 }
 \details{
 \insertCite{balakrishnan_Strategies_2001,balakrishnan_Strategies_2001a;textual}{LEAVcore}
@@ -150,4 +149,7 @@ estimates of Length of Encoded Attribute Values.
  \pkg{SampleCore}.
 
  }
+}
+\references{
+\insertAllCited{}
 }
