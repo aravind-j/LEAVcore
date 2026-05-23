@@ -18,8 +18,8 @@ An numeric vector of the same length as \code{x}, where the elements
 }
 \description{
 Applies the Hamilton (largest remainder or Hare-Niemeyer or Vinton) rounding
-method \insertCite{balinski_fair_2001} to a numeric vector so that the
-rounded values sum to a specified target.
+method \insertCite{balinski_fair_2001}{SampleCore} to a numeric vector so
+that the rounded values sum to a specified target.
 }
 \details{
 Values are first rounded down using \code{floor()}, and the remaining deficit
