@@ -72,8 +72,8 @@
 #'     \item{\code{names}}{Accession identifiers, as specified by the
 #'       \code{names} argument.}
 #'     \item{\code{lt}}{The log-ratio message length term,
-#'       \mjseqn{\log(N / n)}, where \mjseqn{N} is the total number of accessions
-#'       in \code{data} and \mjseqn{n} is the sum of frequencies in
+#'       \mjseqn{\log(N / n)}, where \mjseqn{N} is the total number of
+#'       accessions in \code{data} and \mjseqn{n} is the sum of frequencies in
 #'       \code{freq}.}
 #'     \item{\code{<qualitative traits>}}{One column per trait specified in
 #'       \code{qualitative}, giving the information length
@@ -146,8 +146,7 @@
 #'                      freq = freq_list, adj = TRUE,
 #'                      mean = mean_vec, sd = sd_vec, e = e_vec)
 #'
-#' LEAV_cassava
-
+#' head(LEAV_cassava)
 #'
 LEAV <- function(data, names,
                  quantitative = NULL, qualitative = NULL,
@@ -226,8 +225,10 @@ LEAV <- function(data, names,
 
   # check if 'quantitative' columns are of type numeric/integer
   if (!is.null(quantitative)) {
-    intquantcols <- unlist(lapply(data[, quantitative],
-                                  function(x) FALSE %in% (is.vector(x, mode = "integer") | is.vector(x, mode = "numeric"))))
+    intquantcols <-
+      unlist(lapply(data[, quantitative],
+                    function(x) FALSE %in% (is.vector(x, mode = "integer") |
+                                              is.vector(x, mode = "numeric"))))
     if (TRUE %in% intquantcols) {
       stop(paste('The following "quantitative" column(s) in "data" are not of type numeric:\n',
                  paste(names(intquantcols[intquantcols]), collapse = ", ")))
@@ -320,17 +321,17 @@ LEAV <- function(data, names,
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   if (!is.null(quantitative)) {
-  quant_inflen <- lapply(quantitative, function(x) {
-    out <- inflen.quant(x = data[, x], mean = mean[x], sd = sd[x], e = e[x])
-    out <- data.frame(out[, "inflen"])
-    colnames(out) <- x
-    out
-  })
+    quant_inflen <- lapply(quantitative, function(x) {
+      out <- inflen.quant(x = data[, x], mean = mean[x], sd = sd[x], e = e[x])
+      out <- data.frame(out[, "inflen"])
+      colnames(out) <- x
+      out
+    })
 
-  quant_inflen <- dplyr::bind_cols(quant_inflen)
+    quant_inflen <- dplyr::bind_cols(quant_inflen)
 
-  quant_inflen <- cbind(names = data[, names],  quant_inflen)
-  colnames(quant_inflen)[colnames(quant_inflen) == "names"] <- names
+    quant_inflen <- cbind(names = data[, names],  quant_inflen)
+    colnames(quant_inflen)[colnames(quant_inflen) == "names"] <- names
 
   }
 

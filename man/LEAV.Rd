@@ -56,8 +56,8 @@ A data frame with one row per accession in \code{data} and the
     \item{\code{names}}{Accession identifiers, as specified by the
       \code{names} argument.}
     \item{\code{lt}}{The log-ratio message length term,
-      \mjseqn{\log(N / n)}, where \mjseqn{N} is the total number of accessions
-      in \code{data} and \mjseqn{n} is the sum of frequencies in
+      \mjseqn{\log(N / n)}, where \mjseqn{N} is the total number of
+      accessions in \code{data} and \mjseqn{n} is the sum of frequencies in
       \code{freq}.}
     \item{\code{<qualitative traits>}}{One column per trait specified in
       \code{qualitative}, giving the information length
@@ -148,7 +148,7 @@ LEAV_cassava <- LEAV(data = cassava_EC, names = "genotypes",
                      freq = freq_list, adj = TRUE,
                      mean = mean_vec, sd = sd_vec, e = e_vec)
 
-LEAV_cassava
+head(LEAV_cassava)
 
 }
 \references{
