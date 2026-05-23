@@ -49,3 +49,19 @@ navbar:
       href: https://github.com/aravind-j/LEAVcore
 search:
   exclude: news/index.html
+
+reference:
+    - title: Constitute Core Collection
+      contents:
+         - '`LEAVcore1`'
+
+    - title: Estimate Information Measures
+      contents:
+         - '`inflen.qual`'
+         - '`inflen.quant`'
+         - '`LEAV`'
+
+    - title: Helpers
+      contents:
+          - '`prop.adj`'
+          - '`round_preserve_sum`'
