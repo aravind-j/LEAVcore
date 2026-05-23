@@ -14,7 +14,8 @@ LEAVcore1(
   qualitative = NULL,
   size,
   prop.adj = c("none", "log", "sqrt"),
-  e
+  e,
+  always.selected = NULL
 )
 
 LEAVcore2(
@@ -24,7 +25,8 @@ LEAVcore2(
   qualitative = NULL,
   size,
   prop.adj = c("none", "log", "sqrt"),
-  e
+  e,
+  always.selected = NULL
 )
 
 LEAVcore3(
@@ -34,7 +36,8 @@ LEAVcore3(
   qualitative = NULL,
   size,
   prop.adj = c("none", "log", "sqrt"),
-  e
+  e,
+  always.selected = NULL
 )
 }
 \arguments{
@@ -60,6 +63,9 @@ root-proportion transformation (see \code{\link[LEAVcore]{prop.adj}}).}
 \item{e}{A named numeric vector of least count of measurement for each
 quantitative trait specified in \code{quantitative}. The list names should
 be same as \code{quantitative}.}
+
+\item{always.selected}{Names of accessions to be always included in the core
+set as a character vector.}
 }
 \description{
 Based on Length of Encoded Attribute Values (LEAV)

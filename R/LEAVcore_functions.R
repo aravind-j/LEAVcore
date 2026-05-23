@@ -110,6 +110,8 @@
 #'   qualitative traits. Either \code{"none"} for no transformation or
 #'   \code{"log"} for log-frequency transformation or \code{"sqrt"} for square
 #'   root-proportion transformation (see \code{\link[LEAVcore]{prop.adj}}).
+#' @param always.selected Names of accessions to be always included in the core
+#'   set as a character vector.
 #'
 #' @returns
 #'
@@ -134,7 +136,7 @@ NULL
 LEAVcore1 <- function(data, names,
                      quantitative = NULL, qualitative = NULL,
                      size, prop.adj = c("none", "log", "sqrt"),
-                     e) {
+                     e, always.selected = NULL) {
 
   prop.adj <- match.arg(prop.adj)
 
@@ -153,13 +155,47 @@ LEAVcore1 <- function(data, names,
   N <- nrow(data)
   size.count <- ceiling(size * N)
 
+  if (!is.null(always.selected)) {
+    # check if 'always.selected' is a character vector
+    if (!is.character(always.selected)) {
+      stop('"always.selected" should be a character vector.')
+    }
+    # check if always.selected is present in the entire set
+    if (any(!(always.selected %in% data[, names]))) {
+      alsel_miss <- always.selected[!(always.selected %in% data[, names])]
+      stop(paste('The following entry/entries specified in "always.selected" ',
+                 'are not present in "data":\n',
+                 paste(alsel_miss, collapse = ", "),
+                 sep = ""))
+    }
+    # check if always.selected count exceeds total core set count
+    if (length(always.selected) >= size.count) {
+      stop(paste('"always.selected" has', length(always.selected),
+                 'entries which equals or exceeds size count (',
+                 size.count, ').'))
+    }
+  }
+
+  # Exclude always.selected from selection pool
+  all_accns <- data[, names]
+  rem_accns <- if (!is.null(always.selected)) {
+    setdiff(all_accns, always.selected)
+  } else {
+    all_accns
+  }
+  data_rem  <- data[data[, names] %in% rem_accns, ]
+
+  # Adjusted sample count for remaining accessions
+  size.count <- size.count - length(always.selected)
+
   ## Find freq for qualitative traits ----
 
   # Core group
+  ## Find freq for qualitative traits ----
   freq1 <- lapply(qualitative, function(x) {
-    prop <-  prop.adj(data[, x], method = prop.adj)
+    prop  <- prop.adj(data_rem[, x], method = prop.adj)
     fqout <- prop * size.count
-    fq_overall <- summary(data[, x])
+    fq_overall <- summary(data_rem[, x])
     fqout <- ifelse(fqout > fq_overall, fq_overall, fqout)
     fqout <- round_preserve_sum(fqout)
     return(fqout)
@@ -168,24 +204,20 @@ LEAVcore1 <- function(data, names,
 
   # Non-Core group
   freq2 <- lapply(qualitative, function(x) {
-    summary(data[, x]) - freq1[[x]]
+    summary(data_rem[, x]) - freq1[[x]]
   })
   names(freq2) <- qualitative
-
 
   ## Find mean and variance for quantitative traits ----
 
   # Core group
   # mean1 and sd1: From kernel density of size = size.count
   stat1 <- lapply(quantitative, function(x) {
-    dens.obs <- density(data[,x], kernel = "gaussian", n = size.count)
+    dens.obs <- density(data_rem[, x], kernel = "gaussian", n = size.count)
     dens.fun <- approxfun(dens.obs)
-
-    smpl <- sample(data[,x], size = size.count, replace = FALSE,
-                   prob = dens.fun(data[,x]))
-
+    smpl <- sample(data_rem[, x], size = size.count, replace = FALSE,
+                   prob = dens.fun(data_rem[, x]))
     out <- data.frame(mean = mean(smpl), sd = sd(smpl))
-
     return(out)
   })
   names(stat1) <- quantitative
@@ -193,25 +225,33 @@ LEAVcore1 <- function(data, names,
   # Non-Core group
   # mean2 and sd2: From overall
   stat2 <- lapply(quantitative, function(x) {
-    out <- data.frame(mean = mean(data[,x]), sd = sd(data[,x]))
+    out <- data.frame(mean = mean(data_rem[, x]), sd = sd(data_rem[, x]))
     return(out)
   })
   names(stat2) <- quantitative
 
-  mean1 <- unlist(lapply(stat1, function(x) { x[, "mean"] }))
-  sd1 <- unlist(lapply(stat1, function(x) { x[, "sd"] }))
-  mean2 <- unlist(lapply(stat2, function(x) { x[, "mean"] }))
-  sd2 <- unlist(lapply(stat2, function(x) { x[, "sd"] }))
+  mean1 <- unlist(lapply(stat1, function(x) {
+    x[, "mean"]
+    }))
+  sd1 <- unlist(lapply(stat1, function(x) {
+    x[, "sd"]
+    }))
+  mean2 <- unlist(lapply(stat2, function(x) {
+    x[, "mean"]
+    }))
+  sd2 <- unlist(lapply(stat2, function(x) {
+    x[, "sd"]
+    }))
 
   ## Estimate LEAVs ----
 
   # For Core
-  LEAVdf1 <- LEAV(data = data, names = names,
+  LEAVdf1 <- LEAV(data = data_rem, names = names,
                   quantitative = quantitative, qualitative = qualitative,
                   freq = freq1, mean = mean1, sd = sd1, e = e)
 
   # For Non-Core
-  LEAVdf2 <- LEAV(data = data, names = names,
+  LEAVdf2 <- LEAV(data = data_rem, names = names,
                   quantitative = quantitative, qualitative = qualitative,
                   freq = freq2, mean = mean2, sd = sd2, e = e)
 
@@ -228,8 +268,10 @@ LEAVcore1 <- function(data, names,
     core <- LEAVdf1[core_ind, names]
   }
 
-  return(core)
+  # Combine with always.selected
+  core <- union(always.selected, core)
 
+  return(core)
 }
 
 # Method II : ----
@@ -239,7 +281,7 @@ LEAVcore1 <- function(data, names,
 LEAVcore2 <- function(data, names,
                       quantitative = NULL, qualitative = NULL,
                       size, prop.adj = c("none", "log", "sqrt"),
-                      e) {
+                      e, always.selected = NULL) {
 
   prop.adj <- match.arg(prop.adj)
 
@@ -258,10 +300,44 @@ LEAVcore2 <- function(data, names,
   N <- nrow(data)
   size.count <- ceiling(size * N)
 
+  if (!is.null(always.selected)) {
+    # check if 'always.selected' is a character vector
+    if (!is.character(always.selected)) {
+      stop('"always.selected" should be a character vector.')
+    }
+    # check if always.selected is present in the entire set
+    if (any(!(always.selected %in% data[, names]))) {
+      alsel_miss <- always.selected[!(always.selected %in% data[, names])]
+      stop(paste('The following entry/entries specified in "always.selected" ',
+                 'are not present in "data":\n',
+                 paste(alsel_miss, collapse = ", "),
+                 sep = ""))
+    }
+    # check if always.selected count exceeds total core set count
+    if (length(always.selected) >= size.count) {
+      stop(paste('"always.selected" has', length(always.selected),
+                 'entries which equals or exceeds size.count (',
+                 size.count, ').'))
+    }
+  }
+
+  # Exclude always.selected from selection pool
+  all_accns <- data[, names]
+  rem_accns <- if (!is.null(always.selected)) {
+    setdiff(all_accns, always.selected)
+  } else {
+    all_accns
+  }
+  data_rem  <- data[data[, names] %in% rem_accns, ]
+
+  # Adjusted sample count for remaining accessions
+  size.count <- size.count - length(always.selected)
+
   ## Find freq for qualitative traits ----
+
   freq <- lapply(qualitative, function(x) {
-    prop <-  prop.adj(data[, x], method = prop.adj)
-    fqout <- prop * nrow(data)
+    prop  <- prop.adj(data_rem[, x], method = prop.adj)
+    fqout <- prop * nrow(data_rem)
     # fqout <- round_preserve_sum(fqout)
     return(fqout)
   })
@@ -270,22 +346,31 @@ LEAVcore2 <- function(data, names,
   ## Find mean and variance for quantitative traits ----
 
   stat <- lapply(quantitative, function(x) {
-    out <- data.frame(mean = mean(data[,x]), sd = sd(data[,x]))
+    out <- data.frame(mean = mean(data_rem[, x]), sd = sd(data_rem[, x]))
     return(out)
   })
   names(stat) <- quantitative
 
-  mean <- unlist(lapply(stat, function(x) { x[, "mean"] }))
-  sd <- unlist(lapply(stat, function(x) { x[, "sd"] }))
+  mean <- unlist(lapply(stat, function(x) {
+    x[, "mean"]
+  }))
+  sd <- unlist(lapply(stat, function(x) {
+    x[, "sd"]
+  }))
 
   ## Estimate LEAV ----
-  LEAVdf <- LEAV(data = data, names = names,
+  LEAVdf <- LEAV(data = data_rem, names = names,
                  quantitative = quantitative,
                  qualitative = qualitative,
                  adj = FALSE,
                  freq = freq, mean = mean, sd = sd, e = e)
 
   LEAVdf <- sort_by(LEAVdf, LEAVdf$LEAV, decreasing = TRUE)
+
+  # Tag always.selected
+  LEAVdf$always.selected <- LEAVdf[[names]] %in% always.selected
+
+  return(LEAVdf)
 
 }
 
@@ -296,53 +381,17 @@ LEAVcore2 <- function(data, names,
 LEAVcore3 <- function(data, names,
                      quantitative = NULL, qualitative = NULL,
                      size, prop.adj = c("none", "log", "sqrt"),
-                     e) {
+                     e, always.selected = NULL) {
 
-  prop.adj <- match.arg(prop.adj)
-
-  # check if 'size' argument is numeric vector of unit length
-  if (!is.null(size)) {
-    if (!(is.numeric(size) && length(size) == 1)) {
-      stop('"size" should be a numeric vector of unit length.')
-    }
-  }
-
-  # check if 'size' is a proportion between 0 and 1
-  if (size <= 0 || size >= 1) {
-    stop('"size" should be a proportion between 0 and 1.')
-  }
+  ## Estimate LEAV using LEAVcore2 ----
+  LEAVdf <-
+    LEAVcore2(data = data, names = names,
+              quantitative = quantitative, qualitative = qualitative,
+              size = size, prop.adj = prop.adj, e = e,
+              always.selected = always.selected)
 
   N <- nrow(data)
   size.count <- ceiling(size * N)
-
-  ## Find freq for qualitative traits ----
-  freq <- lapply(qualitative, function(x) {
-    prop <-  prop.adj(data[, x], method = prop.adj)
-    fqout <- prop * nrow(data)
-    # fqout <- round_preserve_sum(fqout)
-    return(fqout)
-  })
-  names(freq) <- qualitative
-
-  ## Find mean and variance for quantitative traits ----
-
-  stat <- lapply(quantitative, function(x) {
-    out <- data.frame(mean = mean(data[,x]), sd = sd(data[,x]))
-    return(out)
-  })
-  names(stat) <- quantitative
-
-  mean <- unlist(lapply(stat, function(x) { x[, "mean"] }))
-  sd <- unlist(lapply(stat, function(x) { x[, "sd"] }))
-
-  ## Estimate LEAV ----
-  LEAVdf <- LEAV(data = data, names = names,
-                 quantitative = quantitative,
-                 qualitative = qualitative,
-                 adj = FALSE,
-                 freq = freq, mean = mean, sd = sd, e = e)
-
-  LEAVdf <- sort_by(LEAVdf, LEAVdf$LEAV, decreasing = TRUE)
 
   ## Find the strata boundaries ----
   nStrata <- nclass.Sturges(LEAVdf$LEAV)
@@ -351,9 +400,13 @@ LEAVcore3 <- function(data, names,
     stratification::strata.cumrootf(x = LEAVdf$LEAV,
                                     n = size.count,
                                     Ls = nStrata,
-                                    nclass = nStrata*15) # see strata.cumrootf Details
+                                    # see strata.cumrootf Details
+                                    nclass = nStrata*15)
 
   LEAVdf$LEAVStrata <-  strat_out$stratumID
+
+  LEAVdf <- LEAVdf[, c(setdiff(names(LEAVdf), "always.selected"),
+                       "always.selected")]
 
   return(LEAVdf)
 
