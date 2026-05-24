@@ -283,7 +283,11 @@ LEAV <- function(data, names,
   names(fqsum) <- qualitative
 
   # Check all qualitative traits have consistent freq sums
-  fqsum_consistent <- all(fqsum == fqsum[1])
+  # fqsum_consistent <- all(fqsum == fqsum[1])
+  fqsum_consistent <- all(sapply(fqsum,
+                                 function(x) {
+                                   isTRUE(all.equal(x, fqsum[[1]]))
+                                 }))
 
   # Check freq sum does not exceed nrow(data)
   fqsum_chk <- fqsum_consistent && (fqsum[1] <= nrow(data))
