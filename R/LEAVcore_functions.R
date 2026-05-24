@@ -141,10 +141,8 @@ LEAVcore1 <- function(data, names,
   prop.adj <- match.arg(prop.adj)
 
   # check if 'size' argument is numeric vector of unit length
-  if (!is.null(size)) {
-    if (!(is.numeric(size) && length(size) == 1)) {
-      stop('"size" should be a numeric vector of unit length.')
-    }
+  if (is.null(size) || !(is.numeric(size) && length(size) == 1)) {
+    stop('"size" should be a numeric vector of unit length.')
   }
 
   # check if 'size' is a proportion between 0 and 1
@@ -193,11 +191,10 @@ LEAVcore1 <- function(data, names,
   # Core group
   ## Find freq for qualitative traits ----
   freq1 <- lapply(qualitative, function(x) {
-    prop  <- prop.adj(data_rem[, x], method = prop.adj)
+    prop  <- prop.adj(data_rem[, x], method = prop.adj,
+                      size.count = size.count)
     fqout <- prop * size.count
-    fq_overall <- summary(data_rem[, x])
-    fqout <- ifelse(fqout > fq_overall, fq_overall, fqout)
-    fqout <- round_preserve_sum(fqout)
+    fqout <- round_preserve_sum(fqout, target = size.count)
     return(fqout)
   })
   names(freq1) <- qualitative
@@ -213,7 +210,8 @@ LEAVcore1 <- function(data, names,
   # Core group
   # mean1 and sd1: From kernel density of size = size.count
   stat1 <- lapply(quantitative, function(x) {
-    dens.obs <- density(data_rem[, x], kernel = "gaussian", n = size.count)
+    dens.obs <- density(data_rem[, x], kernel = "gaussian",
+                        n = size.count)
     dens.fun <- approxfun(dens.obs)
     smpl <- sample(data_rem[, x], size = size.count, replace = FALSE,
                    prob = dens.fun(data_rem[, x]))
@@ -271,7 +269,16 @@ LEAVcore1 <- function(data, names,
   # Combine with always.selected
   core <- union(always.selected, core)
 
-  return(core)
+
+  LEAVdf <- merge.data.frame(LEAVdf1[, c(names, "LEAV")],
+                             LEAVdf2[, c(names, "LEAV")],
+                             by = names,
+                             suffixes = c("_core", "_noncore"))
+
+  # Tag always.selected
+  LEAVdf$always.selected <- LEAVdf[[names]] %in% always.selected
+
+  return(LEAVdf)
 }
 
 # Method II : ----
@@ -336,8 +343,10 @@ LEAVcore2 <- function(data, names,
   ## Find freq for qualitative traits ----
 
   freq <- lapply(qualitative, function(x) {
-    prop  <- prop.adj(data_rem[, x], method = prop.adj)
-    fqout <- prop * nrow(data_rem)
+    prop  <- prop.adj(data_rem[, x], method = prop.adj,
+                      size.count = size.count)
+    # fqout <- prop * nrow(data_rem)
+    fqout <- prop * size.count
     # fqout <- round_preserve_sum(fqout)
     return(fqout)
   })
@@ -346,7 +355,8 @@ LEAVcore2 <- function(data, names,
   ## Find mean and variance for quantitative traits ----
 
   stat <- lapply(quantitative, function(x) {
-    out <- data.frame(mean = mean(data_rem[, x]), sd = sd(data_rem[, x]))
+    out <- data.frame(mean = mean(data_rem[, x]),
+                      sd = sd(data_rem[, x]))
     return(out)
   })
   names(stat) <- quantitative
