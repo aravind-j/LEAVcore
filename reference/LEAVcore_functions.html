@@ -24,7 +24,6 @@ groups/strata computed from LEAV estimates partially implemented in
 LEAVcore3.
 
 
-.
 MathJax = {output: {font: "mathjax-newcm", fontPath: "../../mathjaxr/doc/mathjax/font",}};'><meta property="og:description" content='Based on Length of Encoded Attribute Values (LEAV)
 (Wallace and Boulton 1968; Balakrishnan and Suresh 2001; Balakrishnan and Suresh 2001; Balakrishnan and Nair 2003)
 
@@ -44,7 +43,6 @@ groups/strata computed from LEAV estimates partially implemented in
 LEAVcore3.
 
 
-.
 MathJax = {output: {font: "mathjax-newcm", fontPath: "../../mathjaxr/doc/mathjax/font",}};'></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
@@ -105,8 +103,7 @@ groups/strata computed from LEAV estimates partially implemented in
 <code>LEAVcore3</code>.</p></dd>
 
 
-</dl><p>.
-<script>MathJax = {output: {font: "mathjax-newcm", fontPath: "../../mathjaxr/doc/mathjax/font",}};</script><script defer src="../../mathjaxr/doc/mathjax/tex-chtml.js"></script></p>
+</dl><p><script>MathJax = {output: {font: "mathjax-newcm", fontPath: "../../mathjaxr/doc/mathjax/font",}};</script><script defer src="../../mathjaxr/doc/mathjax/tex-chtml.js"></script></p>
     </div>
 
     <div class="section level2">
@@ -118,7 +115,8 @@ groups/strata computed from LEAV estimates partially implemented in
 <span>  qualitative <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">size</span>,</span>
 <span>  prop.adj <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"log"</span>, <span class="st">"sqrt"</span><span class="op">)</span>,</span>
-<span>  <span class="va">e</span></span>
+<span>  <span class="va">e</span>,</span>
+<span>  always.selected <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">LEAVcore2</span><span class="op">(</span></span>
@@ -128,7 +126,8 @@ groups/strata computed from LEAV estimates partially implemented in
 <span>  qualitative <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">size</span>,</span>
 <span>  prop.adj <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"log"</span>, <span class="st">"sqrt"</span><span class="op">)</span>,</span>
-<span>  <span class="va">e</span></span>
+<span>  <span class="va">e</span>,</span>
+<span>  always.selected <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">LEAVcore3</span><span class="op">(</span></span>
@@ -138,7 +137,8 @@ groups/strata computed from LEAV estimates partially implemented in
 <span>  qualitative <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">size</span>,</span>
 <span>  prop.adj <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"log"</span>, <span class="st">"sqrt"</span><span class="op">)</span>,</span>
-<span>  <span class="va">e</span></span>
+<span>  <span class="va">e</span>,</span>
+<span>  always.selected <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -181,6 +181,105 @@ root-proportion transformation (see <code><a href="prop.adj.html">prop.adj</a></
 <dd><p>A named numeric vector of least count of measurement for each
 quantitative trait specified in <code>quantitative</code>. The list names should
 be same as <code>quantitative</code>.</p></dd>
+
+
+<dt id="arg-always-selected">always.selected<a class="anchor" aria-label="anchor" href="#arg-always-selected"></a></dt>
+<dd><p>Names of accessions to be always included in the core
+set as a character vector.</p></dd>
+
+</dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p><code>LEAVcore1</code> returns a data frame with one row per accession in
+<code>data</code> and the following columns:</p><dl><dt><code>names</code></dt>
+<dd><p>Accession identifiers, as specified by the
+    <code>names</code> argument.</p></dd>
+
+  <dt><code>LEAV_core</code></dt>
+<dd><p>The total LEAV score for each accession
+    computed under the core group parameterisation (frequencies and
+    moments estimated from the target core subset).</p></dd>
+
+  <dt><code>LEAV_noncore</code></dt>
+<dd><p>The total LEAV score for each accession
+    computed under the non-core group parameterisation (frequencies and
+    moments estimated from the remainder of the collection).</p></dd>
+
+  <dt><code>always.selected</code></dt>
+<dd><p>A logical vector indicating whether the
+    accession was pre-specified in <code>always.selected</code>.</p></dd>
+
+  <dt><code>core</code></dt>
+<dd><p>A logical vector indicating whether the accession
+    is selected into the core collection, either because
+    <code>LEAV_core</code> \(\leq\) <code>LEAV_noncore</code> (selected by the
+    method) or because it appears in <code>always.selected</code>.</p></dd>
+
+
+</dl><p><code>LEAVcore2</code> returns a data frame with one row per accession in
+<code>data</code>, sorted in decreasing order of LEAV score, with the following
+columns:</p><dl><dt><code>names</code></dt>
+<dd><p>Accession identifiers, as specified by the
+    <code>names</code> argument.</p></dd>
+
+  <dt><code>lt</code></dt>
+<dd><p>The log-ratio message length term
+    <em></em>\(\log(N / n)\), where <em></em>\(N\) is the total number of accessions
+    in <code>data</code> and <em></em>\(n\) is <code>size.count</code>.</p></dd>
+
+  <dt><code>&lt;trait columns&gt;</code></dt>
+<dd><p>One column per trait specified in
+    <code>qualitative</code> and <code>quantitative</code>, giving the
+    per-accession information length for that trait.</p></dd>
+
+  <dt><code>LEAV</code></dt>
+<dd><p>The total LEAV score for each accession, equal to
+    the row sum of <code>lt</code> and all trait information length columns.</p></dd>
+
+  <dt><code>always.selected</code></dt>
+<dd><p>A logical vector indicating whether the
+    accession was pre-specified in <code>always.selected</code>.</p></dd>
+
+  <dt><code>core</code></dt>
+<dd><p>A logical vector indicating whether the accession
+    is selected into the core collection, either as one of the top
+    <code>size.count</code> ranked accessions among non-<code>always.selected</code>
+    accessions or because it appears in <code>always.selected</code>.</p></dd>
+
+
+</dl><p><code>LEAVcore3</code> returns a data frame with one row per accession in <code>data</code>,
+sorted in decreasing order of LEAV score, with the following columns:</p><dl><dt><code>names</code></dt>
+<dd><p>Accession identifiers, as specified by the
+    <code>names</code> argument.</p></dd>
+
+  <dt><code>lt</code></dt>
+<dd><p>The log-ratio message length term
+    <em></em>\(\log(N / n)\), where <em></em>\(N\) is the total number of accessions
+    in <code>data</code> and <em></em>\(n\) is <code>size.count</code>.</p></dd>
+
+  <dt><code>&lt;trait columns&gt;</code></dt>
+<dd><p>One column per trait specified in
+    <code>qualitative</code> and <code>quantitative</code>, giving the
+    per-accession information length for that trait.</p></dd>
+
+  <dt><code>LEAV</code></dt>
+<dd><p>The total LEAV score for each accession, equal to
+    the row sum of <code>lt</code> and all trait information length columns.</p></dd>
+
+  <dt><code>LEAVStrata</code></dt>
+<dd><p>An integer stratum identifier assigned by the
+    Dalenius-Hodges cumulative root frequency method
+    (Dalenius and Hodges 1959)
+, indicating the stratum to
+    which each accession belongs for proportional sampling.
+    <code>NA</code> for accessions in <code>always.selected</code>, which are
+    excluded from stratification.</p></dd>
+
+  <dt><code>always.selected</code></dt>
+<dd><p>A logical vector indicating whether the
+    accession was pre-specified in <code>always.selected</code> and is
+    therefore excluded from stratification.</p></dd>
+
 
 </dl></div>
     <div class="section level2">
@@ -259,7 +358,431 @@ estimates of Length of Encoded Attribute Values.</p>
 </div>
 
     </div>
+    <div class="section level2">
+    <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+    <p>Balakrishnan R, Nair NV (2003).
+“Strategies for developing core collections of sugarcane (<em>Saccharum officinarum</em> L.) germplasm-comparison of sampling from diversity groups constituted by three different methods.”
+<em>Plant Genetic Resources Newsletter</em>, <b>134</b>, 33–41.<br><br> Balakrishnan R, Suresh KK (2001).
+“Strategies for developing core collections of safflower (<em>Carthamus tinctorius</em> L.) germplasm-part II. Using an information measure for obtaining a core sample with pre-determined diversity levels for several descriptors simultaneously.”
+<em>Indian Journal of Plant Genetic Resources</em>, <b>14</b>(1), 32–42.<br><br> Balakrishnan R, Suresh KK (2001).
+“Strategies for developing core collections of safflower (<em>Carthamus tinctorius</em> L.) germplasm-part III. Obtaining diversity groups based on an information measure.”
+<em>Indian Journal of Plant Genetic Resources</em>, <b>14</b>(3), 342–349.<br><br> Dalenius T, Hodges JL (1959).
+“Minimum variance stratification.”
+<em>Journal of the American Statistical Association</em>, <b>54</b>(285), 88–101.<br><br> Wallace CS, Boulton DM (1968).
+“An information measure for classification.”
+<em>The Computer Journal</em>, <b>11</b>(2), 185–194.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><code><a href="inflen.qual.html">inflen.qual</a></code>,
+  <code><a href="inflen.quant.html">inflen.quant</a></code>, <code><a href="LEAV.html">LEAV</a></code>,
+  <code><a href="https://aravind-j.github.io/SampleCore/reference/allocate.basic.html" class="external-link">allocate.basic</a></code>,
+  <code><a href="https://aravind-j.github.io/SampleCore/reference/allocate.distance.html" class="external-link">allocate.distance</a></code>,
+  <code><a href="https://aravind-j.github.io/SampleCore/reference/allocate.diversity.html" class="external-link">allocate.diversity</a></code>,
+  <code><a href="https://aravind-j.github.io/SampleCore/reference/select.random.html" class="external-link">select.random</a></code>,
+  <code><a href="https://aravind-j.github.io/SampleCore/reference/select.distance.html" class="external-link">select.distance</a></code>,
+  <code><a href="https://aravind-j.github.io/SampleCore/reference/select.diversity.html" class="external-link">select.diversity</a></code></p></div>
+    </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/aravind-j/EvaluateCore" class="external-link">EvaluateCore</a></span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Get data from EvaluateCore</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"cassava_EC"</span>, package <span class="op">=</span> <span class="st">"EvaluateCore"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cassava_EC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>genotypes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">cassava_EC</span><span class="op">)</span>, <span class="va">cassava_EC</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">quant</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NMSR"</span>, <span class="st">"TTRN"</span>, <span class="st">"TFWSR"</span>, <span class="st">"TTRW"</span>, <span class="st">"TFWSS"</span>, <span class="st">"TTSW"</span>, <span class="st">"TTPW"</span>, <span class="st">"AVPW"</span>,</span></span>
+<span class="r-in"><span>           <span class="st">"ARSR"</span>, <span class="st">"SRDM"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">qual</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CUAL"</span>, <span class="st">"LNGS"</span>, <span class="st">"PTLC"</span>, <span class="st">"DSTA"</span>, <span class="st">"LFRT"</span>, <span class="st">"LBTEF"</span>, <span class="st">"CBTR"</span>, <span class="st">"NMLB"</span>,</span></span>
+<span class="r-in"><span>          <span class="st">"ANGB"</span>, <span class="st">"CUAL9M"</span>, <span class="st">"LVC9M"</span>, <span class="st">"TNPR9M"</span>, <span class="st">"PL9M"</span>, <span class="st">"STRP"</span>, <span class="st">"STRC"</span>,</span></span>
+<span class="r-in"><span>          <span class="st">"PSTR"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cassava_EC</span><span class="op">[</span>, <span class="va">qual</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">cassava_EC</span><span class="op">[</span>, <span class="va">qual</span><span class="op">]</span>, <span class="va">as.factor</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">e_vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">quant</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">e_vec</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">quant</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">mand_accns</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TMe-2018"</span>, <span class="st">"TMe-801"</span>, <span class="st">"TMe-3191"</span>, <span class="st">"TMe-1830"</span>, <span class="st">"TMe-1790"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">cassava_EC</span><span class="op">$</span><span class="va">genotypes</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">mand_accns</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> FALSE  TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1679     5 </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># Method I</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">LEAVcore1_out</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">LEAVcore1</span><span class="op">(</span>data <span class="op">=</span> <span class="va">cassava_EC</span>, names <span class="op">=</span> <span class="st">"genotypes"</span>,</span></span>
+<span class="r-in"><span>            quantitative <span class="op">=</span> <span class="va">quant</span>, qualitative <span class="op">=</span> <span class="va">qual</span>,</span></span>
+<span class="r-in"><span>            size <span class="op">=</span> <span class="fl">0.2</span>, prop.adj <span class="op">=</span> <span class="st">"log"</span>, e <span class="op">=</span> <span class="va">e_vec</span>,</span></span>
+<span class="r-in"><span>            always.selected <span class="op">=</span> <span class="va">mand_accns</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">LEAVcore1_out</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   genotypes LEAV_core LEAV_noncore always.selected  core</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    TMe-10  38.62295     39.21512           FALSE FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  TMe-1003  44.91563     39.45960           FALSE FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  TMe-1004  59.66719     50.33656           FALSE FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  TMe-1005  41.95921     41.37500           FALSE FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  TMe-1006  47.80168     44.48855           FALSE FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  TMe-1007  71.54689     43.39722           FALSE FALSE</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Selected accessions for core</span></span></span>
+<span class="r-in"><span><span class="va">core1</span> <span class="op">&lt;-</span> <span class="va">LEAVcore1_out</span><span class="op">[</span><span class="va">LEAVcore1_out</span><span class="op">$</span><span class="va">core</span> <span class="op">==</span> <span class="cn">TRUE</span>, <span class="st">"genotypes"</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">core1</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] "TMe-1020" "TMe-1083" "TMe-1099" "TMe-1147" "TMe-116"  "TMe-1174"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [7] "TMe-1190" "TMe-1204" "TMe-1218" "TMe-123"  "TMe-1232" "TMe-1238"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [13] "TMe-1250" "TMe-130"  "TMe-1305" "TMe-132"  "TMe-1351" "TMe-1353"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [19] "TMe-1360" "TMe-1375" "TMe-1383" "TMe-1385" "TMe-1391" "TMe-1392"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [25] "TMe-1409" "TMe-1419" "TMe-1423" "TMe-1428" "TMe-1434" "TMe-1461"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [31] "TMe-15"   "TMe-1505" "TMe-1506" "TMe-1511" "TMe-1518" "TMe-1539"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [37] "TMe-154"  "TMe-1564" "TMe-1566" "TMe-1577" "TMe-1579" "TMe-160" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [43] "TMe-1608" "TMe-1661" "TMe-167"  "TMe-1716" "TMe-1732" "TMe-1744"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [49] "TMe-1775" "TMe-1776" "TMe-1790" "TMe-1809" "TMe-181"  "TMe-1814"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [55] "TMe-1819" "TMe-1820" "TMe-1830" "TMe-184"  "TMe-185"  "TMe-186" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [61] "TMe-1875" "TMe-1883" "TMe-1897" "TMe-190"  "TMe-1902" "TMe-1960"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [67] "TMe-1964" "TMe-2"    "TMe-2004" "TMe-2018" "TMe-203"  "TMe-2033"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [73] "TMe-2041" "TMe-205"  "TMe-2055" "TMe-2058" "TMe-206"  "TMe-2064"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [79] "TMe-2067" "TMe-2069" "TMe-2077" "TMe-208"  "TMe-210"  "TMe-2121"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [85] "TMe-215"  "TMe-2158" "TMe-2216" "TMe-2217" "TMe-2240" "TMe-225" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [91] "TMe-2290" "TMe-2308" "TMe-2352" "TMe-2374" "TMe-2383" "TMe-241" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [97] "TMe-2413" "TMe-25"   "TMe-2510" "TMe-2532" "TMe-2534" "TMe-2552"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [103] "TMe-259"  "TMe-264"  "TMe-266"  "TMe-267"  "TMe-268"  "TMe-270" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [109] "TMe-2748" "TMe-2751" "TMe-2756" "TMe-276"  "TMe-277"  "TMe-2776"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [115] "TMe-2779" "TMe-2785" "TMe-279"  "TMe-2790" "TMe-2791" "TMe-280" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [121] "TMe-2800" "TMe-2809" "TMe-2810" "TMe-2811" "TMe-2814" "TMe-2823"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [127] "TMe-2824" "TMe-2835" "TMe-2841" "TMe-289"  "TMe-2891" "TMe-2897"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [133] "TMe-290"  "TMe-2901" "TMe-2903" "TMe-2907" "TMe-2915" "TMe-2917"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [139] "TMe-2926" "TMe-2944" "TMe-2945" "TMe-2954" "TMe-2957" "TMe-2958"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [145] "TMe-2965" "TMe-2971" "TMe-2975" "TMe-2979" "TMe-2980" "TMe-2985"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [151] "TMe-2998" "TMe-3006" "TMe-3007" "TMe-3027" "TMe-3030" "TMe-3032"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [157] "TMe-3043" "TMe-3046" "TMe-3048" "TMe-3053" "TMe-3054" "TMe-3055"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [163] "TMe-306"  "TMe-3066" "TMe-3071" "TMe-3088" "TMe-3095" "TMe-3111"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [169] "TMe-3112" "TMe-3114" "TMe-3116" "TMe-3118" "TMe-3127" "TMe-3140"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [175] "TMe-3141" "TMe-3148" "TMe-3151" "TMe-3167" "TMe-3189" "TMe-3191"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [181] "TMe-3198" "TMe-3200" "TMe-3207" "TMe-3209" "TMe-3210" "TMe-3222"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [187] "TMe-3234" "TMe-3253" "TMe-3256" "TMe-3262" "TMe-3264" "TMe-3265"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [193] "TMe-3273" "TMe-3275" "TMe-3276" "TMe-3277" "TMe-3278" "TMe-3284"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [199] "TMe-3299" "TMe-330"  "TMe-3302" "TMe-3312" "TMe-3314" "TMe-3323"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [205] "TMe-3332" "TMe-3346" "TMe-3354" "TMe-3356" "TMe-3362" "TMe-3382"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [211] "TMe-3394" "TMe-3397" "TMe-34"   "TMe-3401" "TMe-3411" "TMe-3417"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [217] "TMe-3418" "TMe-3422" "TMe-3428" "TMe-3433" "TMe-3437" "TMe-344" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [223] "TMe-3443" "TMe-3445" "TMe-3452" "TMe-3466" "TMe-3467" "TMe-3478"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [229] "TMe-3480" "TMe-3481" "TMe-35"   "TMe-3518" "TMe-3549" "TMe-3558"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [235] "TMe-3568" "TMe-3571" "TMe-3572" "TMe-3575" "TMe-3576" "TMe-3591"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [241] "TMe-3592" "TMe-3594" "TMe-3596" "TMe-3599" "TMe-3606" "TMe-3619"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [247] "TMe-3620" "TMe-3625" "TMe-3663" "TMe-3679" "TMe-3690" "TMe-3719"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [253] "TMe-3721" "TMe-3729" "TMe-3760" "TMe-3766" "TMe-3771" "TMe-3772"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [259] "TMe-378"  "TMe-38"   "TMe-3804" "TMe-383"  "TMe-385"  "TMe-39"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [265] "TMe-397"  "TMe-40"   "TMe-41"   "TMe-410"  "TMe-418"  "TMe-419" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [271] "TMe-420"  "TMe-425"  "TMe-43"   "TMe-434"  "TMe-457"  "TMe-460" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [277] "TMe-469"  "TMe-478"  "TMe-480"  "TMe-5"    "TMe-509"  "TMe-513" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [283] "TMe-514"  "TMe-528"  "TMe-540"  "TMe-550"  "TMe-551"  "TMe-566" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [289] "TMe-57"   "TMe-575"  "TMe-59"   "TMe-594"  "TMe-606"  "TMe-620" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [295] "TMe-635"  "TMe-64"   "TMe-650"  "TMe-656"  "TMe-660"  "TMe-67"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [301] "TMe-674"  "TMe-696"  "TMe-70"   "TMe-712"  "TMe-735"  "TMe-737" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [307] "TMe-74"   "TMe-748"  "TMe-754"  "TMe-766"  "TMe-768"  "TMe-773" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [313] "TMe-774"  "TMe-778"  "TMe-78"   "TMe-801"  "TMe-82"   "TMe-821" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [319] "TMe-822"  "TMe-828"  "TMe-830"  "TMe-838"  "TMe-841"  "TMe-842" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [325] "TMe-85"   "TMe-86"   "TMe-867"  "TMe-875"  "TMe-887"  "TMe-888" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [331] "TMe-90"   "TMe-925"  "TMe-93"   "TMe-945"  "TMe-950"  "TMe-972" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [337] "TMe-985" </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># Method II</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">LEAVcore2_out</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">LEAVcore2</span><span class="op">(</span>data <span class="op">=</span> <span class="va">cassava_EC</span>, names <span class="op">=</span> <span class="st">"genotypes"</span>,</span></span>
+<span class="r-in"><span>            quantitative <span class="op">=</span> <span class="va">quant</span>, qualitative <span class="op">=</span> <span class="va">qual</span>,</span></span>
+<span class="r-in"><span>            size <span class="op">=</span> <span class="fl">0.2</span>, prop.adj <span class="op">=</span> <span class="st">"log"</span>, e <span class="op">=</span> <span class="va">e_vec</span>,</span></span>
+<span class="r-in"><span>            always.selected <span class="op">=</span> <span class="va">mand_accns</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">LEAVcore2_out</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      genotypes       lt     CUAL     LNGS     PTLC     DSTA     LFRT    LBTEF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 942   TMe-3163 1.623792 1.171319 1.018756 1.001667 1.383677 1.034312 1.609178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1432   TMe-603 1.623792 1.171319 1.009479 1.001667 1.383677 1.034312 1.570564</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1221  TMe-3605 1.623792 1.171319 1.292631 1.001667 1.383677 2.627081 1.602382</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1251  TMe-3685 1.623792 1.287220 1.018756 1.001667 1.622932 1.034312 1.795852</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1033  TMe-3292 1.623792 1.287220 1.018756 1.001667 1.913500 1.034312 1.795852</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1312   TMe-399 1.623792 1.171319 1.018756 1.001667 1.622932 1.464561 1.570564</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           CBTR     NMLB     ANGB   CUAL9M    LVC9M   TNPR9M      PL9M     STRP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 942  0.8126782 1.720141 1.226096 1.406059 1.147944 1.577724 0.7000020 1.214631</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1432 0.7318245 1.804366 1.144471 1.353840 1.202224 1.486676 0.7167117 1.233826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1221 0.8126782 1.760304 1.252595 1.363820 1.147944 1.608716 0.7167117 1.233826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1251 0.8126782 1.720141 1.144471 1.406059 1.516240 1.486676 0.7000020 1.214631</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1033 0.8126782 1.760304 1.252595 1.353840 1.147944 1.577724 0.7000020 1.233826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1312 0.7318245 1.886362 1.144471 1.353840 1.202224 1.486676 0.7167117 1.233826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           STRC      PSTR     NMSR     TTRN     TFWSR      TTRW     TFWSS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 942  0.7148823 0.6508703 3.148152 2.920333  7.725617 62.300599  3.184656</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1432 0.6718744 0.7563591 4.231506 1.688734 28.186653  7.329838 20.356342</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1221 0.7148823 0.6508703 3.931099 2.682888  2.438998  4.479733  5.948706</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1251 0.7148823 0.7563591 5.195730 1.983253 31.447430  8.187797 11.931777</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1033 0.6718744 0.6508703 3.406218 2.407173 18.553374 14.557196  7.171076</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1312 0.6718744 0.6508703 4.447229 2.351584  9.257126  3.845843 20.356342</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           TTSW      TTPW      AVPW     ARSR     SRDM     LEAV always.selected</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 942  15.116045  5.414342 38.522834 1.800534 2.572890 162.7197           FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1432  6.113131 27.021538  8.184969 1.859701 2.704807 127.5742           FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1221 49.534465  4.470612 26.950597 2.067785 2.652030 127.1218           FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1251  3.676607 21.904679  6.697428 1.800534 2.633677 116.3156           FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1033  5.818571 13.020808 11.171692 1.800534 2.538544 101.2819           FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1312  9.807997 17.188937  8.236776 2.067785 2.546281 100.6582           FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      core</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 942  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1432 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1221 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1251 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1033 TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1312 TRUE</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Selected accessions for core</span></span></span>
+<span class="r-in"><span><span class="va">core2</span> <span class="op">&lt;-</span> <span class="va">LEAVcore2_out</span><span class="op">[</span><span class="va">LEAVcore2_out</span><span class="op">$</span><span class="va">core</span> <span class="op">==</span> <span class="cn">TRUE</span>, <span class="st">"genotypes"</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">core2</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] "TMe-3163" "TMe-603"  "TMe-3605" "TMe-3685" "TMe-3292" "TMe-399" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [7] "TMe-3800" "TMe-3736" "TMe-616"  "TMe-3667" "TMe-2853" "TMe-3705"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [13] "TMe-2943" "TMe-3628" "TMe-3701" "TMe-3573" "TMe-901"  "TMe-2035"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [19] "TMe-3730" "TMe-3223" "TMe-2050" "TMe-2967" "TMe-3415" "TMe-812" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [25] "TMe-390"  "TMe-3353" "TMe-1730" "TMe-2996" "TMe-707"  "TMe-815" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [31] "TMe-731"  "TMe-608"  "TMe-3406" "TMe-761"  "TMe-412"  "TMe-2905"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [37] "TMe-717"  "TMe-3025" "TMe-2983" "TMe-3694" "TMe-798"  "TMe-1261"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [43] "TMe-2963" "TMe-1416" "TMe-3297" "TMe-2531" "TMe-373"  "TMe-13"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [49] "TMe-588"  "TMe-2204" "TMe-2513" "TMe-863"  "TMe-3040" "TMe-1307"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [55] "TMe-2984" "TMe-861"  "TMe-1004" "TMe-3581" "TMe-427"  "TMe-1919"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [61] "TMe-3089" "TMe-997"  "TMe-1985" "TMe-3641" "TMe-3392" "TMe-929" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [67] "TMe-3034" "TMe-3319" "TMe-2940" "TMe-623"  "TMe-2952" "TMe-1723"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [73] "TMe-659"  "TMe-27"   "TMe-3337" "TMe-432"  "TMe-2955" "TMe-1646"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [79] "TMe-2913" "TMe-2953" "TMe-725"  "TMe-2043" "TMe-705"  "TMe-1294"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [85] "TMe-3329" "TMe-421"  "TMe-3065" "TMe-3249" "TMe-1472" "TMe-584" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [91] "TMe-1248" "TMe-2196" "TMe-832"  "TMe-3698" "TMe-1283" "TMe-1479"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [97] "TMe-527"  "TMe-2604" "TMe-700"  "TMe-1806" "TMe-3130" "TMe-1272"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [103] "TMe-3565" "TMe-3396" "TMe-728"  "TMe-926"  "TMe-1079" "TMe-2912"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [109] "TMe-1286" "TMe-2916" "TMe-47"   "TMe-3485" "TMe-1311" "TMe-2977"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [115] "TMe-2688" "TMe-3475" "TMe-1011" "TMe-694"  "TMe-3076" "TMe-2966"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [121] "TMe-1124" "TMe-44"   "TMe-1945" "TMe-1425" "TMe-1339" "TMe-35"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [127] "TMe-3054" "TMe-3601" "TMe-3281" "TMe-2860" "TMe-2937" "TMe-500" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [133] "TMe-1762" "TMe-1098" "TMe-1348" "TMe-2914" "TMe-3345" "TMe-391" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [139] "TMe-1769" "TMe-2329" "TMe-994"  "TMe-2010" "TMe-1158" "TMe-2551"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [145] "TMe-1796" "TMe-2226" "TMe-3471" "TMe-2040" "TMe-289"  "TMe-3222"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [151] "TMe-1958" "TMe-1273" "TMe-1129" "TMe-835"  "TMe-631"  "TMe-3185"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [157] "TMe-3428" "TMe-3363" "TMe-3087" "TMe-756"  "TMe-729"  "TMe-2973"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [163] "TMe-2355" "TMe-3633" "TMe-2906" "TMe-2518" "TMe-3659" "TMe-3398"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [169] "TMe-1300" "TMe-3501" "TMe-7"    "TMe-1388" "TMe-3272" "TMe-1293"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [175] "TMe-2968" "TMe-2151" "TMe-3531" "TMe-438"  "TMe-600"  "TMe-2843"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [181] "TMe-2439" "TMe-3282" "TMe-742"  "TMe-585"  "TMe-3368" "TMe-1581"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [187] "TMe-3596" "TMe-845"  "TMe-1137" "TMe-1580" "TMe-1101" "TMe-3085"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [193] "TMe-867"  "TMe-1988" "TMe-487"  "TMe-2060" "TMe-2441" "TMe-3255"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [199] "TMe-745"  "TMe-937"  "TMe-2993" "TMe-787"  "TMe-3132" "TMe-2567"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [205] "TMe-86"   "TMe-473"  "TMe-3351" "TMe-1042" "TMe-5"    "TMe-3055"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [211] "TMe-736"  "TMe-2733" "TMe-1600" "TMe-362"  "TMe-2956" "TMe-4"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [217] "TMe-2119" "TMe-2304" "TMe-3387" "TMe-751"  "TMe-3547" "TMe-1401"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [223] "TMe-1078" "TMe-698"  "TMe-737"  "TMe-645"  "TMe-2976" "TMe-2939"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [229] "TMe-606"  "TMe-1074" "TMe-1174" "TMe-609"  "TMe-2270" "TMe-2203"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [235] "TMe-1312" "TMe-1756" "TMe-2257" "TMe-1239" "TMe-1511" "TMe-2802"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [241] "TMe-361"  "TMe-241"  "TMe-1269" "TMe-1700" "TMe-3175" "TMe-1501"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [247] "TMe-1924" "TMe-3773" "TMe-154"  "TMe-1366" "TMe-3639" "TMe-2374"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [253] "TMe-174"  "TMe-209"  "TMe-975"  "TMe-1564" "TMe-976"  "TMe-1995"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [259] "TMe-569"  "TMe-3575" "TMe-1376" "TMe-3299" "TMe-1987" "TMe-1233"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [265] "TMe-3707" "TMe-579"  "TMe-1715" "TMe-696"  "TMe-1621" "TMe-750" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [271] "TMe-3496" "TMe-3266" "TMe-1975" "TMe-3401" "TMe-3389" "TMe-3463"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [277] "TMe-2057" "TMe-876"  "TMe-2855" "TMe-481"  "TMe-501"  "TMe-1643"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [283] "TMe-2166" "TMe-1397" "TMe-1256" "TMe-410"  "TMe-1875" "TMe-6"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [289] "TMe-3323" "TMe-196"  "TMe-3440" "TMe-2862" "TMe-1310" "TMe-2128"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [295] "TMe-1526" "TMe-3466" "TMe-1053" "TMe-3437" "TMe-2530" "TMe-2318"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [301] "TMe-3366" "TMe-2910" "TMe-3072" "TMe-2027" "TMe-2589" "TMe-2985"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [307] "TMe-2032" "TMe-3110" "TMe-3533" "TMe-3112" "TMe-893"  "TMe-1232"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [313] "TMe-1589" "TMe-3382" "TMe-601"  "TMe-394"  "TMe-2779" "TMe-665" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [319] "TMe-1738" "TMe-66"   "TMe-2809" "TMe-1020" "TMe-1051" "TMe-3572"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [325] "TMe-826"  "TMe-3545" "TMe-1257" "TMe-414"  "TMe-3273" "TMe-3479"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [331] "TMe-1199" "TMe-2757" "TMe-1790" "TMe-801"  "TMe-1830" "TMe-2018"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [337] "TMe-3191"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span><span class="co"># Method III</span></span></span>
+<span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">LEAVcore3_out</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">LEAVcore3</span><span class="op">(</span>data <span class="op">=</span> <span class="va">cassava_EC</span>, names <span class="op">=</span> <span class="st">"genotypes"</span>,</span></span>
+<span class="r-in"><span>            quantitative <span class="op">=</span> <span class="va">quant</span>, qualitative <span class="op">=</span> <span class="va">qual</span>,</span></span>
+<span class="r-in"><span>            size <span class="op">=</span> <span class="fl">0.2</span>, prop.adj <span class="op">=</span> <span class="st">"log"</span>, e <span class="op">=</span> <span class="va">e_vec</span>,</span></span>
+<span class="r-in"><span>            always.selected <span class="op">=</span> <span class="va">mand_accns</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">LEAVcore3_out</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      genotypes       lt     CUAL     LNGS     PTLC     DSTA     LFRT    LBTEF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 942   TMe-3163 1.623792 1.171319 1.018756 1.001667 1.383677 1.034312 1.609178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1432   TMe-603 1.623792 1.171319 1.009479 1.001667 1.383677 1.034312 1.570564</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1221  TMe-3605 1.623792 1.171319 1.292631 1.001667 1.383677 2.627081 1.602382</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1251  TMe-3685 1.623792 1.287220 1.018756 1.001667 1.622932 1.034312 1.795852</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1033  TMe-3292 1.623792 1.287220 1.018756 1.001667 1.913500 1.034312 1.795852</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1312   TMe-399 1.623792 1.171319 1.018756 1.001667 1.622932 1.464561 1.570564</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           CBTR     NMLB     ANGB   CUAL9M    LVC9M   TNPR9M      PL9M     STRP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 942  0.8126782 1.720141 1.226096 1.406059 1.147944 1.577724 0.7000020 1.214631</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1432 0.7318245 1.804366 1.144471 1.353840 1.202224 1.486676 0.7167117 1.233826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1221 0.8126782 1.760304 1.252595 1.363820 1.147944 1.608716 0.7167117 1.233826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1251 0.8126782 1.720141 1.144471 1.406059 1.516240 1.486676 0.7000020 1.214631</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1033 0.8126782 1.760304 1.252595 1.353840 1.147944 1.577724 0.7000020 1.233826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1312 0.7318245 1.886362 1.144471 1.353840 1.202224 1.486676 0.7167117 1.233826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           STRC      PSTR     NMSR     TTRN     TFWSR      TTRW     TFWSS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 942  0.7148823 0.6508703 3.148152 2.920333  7.725617 62.300599  3.184656</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1432 0.6718744 0.7563591 4.231506 1.688734 28.186653  7.329838 20.356342</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1221 0.7148823 0.6508703 3.931099 2.682888  2.438998  4.479733  5.948706</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1251 0.7148823 0.7563591 5.195730 1.983253 31.447430  8.187797 11.931777</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1033 0.6718744 0.6508703 3.406218 2.407173 18.553374 14.557196  7.171076</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1312 0.6718744 0.6508703 4.447229 2.351584  9.257126  3.845843 20.356342</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           TTSW      TTPW      AVPW     ARSR     SRDM     LEAV LEAVStrata</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 942  15.116045  5.414342 38.522834 1.800534 2.572890 162.7197         12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1432  6.113131 27.021538  8.184969 1.859701 2.704807 127.5742         12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1221 49.534465  4.470612 26.950597 2.067785 2.652030 127.1218         12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1251  3.676607 21.904679  6.697428 1.800534 2.633677 116.3156         12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1033  5.818571 13.020808 11.171692 1.800534 2.538544 101.2819         12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1312  9.807997 17.188937  8.236776 2.067785 2.546281 100.6582         12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      always.selected</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 942            FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1432           FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1221           FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1251           FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1033           FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1312           FALSE</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Strata/Group-wise counts</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">LEAVcore3_out</span><span class="op">$</span><span class="va">LEAVStrata</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1   2   3   4   5   6   7   8   9  10  11  12 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 205 210 205 188 316 168 138  84  69  42  27  27 </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Sample accessions from strata to form core set using SampleCOre</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/aravind-j/SampleCore" class="external-link">SampleCore</a></span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Append LEAV strata to original data</span></span></span>
+<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge.data.frame</a></span><span class="op">(</span><span class="va">cassava_EC</span>,</span></span>
+<span class="r-in"><span>                         <span class="va">LEAVcore3_out</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"genotypes"</span>, <span class="st">"LEAVStrata"</span>,</span></span>
+<span class="r-in"><span>                                           <span class="st">"always.selected"</span><span class="op">)</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>                         by <span class="op">=</span> <span class="st">"genotypes"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">data</span><span class="op">$</span><span class="va">LEAVStrata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LEAVStrata</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use log allocation</span></span></span>
+<span class="r-in"><span><span class="va">log_alloc</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://aravind-j.github.io/SampleCore/reference/allocate.basic.html" class="external-link">allocate.basic</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span><span class="op">[</span><span class="va">data</span><span class="op">$</span><span class="va">always.selected</span> <span class="op">!=</span> <span class="cn">TRUE</span>, <span class="op">]</span>,</span></span>
+<span class="r-in"><span>                 names <span class="op">=</span> <span class="st">"genotypes"</span>,</span></span>
+<span class="r-in"><span>                 group <span class="op">=</span> <span class="st">"LEAVStrata"</span>, method <span class="op">=</span> <span class="st">"log"</span>,</span></span>
+<span class="r-in"><span>                 size <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use random selection</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sel_random_out</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://aravind-j.github.io/SampleCore/reference/select.random.html" class="external-link">select.random</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span><span class="op">[</span><span class="va">data</span><span class="op">$</span><span class="va">always.selected</span> <span class="op">!=</span> <span class="cn">TRUE</span>, <span class="op">]</span>,</span></span>
+<span class="r-in"><span>                names <span class="op">=</span> <span class="st">"genotypes"</span>,</span></span>
+<span class="r-in"><span>                group <span class="op">=</span> <span class="st">"LEAVStrata"</span>, alloc <span class="op">=</span> <span class="va">log_alloc</span>,</span></span>
+<span class="r-in"><span>                <span class="co"># Already included in LEAVcore3_out</span></span></span>
+<span class="r-in"><span>                always.selected <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Append always selected accessions</span></span></span>
+<span class="r-in"><span><span class="va">core3</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">sel_random_out</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>always.selected <span class="op">=</span></span></span>
+<span class="r-in"><span>         <span class="va">LEAVcore3_out</span><span class="op">[</span><span class="va">LEAVcore3_out</span><span class="op">$</span><span class="va">always.selected</span> <span class="op">==</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                       <span class="st">"genotypes"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Final core</span></span></span>
+<span class="r-in"><span><span class="va">core3</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "TMe-406"  "TMe-685"  "TMe-1151" "TMe-846"  "TMe-548"  "TMe-1678"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "TMe-3003" "TMe-1487" "TMe-960"  "TMe-882"  "TMe-368"  "TMe-2319"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "TMe-2326" "TMe-834"  "TMe-786"  "TMe-2332" "TMe-3286" "TMe-2402"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "TMe-1930" "TMe-1211" "TMe-1086" "TMe-940"  "TMe-802"  "TMe-450" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "TMe-2026" "TMe-2127" "TMe-866"  "TMe-2543" "TMe-2989" "TMe-2009"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "TMe-3427" "TMe-1268"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "TMe-3008" "TMe-1123" "TMe-3340" "TMe-467"  "TMe-2192" "TMe-137" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "TMe-3538" "TMe-684"  "TMe-187"  "TMe-3335" "TMe-878"  "TMe-885" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "TMe-442"  "TMe-1486" "TMe-211"  "TMe-2152" "TMe-2210" "TMe-1981"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "TMe-3407" "TMe-2775" "TMe-245"  "TMe-3499" "TMe-1509" "TMe-1368"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "TMe-1629" "TMe-565"  "TMe-2435" "TMe-191"  "TMe-1278" "TMe-3128"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "TMe-273"  "TMe-1083"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`3`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "TMe-932"  "TMe-2453" "TMe-967"  "TMe-1592" "TMe-386"  "TMe-321" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "TMe-1802" "TMe-1470" "TMe-1110" "TMe-1224" "TMe-2041" "TMe-3322"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "TMe-3729" "TMe-1831" "TMe-1345" "TMe-2750" "TMe-388"  "TMe-1367"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "TMe-1488" "TMe-447"  "TMe-317"  "TMe-142"  "TMe-3527" "TMe-933" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "TMe-3243" "TMe-315"  "TMe-381"  "TMe-1979" "TMe-3540" "TMe-2020"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "TMe-3644" "TMe-3261"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`4`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "TMe-237"  "TMe-2611" "TMe-668"  "TMe-3593" "TMe-1827" "TMe-2268"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "TMe-852"  "TMe-3142" "TMe-3010" "TMe-939"  "TMe-3423" "TMe-813" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "TMe-1351" "TMe-1795" "TMe-186"  "TMe-661"  "TMe-3216" "TMe-2950"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "TMe-985"  "TMe-1443" "TMe-323"  "TMe-3149" "TMe-3568" "TMe-480" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "TMe-536"  "TMe-3068" "TMe-626"  "TMe-693"  "TMe-54"   "TMe-1147"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "TMe-2123"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`5`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "TMe-610"  "TMe-663"  "TMe-706"  "TMe-650"  "TMe-1572" "TMe-3726"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "TMe-419"  "TMe-1483" "TMe-2891" "TMe-3576" "TMe-1533" "TMe-1873"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "TMe-1935" "TMe-3265" "TMe-90"   "TMe-334"  "TMe-456"  "TMe-3118"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "TMe-682"  "TMe-2058" "TMe-995"  "TMe-1357" "TMe-3338" "TMe-3097"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "TMe-1554" "TMe-1362" "TMe-3219" "TMe-15"   "TMe-1939" "TMe-1192"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "TMe-270"  "TMe-194"  "TMe-3326" "TMe-2242"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`6`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "TMe-2823" "TMe-816"  "TMe-161"  "TMe-551"  "TMe-1301" "TMe-363" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "TMe-1560" "TMe-1786" "TMe-1221" "TMe-853"  "TMe-1218" "TMe-1198"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "TMe-41"   "TMe-25"   "TMe-727"  "TMe-251"  "TMe-2195" "TMe-716" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "TMe-1459" "TMe-85"   "TMe-3443" "TMe-963"  "TMe-2124" "TMe-755" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "TMe-3277" "TMe-123"  "TMe-1442" "TMe-2064" "TMe-70"   "TMe-768" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "TMe-3071"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`7`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "TMe-2757" "TMe-3572" "TMe-3496" "TMe-1526" "TMe-1341" "TMe-3707"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "TMe-3437" "TMe-696"  "TMe-3575" "TMe-394"  "TMe-277"  "TMe-3266"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "TMe-1715" "TMe-1614" "TMe-1621" "TMe-333"  "TMe-1100" "TMe-2809"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "TMe-431"  "TMe-618"  "TMe-2027" "TMe-3323" "TMe-1091" "TMe-404" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "TMe-3463" "TMe-174"  "TMe-3460" "TMe-138"  "TMe-2890" "TMe-196" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`8`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "TMe-3547" "TMe-1700" "TMe-2567" "TMe-2441" "TMe-487"  "TMe-1101"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "TMe-7"    "TMe-1137" "TMe-2119" "TMe-1269" "TMe-3501" "TMe-3085"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "TMe-1581" "TMe-2976" "TMe-241"  "TMe-1174" "TMe-3659" "TMe-3255"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "TMe-1580" "TMe-698"  "TMe-2257" "TMe-4"    "TMe-3387" "TMe-2956"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "TMe-3773" "TMe-1239" "TMe-867" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`9`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "TMe-1806" "TMe-1079" "TMe-3471" "TMe-926"  "TMe-1425" "TMe-2355"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "TMe-835"  "TMe-1098" "TMe-1945" "TMe-756"  "TMe-2977" "TMe-1348"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "TMe-44"   "TMe-729"  "TMe-3185" "TMe-1158" "TMe-3633" "TMe-3565"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "TMe-3054" "TMe-3428" "TMe-1796" "TMe-2966" "TMe-2973" "TMe-2688"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "TMe-3363"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`10`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "TMe-623"  "TMe-3249" "TMe-1283" "TMe-421"  "TMe-1248" "TMe-929" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "TMe-861"  "TMe-1919" "TMe-3698" "TMe-832"  "TMe-584"  "TMe-997" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "TMe-1294" "TMe-725"  "TMe-3089" "TMe-3337" "TMe-2196" "TMe-432" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "TMe-2043" "TMe-1646" "TMe-27"   "TMe-1472"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`11`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "TMe-2996" "TMe-1261" "TMe-588"  "TMe-3025" "TMe-13"   "TMe-707" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "TMe-373"  "TMe-761"  "TMe-1307" "TMe-412"  "TMe-3406" "TMe-2513"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "TMe-798"  "TMe-717"  "TMe-2963" "TMe-731"  "TMe-815"  "TMe-3694"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "TMe-2905" "TMe-608" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`12`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "TMe-812"  "TMe-3605" "TMe-3736" "TMe-2967" "TMe-616"  "TMe-399" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "TMe-3292" "TMe-3685" "TMe-3223" "TMe-3163" "TMe-3353" "TMe-1730"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "TMe-3667" "TMe-2035" "TMe-3730" "TMe-2050" "TMe-3701" "TMe-3705"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "TMe-390"  "TMe-2853"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $always.selected</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "TMe-1790" "TMe-801"  "TMe-1830" "TMe-2018" "TMe-3191"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

@@ -22,7 +22,7 @@ Size](https://img.shields.io/github/languages/code-size/aravind-j/LEAVcore.svg)]
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2026--05--17-yellowgreen.svg)](https://github.com/aravind-j/LEAVcore/)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2026--05--25-yellowgreen.svg)](https://github.com/aravind-j/LEAVcore/)
 [![Website -
 pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/LEAVcore.svg)](https://aravind-j.github.io/LEAVcore/)
 
@@ -73,9 +73,10 @@ citation("LEAVcore")
 ``` R
 To cite the R package 'LEAVcore' in publications use:
 
-  Aravind, J., Roy, S., and Singh, A. M. (2026).  LEAVcore: Constitution of Core
-  Collections using Length of Encoded Attribute Values. R package version
-  0.0.0.9000, https://aravind-j.github.io/LEAVcore/.
+  Aravind, J., Roy, S., and Singh, A. M. (2026).  LEAVcore:
+  Constitution of Core Collections using Length of Encoded Attribute
+  Values. R package version 0.0.0.9000,
+  https://aravind-j.github.io/LEAVcore/.
 
 A BibTeX entry for LaTeX users is
 
@@ -86,24 +87,31 @@ A BibTeX entry for LaTeX users is
     year = {2026},
   }
 
-This free and open-source software implements academic research by the authors and
-co-workers. If you use it, please support the project by citing the package.
+This free and open-source software implements academic research by the
+authors and co-workers. If you use it, please support the project by
+citing the package.
 ```
 
 # Package index
 
-## All functions
+## Constitute Core Collection
 
-- [`LEAV()`](https://aravind-j.github.io/LEAVcore/reference/LEAV.md) :
-  Compute the Length of Encoded Attribute Values
 - [`LEAVcore1()`](https://aravind-j.github.io/LEAVcore/reference/LEAVcore_functions.md)
   [`LEAVcore2()`](https://aravind-j.github.io/LEAVcore/reference/LEAVcore_functions.md)
   [`LEAVcore3()`](https://aravind-j.github.io/LEAVcore/reference/LEAVcore_functions.md)
   : Generate Core collections with Length of Encoded Attribute Values
+
+## Estimate Information Measures
+
 - [`inflen.qual()`](https://aravind-j.github.io/LEAVcore/reference/inflen.qual.md)
   : Compute Information Length for Qualitative Traits
 - [`inflen.quant()`](https://aravind-j.github.io/LEAVcore/reference/inflen.quant.md)
   : Compute Information Length for Quantitative Traits
+- [`LEAV()`](https://aravind-j.github.io/LEAVcore/reference/LEAV.md) :
+  Compute the Length of Encoded Attribute Values
+
+## Helpers
+
 - [`prop.adj()`](https://aravind-j.github.io/LEAVcore/reference/prop.adj.md)
   : Relative Frequency Adjustments
 - [`round_preserve_sum()`](https://aravind-j.github.io/LEAVcore/reference/round_preserve_sum.md)

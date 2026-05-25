@@ -21,8 +21,6 @@ following methods.
   Stratified sampling of accessions from diversity groups/strata
   computed from LEAV estimates partially implemented in `LEAVcore3`.
 
-.
-
 ## Usage
 
 ``` r
@@ -33,7 +31,8 @@ LEAVcore1(
   qualitative = NULL,
   size,
   prop.adj = c("none", "log", "sqrt"),
-  e
+  e,
+  always.selected = NULL
 )
 
 LEAVcore2(
@@ -43,7 +42,8 @@ LEAVcore2(
   qualitative = NULL,
   size,
   prop.adj = c("none", "log", "sqrt"),
-  e
+  e,
+  always.selected = NULL
 )
 
 LEAVcore3(
@@ -53,7 +53,8 @@ LEAVcore3(
   qualitative = NULL,
   size,
   prop.adj = c("none", "log", "sqrt"),
-  e
+  e,
+  always.selected = NULL
 )
 ```
 
@@ -94,6 +95,112 @@ LEAVcore3(
   A named numeric vector of least count of measurement for each
   quantitative trait specified in `quantitative`. The list names should
   be same as `quantitative`.
+
+- always.selected:
+
+  Names of accessions to be always included in the core set as a
+  character vector.
+
+## Value
+
+`LEAVcore1` returns a data frame with one row per accession in `data`
+and the following columns:
+
+- `names`:
+
+  Accession identifiers, as specified by the `names` argument.
+
+- `LEAV_core`:
+
+  The total LEAV score for each accession computed under the core group
+  parameterisation (frequencies and moments estimated from the target
+  core subset).
+
+- `LEAV_noncore`:
+
+  The total LEAV score for each accession computed under the non-core
+  group parameterisation (frequencies and moments estimated from the
+  remainder of the collection).
+
+- `always.selected`:
+
+  A logical vector indicating whether the accession was pre-specified in
+  `always.selected`.
+
+- `core`:
+
+  A logical vector indicating whether the accession is selected into the
+  core collection, either because `LEAV_core` \\\leq\\ `LEAV_noncore`
+  (selected by the method) or because it appears in `always.selected`.
+
+`LEAVcore2` returns a data frame with one row per accession in `data`,
+sorted in decreasing order of LEAV score, with the following columns:
+
+- `names`:
+
+  Accession identifiers, as specified by the `names` argument.
+
+- `lt`:
+
+  The log-ratio message length term \\\log(N / n)\\, where \\N\\ is the
+  total number of accessions in `data` and \\n\\ is `size.count`.
+
+- `<trait columns>`:
+
+  One column per trait specified in `qualitative` and `quantitative`,
+  giving the per-accession information length for that trait.
+
+- `LEAV`:
+
+  The total LEAV score for each accession, equal to the row sum of `lt`
+  and all trait information length columns.
+
+- `always.selected`:
+
+  A logical vector indicating whether the accession was pre-specified in
+  `always.selected`.
+
+- `core`:
+
+  A logical vector indicating whether the accession is selected into the
+  core collection, either as one of the top `size.count` ranked
+  accessions among non-`always.selected` accessions or because it
+  appears in `always.selected`.
+
+`LEAVcore3` returns a data frame with one row per accession in `data`,
+sorted in decreasing order of LEAV score, with the following columns:
+
+- `names`:
+
+  Accession identifiers, as specified by the `names` argument.
+
+- `lt`:
+
+  The log-ratio message length term \\\log(N / n)\\, where \\N\\ is the
+  total number of accessions in `data` and \\n\\ is `size.count`.
+
+- `<trait columns>`:
+
+  One column per trait specified in `qualitative` and `quantitative`,
+  giving the per-accession information length for that trait.
+
+- `LEAV`:
+
+  The total LEAV score for each accession, equal to the row sum of `lt`
+  and all trait information length columns.
+
+- `LEAVStrata`:
+
+  An integer stratum identifier assigned by the Dalenius-Hodges
+  cumulative root frequency method (Dalenius and Hodges 1959) ,
+  indicating the stratum to which each accession belongs for
+  proportional sampling. `NA` for accessions in `always.selected`, which
+  are excluded from stratification.
+
+- `always.selected`:
+
+  A logical vector indicating whether the accession was pre-specified in
+  `always.selected` and is therefore excluded from stratification.
 
 ## Details
 
@@ -170,3 +277,440 @@ and stratified selection
 [select.diversity](https://aravind-j.github.io/SampleCore/reference/select.diversity.html),
 [select.distance](https://aravind-j.github.io/SampleCore/reference/select.distance.html))
 are available from the sister package SampleCore.
+
+## References
+
+Balakrishnan R, Nair NV (2003). “Strategies for developing core
+collections of sugarcane (*Saccharum officinarum* L.)
+germplasm-comparison of sampling from diversity groups constituted by
+three different methods.” *Plant Genetic Resources Newsletter*, **134**,
+33–41.  
+  
+Balakrishnan R, Suresh KK (2001). “Strategies for developing core
+collections of safflower (*Carthamus tinctorius* L.) germplasm-part II.
+Using an information measure for obtaining a core sample with
+pre-determined diversity levels for several descriptors simultaneously.”
+*Indian Journal of Plant Genetic Resources*, **14**(1), 32–42.  
+  
+Balakrishnan R, Suresh KK (2001). “Strategies for developing core
+collections of safflower (*Carthamus tinctorius* L.) germplasm-part III.
+Obtaining diversity groups based on an information measure.” *Indian
+Journal of Plant Genetic Resources*, **14**(3), 342–349.  
+  
+Dalenius T, Hodges JL (1959). “Minimum variance stratification.”
+*Journal of the American Statistical Association*, **54**(285),
+88–101.  
+  
+Wallace CS, Boulton DM (1968). “An information measure for
+classification.” *The Computer Journal*, **11**(2), 185–194.
+
+## See also
+
+[`inflen.qual`](https://aravind-j.github.io/LEAVcore/reference/inflen.qual.md),
+[`inflen.quant`](https://aravind-j.github.io/LEAVcore/reference/inflen.quant.md),
+[`LEAV`](https://aravind-j.github.io/LEAVcore/reference/LEAV.md),
+[`allocate.basic`](https://aravind-j.github.io/SampleCore/reference/allocate.basic.html),
+[`allocate.distance`](https://aravind-j.github.io/SampleCore/reference/allocate.distance.html),
+[`allocate.diversity`](https://aravind-j.github.io/SampleCore/reference/allocate.diversity.html),
+[`select.random`](https://aravind-j.github.io/SampleCore/reference/select.random.html),
+[`select.distance`](https://aravind-j.github.io/SampleCore/reference/select.distance.html),
+[`select.diversity`](https://aravind-j.github.io/SampleCore/reference/select.diversity.html)
+
+## Examples
+
+``` r
+suppressPackageStartupMessages(library(EvaluateCore))
+
+# Get data from EvaluateCore
+data("cassava_EC", package = "EvaluateCore")
+
+cassava_EC <- cbind(genotypes = rownames(cassava_EC), cassava_EC)
+
+
+quant <- c("NMSR", "TTRN", "TFWSR", "TTRW", "TFWSS", "TTSW", "TTPW", "AVPW",
+           "ARSR", "SRDM")
+qual <- c("CUAL", "LNGS", "PTLC", "DSTA", "LFRT", "LBTEF", "CBTR", "NMLB",
+          "ANGB", "CUAL9M", "LVC9M", "TNPR9M", "PL9M", "STRP", "STRC",
+          "PSTR")
+
+cassava_EC[, qual] <- lapply(cassava_EC[, qual], as.factor)
+
+e_vec <- rep(1, length(quant))
+names(e_vec) <- quant
+
+mand_accns <-
+  c("TMe-2018", "TMe-801", "TMe-3191", "TMe-1830", "TMe-1790")
+
+table(cassava_EC$genotypes %in% mand_accns)
+#> 
+#> FALSE  TRUE 
+#>  1679     5 
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Method I
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+LEAVcore1_out <-
+  LEAVcore1(data = cassava_EC, names = "genotypes",
+            quantitative = quant, qualitative = qual,
+            size = 0.2, prop.adj = "log", e = e_vec,
+            always.selected = mand_accns)
+
+head(LEAVcore1_out)
+#>   genotypes LEAV_core LEAV_noncore always.selected  core
+#> 1    TMe-10  38.62295     39.21512           FALSE FALSE
+#> 2  TMe-1003  44.91563     39.45960           FALSE FALSE
+#> 3  TMe-1004  59.66719     50.33656           FALSE FALSE
+#> 4  TMe-1005  41.95921     41.37500           FALSE FALSE
+#> 5  TMe-1006  47.80168     44.48855           FALSE FALSE
+#> 6  TMe-1007  71.54689     43.39722           FALSE FALSE
+
+# Selected accessions for core
+core1 <- LEAVcore1_out[LEAVcore1_out$core == TRUE, "genotypes"]
+
+core1
+#>   [1] "TMe-1020" "TMe-1083" "TMe-1099" "TMe-1147" "TMe-116"  "TMe-1174"
+#>   [7] "TMe-1190" "TMe-1204" "TMe-1218" "TMe-123"  "TMe-1232" "TMe-1238"
+#>  [13] "TMe-1250" "TMe-130"  "TMe-1305" "TMe-132"  "TMe-1351" "TMe-1353"
+#>  [19] "TMe-1360" "TMe-1375" "TMe-1383" "TMe-1385" "TMe-1391" "TMe-1392"
+#>  [25] "TMe-1409" "TMe-1419" "TMe-1423" "TMe-1428" "TMe-1434" "TMe-1461"
+#>  [31] "TMe-15"   "TMe-1505" "TMe-1506" "TMe-1511" "TMe-1518" "TMe-1539"
+#>  [37] "TMe-154"  "TMe-1564" "TMe-1566" "TMe-1577" "TMe-1579" "TMe-160" 
+#>  [43] "TMe-1608" "TMe-1661" "TMe-167"  "TMe-1716" "TMe-1732" "TMe-1744"
+#>  [49] "TMe-1775" "TMe-1776" "TMe-1790" "TMe-1809" "TMe-181"  "TMe-1814"
+#>  [55] "TMe-1819" "TMe-1820" "TMe-1830" "TMe-184"  "TMe-185"  "TMe-186" 
+#>  [61] "TMe-1875" "TMe-1883" "TMe-1897" "TMe-190"  "TMe-1902" "TMe-1960"
+#>  [67] "TMe-1964" "TMe-2"    "TMe-2004" "TMe-2018" "TMe-203"  "TMe-2033"
+#>  [73] "TMe-2041" "TMe-205"  "TMe-2055" "TMe-2058" "TMe-206"  "TMe-2064"
+#>  [79] "TMe-2067" "TMe-2069" "TMe-2077" "TMe-208"  "TMe-210"  "TMe-2121"
+#>  [85] "TMe-215"  "TMe-2158" "TMe-2216" "TMe-2217" "TMe-2240" "TMe-225" 
+#>  [91] "TMe-2290" "TMe-2308" "TMe-2352" "TMe-2374" "TMe-2383" "TMe-241" 
+#>  [97] "TMe-2413" "TMe-25"   "TMe-2510" "TMe-2532" "TMe-2534" "TMe-2552"
+#> [103] "TMe-259"  "TMe-264"  "TMe-266"  "TMe-267"  "TMe-268"  "TMe-270" 
+#> [109] "TMe-2748" "TMe-2751" "TMe-2756" "TMe-276"  "TMe-277"  "TMe-2776"
+#> [115] "TMe-2779" "TMe-2785" "TMe-279"  "TMe-2790" "TMe-2791" "TMe-280" 
+#> [121] "TMe-2800" "TMe-2809" "TMe-2810" "TMe-2811" "TMe-2814" "TMe-2823"
+#> [127] "TMe-2824" "TMe-2835" "TMe-2841" "TMe-289"  "TMe-2891" "TMe-2897"
+#> [133] "TMe-290"  "TMe-2901" "TMe-2903" "TMe-2907" "TMe-2915" "TMe-2917"
+#> [139] "TMe-2926" "TMe-2944" "TMe-2945" "TMe-2954" "TMe-2957" "TMe-2958"
+#> [145] "TMe-2965" "TMe-2971" "TMe-2975" "TMe-2979" "TMe-2980" "TMe-2985"
+#> [151] "TMe-2998" "TMe-3006" "TMe-3007" "TMe-3027" "TMe-3030" "TMe-3032"
+#> [157] "TMe-3043" "TMe-3046" "TMe-3048" "TMe-3053" "TMe-3054" "TMe-3055"
+#> [163] "TMe-306"  "TMe-3066" "TMe-3071" "TMe-3088" "TMe-3095" "TMe-3111"
+#> [169] "TMe-3112" "TMe-3114" "TMe-3116" "TMe-3118" "TMe-3127" "TMe-3140"
+#> [175] "TMe-3141" "TMe-3148" "TMe-3151" "TMe-3167" "TMe-3189" "TMe-3191"
+#> [181] "TMe-3198" "TMe-3200" "TMe-3207" "TMe-3209" "TMe-3210" "TMe-3222"
+#> [187] "TMe-3234" "TMe-3253" "TMe-3256" "TMe-3262" "TMe-3264" "TMe-3265"
+#> [193] "TMe-3273" "TMe-3275" "TMe-3276" "TMe-3277" "TMe-3278" "TMe-3284"
+#> [199] "TMe-3299" "TMe-330"  "TMe-3302" "TMe-3312" "TMe-3314" "TMe-3323"
+#> [205] "TMe-3332" "TMe-3346" "TMe-3354" "TMe-3356" "TMe-3362" "TMe-3382"
+#> [211] "TMe-3394" "TMe-3397" "TMe-34"   "TMe-3401" "TMe-3411" "TMe-3417"
+#> [217] "TMe-3418" "TMe-3422" "TMe-3428" "TMe-3433" "TMe-3437" "TMe-344" 
+#> [223] "TMe-3443" "TMe-3445" "TMe-3452" "TMe-3466" "TMe-3467" "TMe-3478"
+#> [229] "TMe-3480" "TMe-3481" "TMe-35"   "TMe-3518" "TMe-3549" "TMe-3558"
+#> [235] "TMe-3568" "TMe-3571" "TMe-3572" "TMe-3575" "TMe-3576" "TMe-3591"
+#> [241] "TMe-3592" "TMe-3594" "TMe-3596" "TMe-3599" "TMe-3606" "TMe-3619"
+#> [247] "TMe-3620" "TMe-3625" "TMe-3663" "TMe-3679" "TMe-3690" "TMe-3719"
+#> [253] "TMe-3721" "TMe-3729" "TMe-3760" "TMe-3766" "TMe-3771" "TMe-3772"
+#> [259] "TMe-378"  "TMe-38"   "TMe-3804" "TMe-383"  "TMe-385"  "TMe-39"  
+#> [265] "TMe-397"  "TMe-40"   "TMe-41"   "TMe-410"  "TMe-418"  "TMe-419" 
+#> [271] "TMe-420"  "TMe-425"  "TMe-43"   "TMe-434"  "TMe-457"  "TMe-460" 
+#> [277] "TMe-469"  "TMe-478"  "TMe-480"  "TMe-5"    "TMe-509"  "TMe-513" 
+#> [283] "TMe-514"  "TMe-528"  "TMe-540"  "TMe-550"  "TMe-551"  "TMe-566" 
+#> [289] "TMe-57"   "TMe-575"  "TMe-59"   "TMe-594"  "TMe-606"  "TMe-620" 
+#> [295] "TMe-635"  "TMe-64"   "TMe-650"  "TMe-656"  "TMe-660"  "TMe-67"  
+#> [301] "TMe-674"  "TMe-696"  "TMe-70"   "TMe-712"  "TMe-735"  "TMe-737" 
+#> [307] "TMe-74"   "TMe-748"  "TMe-754"  "TMe-766"  "TMe-768"  "TMe-773" 
+#> [313] "TMe-774"  "TMe-778"  "TMe-78"   "TMe-801"  "TMe-82"   "TMe-821" 
+#> [319] "TMe-822"  "TMe-828"  "TMe-830"  "TMe-838"  "TMe-841"  "TMe-842" 
+#> [325] "TMe-85"   "TMe-86"   "TMe-867"  "TMe-875"  "TMe-887"  "TMe-888" 
+#> [331] "TMe-90"   "TMe-925"  "TMe-93"   "TMe-945"  "TMe-950"  "TMe-972" 
+#> [337] "TMe-985" 
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Method II
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+LEAVcore2_out <-
+  LEAVcore2(data = cassava_EC, names = "genotypes",
+            quantitative = quant, qualitative = qual,
+            size = 0.2, prop.adj = "log", e = e_vec,
+            always.selected = mand_accns)
+
+head(LEAVcore2_out)
+#>      genotypes       lt     CUAL     LNGS     PTLC     DSTA     LFRT    LBTEF
+#> 942   TMe-3163 1.623792 1.171319 1.018756 1.001667 1.383677 1.034312 1.609178
+#> 1432   TMe-603 1.623792 1.171319 1.009479 1.001667 1.383677 1.034312 1.570564
+#> 1221  TMe-3605 1.623792 1.171319 1.292631 1.001667 1.383677 2.627081 1.602382
+#> 1251  TMe-3685 1.623792 1.287220 1.018756 1.001667 1.622932 1.034312 1.795852
+#> 1033  TMe-3292 1.623792 1.287220 1.018756 1.001667 1.913500 1.034312 1.795852
+#> 1312   TMe-399 1.623792 1.171319 1.018756 1.001667 1.622932 1.464561 1.570564
+#>           CBTR     NMLB     ANGB   CUAL9M    LVC9M   TNPR9M      PL9M     STRP
+#> 942  0.8126782 1.720141 1.226096 1.406059 1.147944 1.577724 0.7000020 1.214631
+#> 1432 0.7318245 1.804366 1.144471 1.353840 1.202224 1.486676 0.7167117 1.233826
+#> 1221 0.8126782 1.760304 1.252595 1.363820 1.147944 1.608716 0.7167117 1.233826
+#> 1251 0.8126782 1.720141 1.144471 1.406059 1.516240 1.486676 0.7000020 1.214631
+#> 1033 0.8126782 1.760304 1.252595 1.353840 1.147944 1.577724 0.7000020 1.233826
+#> 1312 0.7318245 1.886362 1.144471 1.353840 1.202224 1.486676 0.7167117 1.233826
+#>           STRC      PSTR     NMSR     TTRN     TFWSR      TTRW     TFWSS
+#> 942  0.7148823 0.6508703 3.148152 2.920333  7.725617 62.300599  3.184656
+#> 1432 0.6718744 0.7563591 4.231506 1.688734 28.186653  7.329838 20.356342
+#> 1221 0.7148823 0.6508703 3.931099 2.682888  2.438998  4.479733  5.948706
+#> 1251 0.7148823 0.7563591 5.195730 1.983253 31.447430  8.187797 11.931777
+#> 1033 0.6718744 0.6508703 3.406218 2.407173 18.553374 14.557196  7.171076
+#> 1312 0.6718744 0.6508703 4.447229 2.351584  9.257126  3.845843 20.356342
+#>           TTSW      TTPW      AVPW     ARSR     SRDM     LEAV always.selected
+#> 942  15.116045  5.414342 38.522834 1.800534 2.572890 162.7197           FALSE
+#> 1432  6.113131 27.021538  8.184969 1.859701 2.704807 127.5742           FALSE
+#> 1221 49.534465  4.470612 26.950597 2.067785 2.652030 127.1218           FALSE
+#> 1251  3.676607 21.904679  6.697428 1.800534 2.633677 116.3156           FALSE
+#> 1033  5.818571 13.020808 11.171692 1.800534 2.538544 101.2819           FALSE
+#> 1312  9.807997 17.188937  8.236776 2.067785 2.546281 100.6582           FALSE
+#>      core
+#> 942  TRUE
+#> 1432 TRUE
+#> 1221 TRUE
+#> 1251 TRUE
+#> 1033 TRUE
+#> 1312 TRUE
+
+# Selected accessions for core
+core2 <- LEAVcore2_out[LEAVcore2_out$core == TRUE, "genotypes"]
+
+core2
+#>   [1] "TMe-3163" "TMe-603"  "TMe-3605" "TMe-3685" "TMe-3292" "TMe-399" 
+#>   [7] "TMe-3800" "TMe-3736" "TMe-616"  "TMe-3667" "TMe-2853" "TMe-3705"
+#>  [13] "TMe-2943" "TMe-3628" "TMe-3701" "TMe-3573" "TMe-901"  "TMe-2035"
+#>  [19] "TMe-3730" "TMe-3223" "TMe-2050" "TMe-2967" "TMe-3415" "TMe-812" 
+#>  [25] "TMe-390"  "TMe-3353" "TMe-1730" "TMe-2996" "TMe-707"  "TMe-815" 
+#>  [31] "TMe-731"  "TMe-608"  "TMe-3406" "TMe-761"  "TMe-412"  "TMe-2905"
+#>  [37] "TMe-717"  "TMe-3025" "TMe-2983" "TMe-3694" "TMe-798"  "TMe-1261"
+#>  [43] "TMe-2963" "TMe-1416" "TMe-3297" "TMe-2531" "TMe-373"  "TMe-13"  
+#>  [49] "TMe-588"  "TMe-2204" "TMe-2513" "TMe-863"  "TMe-3040" "TMe-1307"
+#>  [55] "TMe-2984" "TMe-861"  "TMe-1004" "TMe-3581" "TMe-427"  "TMe-1919"
+#>  [61] "TMe-3089" "TMe-997"  "TMe-1985" "TMe-3641" "TMe-3392" "TMe-929" 
+#>  [67] "TMe-3034" "TMe-3319" "TMe-2940" "TMe-623"  "TMe-2952" "TMe-1723"
+#>  [73] "TMe-659"  "TMe-27"   "TMe-3337" "TMe-432"  "TMe-2955" "TMe-1646"
+#>  [79] "TMe-2913" "TMe-2953" "TMe-725"  "TMe-2043" "TMe-705"  "TMe-1294"
+#>  [85] "TMe-3329" "TMe-421"  "TMe-3065" "TMe-3249" "TMe-1472" "TMe-584" 
+#>  [91] "TMe-1248" "TMe-2196" "TMe-832"  "TMe-3698" "TMe-1283" "TMe-1479"
+#>  [97] "TMe-527"  "TMe-2604" "TMe-700"  "TMe-1806" "TMe-3130" "TMe-1272"
+#> [103] "TMe-3565" "TMe-3396" "TMe-728"  "TMe-926"  "TMe-1079" "TMe-2912"
+#> [109] "TMe-1286" "TMe-2916" "TMe-47"   "TMe-3485" "TMe-1311" "TMe-2977"
+#> [115] "TMe-2688" "TMe-3475" "TMe-1011" "TMe-694"  "TMe-3076" "TMe-2966"
+#> [121] "TMe-1124" "TMe-44"   "TMe-1945" "TMe-1425" "TMe-1339" "TMe-35"  
+#> [127] "TMe-3054" "TMe-3601" "TMe-3281" "TMe-2860" "TMe-2937" "TMe-500" 
+#> [133] "TMe-1762" "TMe-1098" "TMe-1348" "TMe-2914" "TMe-3345" "TMe-391" 
+#> [139] "TMe-1769" "TMe-2329" "TMe-994"  "TMe-2010" "TMe-1158" "TMe-2551"
+#> [145] "TMe-1796" "TMe-2226" "TMe-3471" "TMe-2040" "TMe-289"  "TMe-3222"
+#> [151] "TMe-1958" "TMe-1273" "TMe-1129" "TMe-835"  "TMe-631"  "TMe-3185"
+#> [157] "TMe-3428" "TMe-3363" "TMe-3087" "TMe-756"  "TMe-729"  "TMe-2973"
+#> [163] "TMe-2355" "TMe-3633" "TMe-2906" "TMe-2518" "TMe-3659" "TMe-3398"
+#> [169] "TMe-1300" "TMe-3501" "TMe-7"    "TMe-1388" "TMe-3272" "TMe-1293"
+#> [175] "TMe-2968" "TMe-2151" "TMe-3531" "TMe-438"  "TMe-600"  "TMe-2843"
+#> [181] "TMe-2439" "TMe-3282" "TMe-742"  "TMe-585"  "TMe-3368" "TMe-1581"
+#> [187] "TMe-3596" "TMe-845"  "TMe-1137" "TMe-1580" "TMe-1101" "TMe-3085"
+#> [193] "TMe-867"  "TMe-1988" "TMe-487"  "TMe-2060" "TMe-2441" "TMe-3255"
+#> [199] "TMe-745"  "TMe-937"  "TMe-2993" "TMe-787"  "TMe-3132" "TMe-2567"
+#> [205] "TMe-86"   "TMe-473"  "TMe-3351" "TMe-1042" "TMe-5"    "TMe-3055"
+#> [211] "TMe-736"  "TMe-2733" "TMe-1600" "TMe-362"  "TMe-2956" "TMe-4"   
+#> [217] "TMe-2119" "TMe-2304" "TMe-3387" "TMe-751"  "TMe-3547" "TMe-1401"
+#> [223] "TMe-1078" "TMe-698"  "TMe-737"  "TMe-645"  "TMe-2976" "TMe-2939"
+#> [229] "TMe-606"  "TMe-1074" "TMe-1174" "TMe-609"  "TMe-2270" "TMe-2203"
+#> [235] "TMe-1312" "TMe-1756" "TMe-2257" "TMe-1239" "TMe-1511" "TMe-2802"
+#> [241] "TMe-361"  "TMe-241"  "TMe-1269" "TMe-1700" "TMe-3175" "TMe-1501"
+#> [247] "TMe-1924" "TMe-3773" "TMe-154"  "TMe-1366" "TMe-3639" "TMe-2374"
+#> [253] "TMe-174"  "TMe-209"  "TMe-975"  "TMe-1564" "TMe-976"  "TMe-1995"
+#> [259] "TMe-569"  "TMe-3575" "TMe-1376" "TMe-3299" "TMe-1987" "TMe-1233"
+#> [265] "TMe-3707" "TMe-579"  "TMe-1715" "TMe-696"  "TMe-1621" "TMe-750" 
+#> [271] "TMe-3496" "TMe-3266" "TMe-1975" "TMe-3401" "TMe-3389" "TMe-3463"
+#> [277] "TMe-2057" "TMe-876"  "TMe-2855" "TMe-481"  "TMe-501"  "TMe-1643"
+#> [283] "TMe-2166" "TMe-1397" "TMe-1256" "TMe-410"  "TMe-1875" "TMe-6"   
+#> [289] "TMe-3323" "TMe-196"  "TMe-3440" "TMe-2862" "TMe-1310" "TMe-2128"
+#> [295] "TMe-1526" "TMe-3466" "TMe-1053" "TMe-3437" "TMe-2530" "TMe-2318"
+#> [301] "TMe-3366" "TMe-2910" "TMe-3072" "TMe-2027" "TMe-2589" "TMe-2985"
+#> [307] "TMe-2032" "TMe-3110" "TMe-3533" "TMe-3112" "TMe-893"  "TMe-1232"
+#> [313] "TMe-1589" "TMe-3382" "TMe-601"  "TMe-394"  "TMe-2779" "TMe-665" 
+#> [319] "TMe-1738" "TMe-66"   "TMe-2809" "TMe-1020" "TMe-1051" "TMe-3572"
+#> [325] "TMe-826"  "TMe-3545" "TMe-1257" "TMe-414"  "TMe-3273" "TMe-3479"
+#> [331] "TMe-1199" "TMe-2757" "TMe-1790" "TMe-801"  "TMe-1830" "TMe-2018"
+#> [337] "TMe-3191"
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Method III
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+LEAVcore3_out <-
+  LEAVcore3(data = cassava_EC, names = "genotypes",
+            quantitative = quant, qualitative = qual,
+            size = 0.2, prop.adj = "log", e = e_vec,
+            always.selected = mand_accns)
+
+head(LEAVcore3_out)
+#>      genotypes       lt     CUAL     LNGS     PTLC     DSTA     LFRT    LBTEF
+#> 942   TMe-3163 1.623792 1.171319 1.018756 1.001667 1.383677 1.034312 1.609178
+#> 1432   TMe-603 1.623792 1.171319 1.009479 1.001667 1.383677 1.034312 1.570564
+#> 1221  TMe-3605 1.623792 1.171319 1.292631 1.001667 1.383677 2.627081 1.602382
+#> 1251  TMe-3685 1.623792 1.287220 1.018756 1.001667 1.622932 1.034312 1.795852
+#> 1033  TMe-3292 1.623792 1.287220 1.018756 1.001667 1.913500 1.034312 1.795852
+#> 1312   TMe-399 1.623792 1.171319 1.018756 1.001667 1.622932 1.464561 1.570564
+#>           CBTR     NMLB     ANGB   CUAL9M    LVC9M   TNPR9M      PL9M     STRP
+#> 942  0.8126782 1.720141 1.226096 1.406059 1.147944 1.577724 0.7000020 1.214631
+#> 1432 0.7318245 1.804366 1.144471 1.353840 1.202224 1.486676 0.7167117 1.233826
+#> 1221 0.8126782 1.760304 1.252595 1.363820 1.147944 1.608716 0.7167117 1.233826
+#> 1251 0.8126782 1.720141 1.144471 1.406059 1.516240 1.486676 0.7000020 1.214631
+#> 1033 0.8126782 1.760304 1.252595 1.353840 1.147944 1.577724 0.7000020 1.233826
+#> 1312 0.7318245 1.886362 1.144471 1.353840 1.202224 1.486676 0.7167117 1.233826
+#>           STRC      PSTR     NMSR     TTRN     TFWSR      TTRW     TFWSS
+#> 942  0.7148823 0.6508703 3.148152 2.920333  7.725617 62.300599  3.184656
+#> 1432 0.6718744 0.7563591 4.231506 1.688734 28.186653  7.329838 20.356342
+#> 1221 0.7148823 0.6508703 3.931099 2.682888  2.438998  4.479733  5.948706
+#> 1251 0.7148823 0.7563591 5.195730 1.983253 31.447430  8.187797 11.931777
+#> 1033 0.6718744 0.6508703 3.406218 2.407173 18.553374 14.557196  7.171076
+#> 1312 0.6718744 0.6508703 4.447229 2.351584  9.257126  3.845843 20.356342
+#>           TTSW      TTPW      AVPW     ARSR     SRDM     LEAV LEAVStrata
+#> 942  15.116045  5.414342 38.522834 1.800534 2.572890 162.7197         12
+#> 1432  6.113131 27.021538  8.184969 1.859701 2.704807 127.5742         12
+#> 1221 49.534465  4.470612 26.950597 2.067785 2.652030 127.1218         12
+#> 1251  3.676607 21.904679  6.697428 1.800534 2.633677 116.3156         12
+#> 1033  5.818571 13.020808 11.171692 1.800534 2.538544 101.2819         12
+#> 1312  9.807997 17.188937  8.236776 2.067785 2.546281 100.6582         12
+#>      always.selected
+#> 942            FALSE
+#> 1432           FALSE
+#> 1221           FALSE
+#> 1251           FALSE
+#> 1033           FALSE
+#> 1312           FALSE
+
+# Strata/Group-wise counts
+table(LEAVcore3_out$LEAVStrata)
+#> 
+#>   1   2   3   4   5   6   7   8   9  10  11  12 
+#> 205 210 205 188 316 168 138  84  69  42  27  27 
+
+# Sample accessions from strata to form core set using SampleCOre
+suppressPackageStartupMessages(library(SampleCore))
+
+# Append LEAV strata to original data
+data <- merge.data.frame(cassava_EC,
+                         LEAVcore3_out[, c("genotypes", "LEAVStrata",
+                                           "always.selected")],
+                         by = "genotypes")
+data$LEAVStrata <- as.factor(data$LEAVStrata)
+
+# Use log allocation
+log_alloc <-
+  allocate.basic(data = data[data$always.selected != TRUE, ],
+                 names = "genotypes",
+                 group = "LEAVStrata", method = "log",
+                 size = 0.2)
+
+# Use random selection
+set.seed(123)
+sel_random_out <-
+  select.random(data = data[data$always.selected != TRUE, ],
+                names = "genotypes",
+                group = "LEAVStrata", alloc = log_alloc,
+                # Already included in LEAVcore3_out
+                always.selected = NULL)
+
+# Append always selected accessions
+core3 <-
+  c(sel_random_out,
+    list(always.selected =
+         LEAVcore3_out[LEAVcore3_out$always.selected == TRUE,
+                       "genotypes"]))
+# Final core
+core3
+#> $`1`
+#>  [1] "TMe-406"  "TMe-685"  "TMe-1151" "TMe-846"  "TMe-548"  "TMe-1678"
+#>  [7] "TMe-3003" "TMe-1487" "TMe-960"  "TMe-882"  "TMe-368"  "TMe-2319"
+#> [13] "TMe-2326" "TMe-834"  "TMe-786"  "TMe-2332" "TMe-3286" "TMe-2402"
+#> [19] "TMe-1930" "TMe-1211" "TMe-1086" "TMe-940"  "TMe-802"  "TMe-450" 
+#> [25] "TMe-2026" "TMe-2127" "TMe-866"  "TMe-2543" "TMe-2989" "TMe-2009"
+#> [31] "TMe-3427" "TMe-1268"
+#> 
+#> $`2`
+#>  [1] "TMe-3008" "TMe-1123" "TMe-3340" "TMe-467"  "TMe-2192" "TMe-137" 
+#>  [7] "TMe-3538" "TMe-684"  "TMe-187"  "TMe-3335" "TMe-878"  "TMe-885" 
+#> [13] "TMe-442"  "TMe-1486" "TMe-211"  "TMe-2152" "TMe-2210" "TMe-1981"
+#> [19] "TMe-3407" "TMe-2775" "TMe-245"  "TMe-3499" "TMe-1509" "TMe-1368"
+#> [25] "TMe-1629" "TMe-565"  "TMe-2435" "TMe-191"  "TMe-1278" "TMe-3128"
+#> [31] "TMe-273"  "TMe-1083"
+#> 
+#> $`3`
+#>  [1] "TMe-932"  "TMe-2453" "TMe-967"  "TMe-1592" "TMe-386"  "TMe-321" 
+#>  [7] "TMe-1802" "TMe-1470" "TMe-1110" "TMe-1224" "TMe-2041" "TMe-3322"
+#> [13] "TMe-3729" "TMe-1831" "TMe-1345" "TMe-2750" "TMe-388"  "TMe-1367"
+#> [19] "TMe-1488" "TMe-447"  "TMe-317"  "TMe-142"  "TMe-3527" "TMe-933" 
+#> [25] "TMe-3243" "TMe-315"  "TMe-381"  "TMe-1979" "TMe-3540" "TMe-2020"
+#> [31] "TMe-3644" "TMe-3261"
+#> 
+#> $`4`
+#>  [1] "TMe-237"  "TMe-2611" "TMe-668"  "TMe-3593" "TMe-1827" "TMe-2268"
+#>  [7] "TMe-852"  "TMe-3142" "TMe-3010" "TMe-939"  "TMe-3423" "TMe-813" 
+#> [13] "TMe-1351" "TMe-1795" "TMe-186"  "TMe-661"  "TMe-3216" "TMe-2950"
+#> [19] "TMe-985"  "TMe-1443" "TMe-323"  "TMe-3149" "TMe-3568" "TMe-480" 
+#> [25] "TMe-536"  "TMe-3068" "TMe-626"  "TMe-693"  "TMe-54"   "TMe-1147"
+#> [31] "TMe-2123"
+#> 
+#> $`5`
+#>  [1] "TMe-610"  "TMe-663"  "TMe-706"  "TMe-650"  "TMe-1572" "TMe-3726"
+#>  [7] "TMe-419"  "TMe-1483" "TMe-2891" "TMe-3576" "TMe-1533" "TMe-1873"
+#> [13] "TMe-1935" "TMe-3265" "TMe-90"   "TMe-334"  "TMe-456"  "TMe-3118"
+#> [19] "TMe-682"  "TMe-2058" "TMe-995"  "TMe-1357" "TMe-3338" "TMe-3097"
+#> [25] "TMe-1554" "TMe-1362" "TMe-3219" "TMe-15"   "TMe-1939" "TMe-1192"
+#> [31] "TMe-270"  "TMe-194"  "TMe-3326" "TMe-2242"
+#> 
+#> $`6`
+#>  [1] "TMe-2823" "TMe-816"  "TMe-161"  "TMe-551"  "TMe-1301" "TMe-363" 
+#>  [7] "TMe-1560" "TMe-1786" "TMe-1221" "TMe-853"  "TMe-1218" "TMe-1198"
+#> [13] "TMe-41"   "TMe-25"   "TMe-727"  "TMe-251"  "TMe-2195" "TMe-716" 
+#> [19] "TMe-1459" "TMe-85"   "TMe-3443" "TMe-963"  "TMe-2124" "TMe-755" 
+#> [25] "TMe-3277" "TMe-123"  "TMe-1442" "TMe-2064" "TMe-70"   "TMe-768" 
+#> [31] "TMe-3071"
+#> 
+#> $`7`
+#>  [1] "TMe-2757" "TMe-3572" "TMe-3496" "TMe-1526" "TMe-1341" "TMe-3707"
+#>  [7] "TMe-3437" "TMe-696"  "TMe-3575" "TMe-394"  "TMe-277"  "TMe-3266"
+#> [13] "TMe-1715" "TMe-1614" "TMe-1621" "TMe-333"  "TMe-1100" "TMe-2809"
+#> [19] "TMe-431"  "TMe-618"  "TMe-2027" "TMe-3323" "TMe-1091" "TMe-404" 
+#> [25] "TMe-3463" "TMe-174"  "TMe-3460" "TMe-138"  "TMe-2890" "TMe-196" 
+#> 
+#> $`8`
+#>  [1] "TMe-3547" "TMe-1700" "TMe-2567" "TMe-2441" "TMe-487"  "TMe-1101"
+#>  [7] "TMe-7"    "TMe-1137" "TMe-2119" "TMe-1269" "TMe-3501" "TMe-3085"
+#> [13] "TMe-1581" "TMe-2976" "TMe-241"  "TMe-1174" "TMe-3659" "TMe-3255"
+#> [19] "TMe-1580" "TMe-698"  "TMe-2257" "TMe-4"    "TMe-3387" "TMe-2956"
+#> [25] "TMe-3773" "TMe-1239" "TMe-867" 
+#> 
+#> $`9`
+#>  [1] "TMe-1806" "TMe-1079" "TMe-3471" "TMe-926"  "TMe-1425" "TMe-2355"
+#>  [7] "TMe-835"  "TMe-1098" "TMe-1945" "TMe-756"  "TMe-2977" "TMe-1348"
+#> [13] "TMe-44"   "TMe-729"  "TMe-3185" "TMe-1158" "TMe-3633" "TMe-3565"
+#> [19] "TMe-3054" "TMe-3428" "TMe-1796" "TMe-2966" "TMe-2973" "TMe-2688"
+#> [25] "TMe-3363"
+#> 
+#> $`10`
+#>  [1] "TMe-623"  "TMe-3249" "TMe-1283" "TMe-421"  "TMe-1248" "TMe-929" 
+#>  [7] "TMe-861"  "TMe-1919" "TMe-3698" "TMe-832"  "TMe-584"  "TMe-997" 
+#> [13] "TMe-1294" "TMe-725"  "TMe-3089" "TMe-3337" "TMe-2196" "TMe-432" 
+#> [19] "TMe-2043" "TMe-1646" "TMe-27"   "TMe-1472"
+#> 
+#> $`11`
+#>  [1] "TMe-2996" "TMe-1261" "TMe-588"  "TMe-3025" "TMe-13"   "TMe-707" 
+#>  [7] "TMe-373"  "TMe-761"  "TMe-1307" "TMe-412"  "TMe-3406" "TMe-2513"
+#> [13] "TMe-798"  "TMe-717"  "TMe-2963" "TMe-731"  "TMe-815"  "TMe-3694"
+#> [19] "TMe-2905" "TMe-608" 
+#> 
+#> $`12`
+#>  [1] "TMe-812"  "TMe-3605" "TMe-3736" "TMe-2967" "TMe-616"  "TMe-399" 
+#>  [7] "TMe-3292" "TMe-3685" "TMe-3223" "TMe-3163" "TMe-3353" "TMe-1730"
+#> [13] "TMe-3667" "TMe-2035" "TMe-3730" "TMe-2050" "TMe-3701" "TMe-3705"
+#> [19] "TMe-390"  "TMe-2853"
+#> 
+#> $always.selected
+#> [1] "TMe-1790" "TMe-801"  "TMe-1830" "TMe-2018" "TMe-3191"
+#> 
+```
