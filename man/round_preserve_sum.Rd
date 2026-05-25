@@ -18,7 +18,7 @@ An numeric vector of the same length as \code{x}, where the elements
 }
 \description{
 Applies the Hamilton (largest remainder or Hare-Niemeyer or Vinton) rounding
-method \insertCite{balinski_fair_2001}{SampleCore} to a numeric vector so
+method \insertCite{balinski_fair_2001}{LEAVcore} to a numeric vector so
 that the rounded values sum to a specified target.
 }
 \details{
