@@ -114,9 +114,82 @@
 #'   set as a character vector.
 #'
 #' @returns
+#' \code{LEAVcore1} returns a data frame with one row per accession in
+#' \code{data} and the following columns:
+#' \describe{
+#'   \item{\code{names}}{Accession identifiers, as specified by the
+#'     \code{names} argument.}
+#'   \item{\code{LEAV_core}}{The total LEAV score for each accession
+#'     computed under the core group parameterisation (frequencies and
+#'     moments estimated from the target core subset).}
+#'   \item{\code{LEAV_noncore}}{The total LEAV score for each accession
+#'     computed under the non-core group parameterisation (frequencies and
+#'     moments estimated from the remainder of the collection).}
+#'   \item{\code{always.selected}}{A logical vector indicating whether the
+#'     accession was pre-specified in \code{always.selected}.}
+#'   \item{\code{core}}{A logical vector indicating whether the accession
+#'     is selected into the core collection, either because
+#'     \code{LEAV_core} \eqn{\leq} \code{LEAV_noncore} (selected by the
+#'     method) or because it appears in \code{always.selected}.}
+#' }
+#'
+#' \code{LEAVcore2} returns a data frame with one row per accession in
+#' \code{data}, sorted in decreasing order of LEAV score, with the following
+#' columns:
+#' \describe{
+#'   \item{\code{names}}{Accession identifiers, as specified by the
+#'     \code{names} argument.}
+#'   \item{\code{lt}}{The log-ratio message length term
+#'     \mjseqn{\log(N / n)}, where \mjseqn{N} is the total number of accessions
+#'     in \code{data} and \mjseqn{n} is \code{size.count}.}
+#'   \item{\code{<trait columns>}}{One column per trait specified in
+#'     \code{qualitative} and \code{quantitative}, giving the
+#'     per-accession information length for that trait.}
+#'   \item{\code{LEAV}}{The total LEAV score for each accession, equal to
+#'     the row sum of \code{lt} and all trait information length columns.}
+#'   \item{\code{always.selected}}{A logical vector indicating whether the
+#'     accession was pre-specified in \code{always.selected}.}
+#'   \item{\code{core}}{A logical vector indicating whether the accession
+#'     is selected into the core collection, either as one of the top
+#'     \code{size.count} ranked accessions among non-\code{always.selected}
+#'     accessions or because it appears in \code{always.selected}.}
+#' }
+#'
+#' \code{LEAVcore3} returns a data frame with one row per accession in \code{data},
+#' sorted in decreasing order of LEAV score, with the following columns:
+#' \describe{
+#'   \item{\code{names}}{Accession identifiers, as specified by the
+#'     \code{names} argument.}
+#'   \item{\code{lt}}{The log-ratio message length term
+#'     \mjseqn{\log(N / n)}, where \mjseqn{N} is the total number of accessions
+#'     in \code{data} and \mjseqn{n} is \code{size.count}.}
+#'   \item{\code{<trait columns>}}{One column per trait specified in
+#'     \code{qualitative} and \code{quantitative}, giving the
+#'     per-accession information length for that trait.}
+#'   \item{\code{LEAV}}{The total LEAV score for each accession, equal to
+#'     the row sum of \code{lt} and all trait information length columns.}
+#'   \item{\code{LEAVStrata}}{An integer stratum identifier assigned by the
+#'     Dalenius-Hodges cumulative root frequency method
+#'     \insertCite{dalenius_Minimum_1959}{LEAVcore}, indicating the stratum to
+#'     which each accession belongs for proportional sampling.
+#'     \code{NA} for accessions in \code{always.selected}, which are
+#'     excluded from stratification.}
+#'   \item{\code{always.selected}}{A logical vector indicating whether the
+#'     accession was pre-specified in \code{always.selected} and is
+#'     therefore excluded from stratification.}
+#' }
 #'
 #' @name LEAVcore_functions
 #' @rdname LEAVcore_functions
+#'
+#' @seealso \code{\link[LEAVcore]{inflen.qual}},
+#'   \code{\link[LEAVcore]{inflen.quant}}, \code{\link[LEAVcore]{LEAV}},
+#'   \code{\link[SampleCore]{allocate.basic}},
+#'   \code{\link[SampleCore]{allocate.distance}},
+#'   \code{\link[SampleCore]{allocate.diversity}},
+#'   \code{\link[SampleCore]{select.random}},
+#'   \code{\link[SampleCore]{select.distance}},
+#'   \code{\link[SampleCore]{select.diversity}}
 #'
 #' @importFrom grDevices nclass.Sturges
 #' @importFrom stats approxfun density sd
@@ -127,6 +200,114 @@
 #' \insertAllCited{}
 #'
 #' @examples
+#' suppressPackageStartupMessages(library(EvaluateCore))
+#'
+#' # Get data from EvaluateCore
+#' data("cassava_EC", package = "EvaluateCore")
+#'
+#' cassava_EC <- cbind(genotypes = rownames(cassava_EC), cassava_EC)
+#'
+#'
+#' quant <- c("NMSR", "TTRN", "TFWSR", "TTRW", "TFWSS", "TTSW", "TTPW", "AVPW",
+#'            "ARSR", "SRDM")
+#' qual <- c("CUAL", "LNGS", "PTLC", "DSTA", "LFRT", "LBTEF", "CBTR", "NMLB",
+#'           "ANGB", "CUAL9M", "LVC9M", "TNPR9M", "PL9M", "STRP", "STRC",
+#'           "PSTR")
+#'
+#' cassava_EC[, qual] <- lapply(cassava_EC[, qual], as.factor)
+#'
+#' e_vec <- rep(1, length(quant))
+#' names(e_vec) <- quant
+#'
+#' mand_accns <-
+#'   c("TMe-2018", "TMe-801", "TMe-3191", "TMe-1830", "TMe-1790")
+#'
+#' table(cassava_EC$genotypes %in% mand_accns)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Method I
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' LEAVcore1_out <-
+#'   LEAVcore1(data = cassava_EC, names = "genotypes",
+#'             quantitative = quant, qualitative = qual,
+#'             size = 0.2, prop.adj = "log", e = e_vec,
+#'             always.selected = mand_accns)
+#'
+#' head(LEAVcore1_out)
+#'
+#' # Selected accessions for core
+#' core1 <- LEAVcore1_out[LEAVcore1_out$core == TRUE, "genotypes"]
+#'
+#' core1
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Method II
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' LEAVcore2_out <-
+#'   LEAVcore2(data = cassava_EC, names = "genotypes",
+#'             quantitative = quant, qualitative = qual,
+#'             size = 0.2, prop.adj = "log", e = e_vec,
+#'             always.selected = mand_accns)
+#'
+#' head(LEAVcore2_out)
+#'
+#' # Selected accessions for core
+#' core2 <- LEAVcore2_out[LEAVcore2_out$core == TRUE, "genotypes"]
+#'
+#' core2
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Method III
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' LEAVcore3_out <-
+#'   LEAVcore3(data = cassava_EC, names = "genotypes",
+#'             quantitative = quant, qualitative = qual,
+#'             size = 0.2, prop.adj = "log", e = e_vec,
+#'             always.selected = mand_accns)
+#'
+#' head(LEAVcore3_out)
+#'
+#' # Strata/Group-wise counts
+#' table(LEAVcore3_out$LEAVStrata)
+#'
+#' # Sample accessions from strata to form core set using SampleCOre
+#' suppressPackageStartupMessages(library(SampleCore))
+#'
+#' # Append LEAV strata to original data
+#' data <- merge.data.frame(cassava_EC,
+#'                          LEAVcore3_out[, c("genotypes", "LEAVStrata",
+#'                                            "always.selected")],
+#'                          by = "genotypes")
+#' data$LEAVStrata <- as.factor(data$LEAVStrata)
+#'
+#' # Use log allocation
+#' log_alloc <-
+#'   allocate.basic(data = data[data$always.selected != TRUE, ],
+#'                  names = "genotypes",
+#'                  group = "LEAVStrata", method = "log",
+#'                  size = 0.2)
+#'
+#' # Use random selection
+#' set.seed(123)
+#' sel_random_out <-
+#'   select.random(data = data[data$always.selected != TRUE, ],
+#'                 names = "genotypes",
+#'                 group = "LEAVStrata", alloc = log_alloc,
+#'                 # Already included in LEAVcore3_out
+#'                 always.selected = NULL)
+#'
+#' # Append always selected accessions
+#' core3 <-
+#'   c(sel_random_out,
+#'     list(always.selected =
+#'          LEAVcore3_out[LEAVcore3_out$always.selected == TRUE,
+#'                        "genotypes"]))
+#' # Final core
+#' core3
+#'
 NULL
 
 # Method I : ----
@@ -187,9 +368,9 @@ LEAVcore1 <- function(data, names,
   size.count <- size.count - length(always.selected)
 
   ## Find freq for qualitative traits ----
+  # [Only from data excluding always.selected]
 
   # Core group
-  ## Find freq for qualitative traits ----
   freq1 <- lapply(qualitative, function(x) {
     prop  <- prop.adj(data_rem[, x], method = prop.adj,
                       size.count = size.count)
@@ -206,6 +387,7 @@ LEAVcore1 <- function(data, names,
   names(freq2) <- qualitative
 
   ## Find mean and variance for quantitative traits ----
+  # [Only from data excluding always.selected]
 
   # Core group
   # mean1 and sd1: From kernel density of size = size.count
@@ -244,16 +426,16 @@ LEAVcore1 <- function(data, names,
   ## Estimate LEAVs ----
 
   # For Core
-  LEAVdf1 <- LEAV(data = data_rem, names = names,
+  LEAVdf1 <- LEAV(data = data, names = names,
                   quantitative = quantitative, qualitative = qualitative,
                   freq = freq1, mean = mean1, sd = sd1, e = e)
-
   # For Non-Core
-  LEAVdf2 <- LEAV(data = data_rem, names = names,
+  LEAVdf2 <- LEAV(data = data, names = names,
                   quantitative = quantitative, qualitative = qualitative,
                   freq = freq2, mean = mean2, sd = sd2, e = e)
 
-  core_ind <- LEAVdf1$LEAV <= LEAVdf2$LEAV
+  core_ind <- LEAVdf1[[names]] %in% rem_accns &
+    LEAVdf1$LEAV <= LEAVdf2$LEAV
 
   ## Correction ----
   ## When core size exceeds size.count
@@ -269,7 +451,6 @@ LEAVcore1 <- function(data, names,
   # Combine with always.selected
   core <- union(always.selected, core)
 
-
   LEAVdf <- merge.data.frame(LEAVdf1[, c(names, "LEAV")],
                              LEAVdf2[, c(names, "LEAV")],
                              by = names,
@@ -277,6 +458,9 @@ LEAVcore1 <- function(data, names,
 
   # Tag always.selected
   LEAVdf$always.selected <- LEAVdf[[names]] %in% always.selected
+
+  # Tag core
+  LEAVdf$core <- LEAVdf[[names]] %in% core
 
   return(LEAVdf)
 }
@@ -293,10 +477,8 @@ LEAVcore2 <- function(data, names,
   prop.adj <- match.arg(prop.adj)
 
   # check if 'size' argument is numeric vector of unit length
-  if (!is.null(size)) {
-    if (!(is.numeric(size) && length(size) == 1)) {
-      stop('"size" should be a numeric vector of unit length.')
-    }
+  if (is.null(size) || !(is.numeric(size) && length(size) == 1)) {
+    stop('"size" should be a numeric vector of unit length.')
   }
 
   # check if 'size' is a proportion between 0 and 1
@@ -341,6 +523,7 @@ LEAVcore2 <- function(data, names,
   size.count <- size.count - length(always.selected)
 
   ## Find freq for qualitative traits ----
+  # [Only from data excluding always.selected]
 
   freq <- lapply(qualitative, function(x) {
     prop  <- prop.adj(data_rem[, x], method = prop.adj,
@@ -353,6 +536,7 @@ LEAVcore2 <- function(data, names,
   names(freq) <- qualitative
 
   ## Find mean and variance for quantitative traits ----
+  # [Only from data excluding always.selected]
 
   stat <- lapply(quantitative, function(x) {
     out <- data.frame(mean = mean(data_rem[, x]),
@@ -369,7 +553,7 @@ LEAVcore2 <- function(data, names,
   }))
 
   ## Estimate LEAV ----
-  LEAVdf <- LEAV(data = data_rem, names = names,
+  LEAVdf <- LEAV(data = data, names = names,
                  quantitative = quantitative,
                  qualitative = qualitative,
                  adj = FALSE,
@@ -379,6 +563,15 @@ LEAVcore2 <- function(data, names,
 
   # Tag always.selected
   LEAVdf$always.selected <- LEAVdf[[names]] %in% always.selected
+
+  # Tag core accessions from remaining ranked accessions
+  rem_ind <- !LEAVdf$always.selected
+  LEAVdf$core <- FALSE
+  rem_rows <- which(rem_ind)
+  LEAVdf$core[rem_rows[1:size.count]] <- TRUE
+
+  # always.selected are also part of core
+  LEAVdf$core[LEAVdf$always.selected] <- TRUE
 
   return(LEAVdf)
 
@@ -403,17 +596,24 @@ LEAVcore3 <- function(data, names,
   N <- nrow(data)
   size.count <- ceiling(size * N)
 
+  size.count.rem <- size.count - length(always.selected)
+  leav_rem <- LEAVdf$LEAV[!LEAVdf$always.selected]
+
   ## Find the strata boundaries ----
-  nStrata <- nclass.Sturges(LEAVdf$LEAV)
+  nStrata <- nclass.Sturges(leav_rem)
+
   # Use method by Dalenius and Hodges (1959)
   strat_out <-
-    stratification::strata.cumrootf(x = LEAVdf$LEAV,
-                                    n = size.count,
+    stratification::strata.cumrootf(x = leav_rem,
+                                    n = size.count.rem,
                                     Ls = nStrata,
                                     # see strata.cumrootf Details
-                                    nclass = nStrata*15)
+                                    nclass = nStrata * 15)
 
-  LEAVdf$LEAVStrata <-  strat_out$stratumID
+  LEAVdf$LEAVStrata <- NA
+  LEAVdf$LEAVStrata[!LEAVdf$always.selected] <- strat_out$stratumID
+
+  LEAVdf$core <- NULL
 
   LEAVdf <- LEAVdf[, c(setdiff(names(LEAVdf), "always.selected"),
                        "always.selected")]

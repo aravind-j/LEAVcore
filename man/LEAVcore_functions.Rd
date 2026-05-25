@@ -67,6 +67,72 @@ be same as \code{quantitative}.}
 \item{always.selected}{Names of accessions to be always included in the core
 set as a character vector.}
 }
+\value{
+\code{LEAVcore1} returns a data frame with one row per accession in
+\code{data} and the following columns:
+\describe{
+  \item{\code{names}}{Accession identifiers, as specified by the
+    \code{names} argument.}
+  \item{\code{LEAV_core}}{The total LEAV score for each accession
+    computed under the core group parameterisation (frequencies and
+    moments estimated from the target core subset).}
+  \item{\code{LEAV_noncore}}{The total LEAV score for each accession
+    computed under the non-core group parameterisation (frequencies and
+    moments estimated from the remainder of the collection).}
+  \item{\code{always.selected}}{A logical vector indicating whether the
+    accession was pre-specified in \code{always.selected}.}
+  \item{\code{core}}{A logical vector indicating whether the accession
+    is selected into the core collection, either because
+    \code{LEAV_core} \eqn{\leq} \code{LEAV_noncore} (selected by the
+    method) or because it appears in \code{always.selected}.}
+}
+
+\code{LEAVcore2} returns a data frame with one row per accession in
+\code{data}, sorted in decreasing order of LEAV score, with the following
+columns:
+\describe{
+  \item{\code{names}}{Accession identifiers, as specified by the
+    \code{names} argument.}
+  \item{\code{lt}}{The log-ratio message length term
+    \mjseqn{\log(N / n)}, where \mjseqn{N} is the total number of accessions
+    in \code{data} and \mjseqn{n} is \code{size.count}.}
+  \item{\code{<trait columns>}}{One column per trait specified in
+    \code{qualitative} and \code{quantitative}, giving the
+    per-accession information length for that trait.}
+  \item{\code{LEAV}}{The total LEAV score for each accession, equal to
+    the row sum of \code{lt} and all trait information length columns.}
+  \item{\code{always.selected}}{A logical vector indicating whether the
+    accession was pre-specified in \code{always.selected}.}
+  \item{\code{core}}{A logical vector indicating whether the accession
+    is selected into the core collection, either as one of the top
+    \code{size.count} ranked accessions among non-\code{always.selected}
+    accessions or because it appears in \code{always.selected}.}
+}
+
+\code{LEAVcore3} returns a data frame with one row per accession in \code{data},
+sorted in decreasing order of LEAV score, with the following columns:
+\describe{
+  \item{\code{names}}{Accession identifiers, as specified by the
+    \code{names} argument.}
+  \item{\code{lt}}{The log-ratio message length term
+    \mjseqn{\log(N / n)}, where \mjseqn{N} is the total number of accessions
+    in \code{data} and \mjseqn{n} is \code{size.count}.}
+  \item{\code{<trait columns>}}{One column per trait specified in
+    \code{qualitative} and \code{quantitative}, giving the
+    per-accession information length for that trait.}
+  \item{\code{LEAV}}{The total LEAV score for each accession, equal to
+    the row sum of \code{lt} and all trait information length columns.}
+  \item{\code{LEAVStrata}}{An integer stratum identifier assigned by the
+    Dalenius-Hodges cumulative root frequency method
+    \insertCite{dalenius_Minimum_1959}{LEAVcore}, indicating the stratum to
+    which each accession belongs for proportional sampling.
+    \code{NA} for accessions in \code{always.selected}, which are
+    excluded from stratification.}
+  \item{\code{always.selected}}{A logical vector indicating whether the
+    accession was pre-specified in \code{always.selected} and is
+    therefore excluded from stratification.}
+}
+}
 \description{
 Based on Length of Encoded Attribute Values (LEAV)
 \insertCite{wallace_information_1968,balakrishnan_Strategies_2001,balakrishnan_Strategies_2001a,balakrishnan_Strategies_2003}{LEAVcore}
@@ -156,6 +222,126 @@ estimates of Length of Encoded Attribute Values.
 
  }
 }
+\examples{
+suppressPackageStartupMessages(library(EvaluateCore))
+
+# Get data from EvaluateCore
+data("cassava_EC", package = "EvaluateCore")
+
+cassava_EC <- cbind(genotypes = rownames(cassava_EC), cassava_EC)
+
+
+quant <- c("NMSR", "TTRN", "TFWSR", "TTRW", "TFWSS", "TTSW", "TTPW", "AVPW",
+           "ARSR", "SRDM")
+qual <- c("CUAL", "LNGS", "PTLC", "DSTA", "LFRT", "LBTEF", "CBTR", "NMLB",
+          "ANGB", "CUAL9M", "LVC9M", "TNPR9M", "PL9M", "STRP", "STRC",
+          "PSTR")
+
+cassava_EC[, qual] <- lapply(cassava_EC[, qual], as.factor)
+
+e_vec <- rep(1, length(quant))
+names(e_vec) <- quant
+
+mand_accns <-
+  c("TMe-2018", "TMe-801", "TMe-3191", "TMe-1830", "TMe-1790")
+
+table(cassava_EC$genotypes \%in\% mand_accns)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Method I
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+LEAVcore1_out <-
+  LEAVcore1(data = cassava_EC, names = "genotypes",
+            quantitative = quant, qualitative = qual,
+            size = 0.2, prop.adj = "log", e = e_vec,
+            always.selected = mand_accns)
+
+head(LEAVcore1_out)
+
+# Selected accessions for core
+core1 <- LEAVcore1_out[LEAVcore1_out$core == TRUE, "genotypes"]
+
+core1
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Method II
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+LEAVcore2_out <-
+  LEAVcore2(data = cassava_EC, names = "genotypes",
+            quantitative = quant, qualitative = qual,
+            size = 0.2, prop.adj = "log", e = e_vec,
+            always.selected = mand_accns)
+
+head(LEAVcore2_out)
+
+# Selected accessions for core
+core2 <- LEAVcore2_out[LEAVcore2_out$core == TRUE, "genotypes"]
+
+core2
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Method III
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+LEAVcore3_out <-
+  LEAVcore3(data = cassava_EC, names = "genotypes",
+            quantitative = quant, qualitative = qual,
+            size = 0.2, prop.adj = "log", e = e_vec,
+            always.selected = mand_accns)
+
+head(LEAVcore3_out)
+
+# Strata/Group-wise counts
+table(LEAVcore3_out$LEAVStrata)
+
+# Sample accessions from strata to form core set using SampleCOre
+suppressPackageStartupMessages(library(SampleCore))
+
+# Append LEAV strata to original data
+data <- merge.data.frame(cassava_EC,
+                         LEAVcore3_out[, c("genotypes", "LEAVStrata",
+                                           "always.selected")],
+                         by = "genotypes")
+data$LEAVStrata <- as.factor(data$LEAVStrata)
+
+# Use log allocation
+log_alloc <-
+  allocate.basic(data = data[data$always.selected != TRUE, ],
+                 names = "genotypes",
+                 group = "LEAVStrata", method = "log",
+                 size = 0.2)
+
+# Use random selection
+set.seed(123)
+sel_random_out <-
+  select.random(data = data[data$always.selected != TRUE, ],
+                names = "genotypes",
+                group = "LEAVStrata", alloc = log_alloc,
+                # Already included in LEAVcore3_out
+                always.selected = NULL)
+
+# Append always selected accessions
+core3 <-
+  c(sel_random_out,
+    list(always.selected =
+         LEAVcore3_out[LEAVcore3_out$always.selected == TRUE,
+                       "genotypes"]))
+# Final core
+core3
+
+}
 \references{
 \insertAllCited{}
+}
+\seealso{
+\code{\link[LEAVcore]{inflen.qual}},
+  \code{\link[LEAVcore]{inflen.quant}}, \code{\link[LEAVcore]{LEAV}},
+  \code{\link[SampleCore]{allocate.basic}},
+  \code{\link[SampleCore]{allocate.distance}},
+  \code{\link[SampleCore]{allocate.diversity}},
+  \code{\link[SampleCore]{select.random}},
+  \code{\link[SampleCore]{select.distance}},
+  \code{\link[SampleCore]{select.diversity}}
 }
