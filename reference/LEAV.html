@@ -21,7 +21,7 @@ MathJax = {output: {font: "mathjax-newcm", fontPath: "../../mathjaxr/doc/mathjax
 
     <a class="navbar-brand me-2" href="../index.html">LEAVcore</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -207,6 +207,8 @@ c_{x_{s},d_{j},t}\) is sum of the optimum optimum message length for
 <span class="r-in"><span><span class="co"># Get data from EvaluateCore</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"cassava_EC"</span>, package <span class="op">=</span> <span class="st">"EvaluateCore"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cassava_EC</span> <span class="op">&lt;-</span> <span class="va">cassava_EC</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">cassava_EC</span><span class="op">)</span>, <span class="fl">500</span><span class="op">)</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cassava_EC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>genotypes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">cassava_EC</span><span class="op">)</span>, <span class="va">cassava_EC</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -250,34 +252,34 @@ c_{x_{s},d_{j},t}\) is sum of the optimum optimum message length for
 <span class="r-in"><span>                     mean <span class="op">=</span> <span class="va">mean_vec</span>, sd <span class="op">=</span> <span class="va">sd_vec</span>, e <span class="op">=</span> <span class="va">e_vec</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">LEAV_cassava</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   genotypes       lt     CUAL      LNGS     PTLC     DSTA     LFRT    LBTEF</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    TMe-10 7.428927 1.791759 0.6931472 1.791759 1.791759 1.791759 1.945910</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  TMe-1003 7.428927 1.098612 0.6931472 1.098612 1.098612 1.791759 1.252763</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  TMe-1004 7.428927 1.098612 0.6931472 1.098612 1.098612 1.098612 1.945910</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  TMe-1005 7.428927 1.098612 0.6931472 1.098612 1.098612 1.098612 1.945910</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  TMe-1006 7.428927 1.098612 0.6931472 1.791759 1.791759 1.791759 1.945910</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  TMe-1007 7.428927 1.098612 0.6931472 1.098612 1.098612 1.791759 1.945910</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   genotypes       lt      CUAL      LNGS     PTLC     DSTA      LFRT   LBTEF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  TMe-1005 6.214608 0.9162907 0.6931472 1.098612 1.098612 0.9162907 1.94591</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  TMe-1006 6.214608 0.9162907 0.6931472 1.791759 1.791759 1.6094379 1.94591</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  TMe-1007 6.214608 0.9162907 0.6931472 1.098612 1.098612 1.6094379 1.94591</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  TMe-1010 6.214608 0.9162907 0.6931472 1.791759 1.791759 0.9162907 1.94591</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  TMe-1016 6.214608 0.9162907 0.6931472 1.791759 1.791759 0.9162907 1.94591</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  TMe-1025 6.214608 0.9162907 0.6931472 1.098612 1.098612 1.6094379 1.94591</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        CBTR     NMLB      ANGB   CUAL9M    LVC9M   TNPR9M      PL9M      STRP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.3862944 2.397895 1.6094379 1.791759 1.098612 1.098612 0.6931472 0.9162907</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.6931472 2.397895 0.9162907 1.098612 1.791759 1.791759 1.3862944 1.6094379</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.6931472 2.397895 0.9162907 1.791759 1.791759 1.098612 1.3862944 1.6094379</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 1.3862944 2.397895 1.6094379 1.098612 1.791759 1.791759 1.3862944 1.6094379</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 1.3862944 2.397895 1.6094379 1.791759 1.098612 1.791759 0.6931472 0.9162907</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.6931472 2.397895 0.9162907 1.098612 1.791759 1.791759 0.6931472 1.6094379</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.3862944 2.079442 1.6094379 1.098612 1.791759 1.791759 1.3862944 1.6094379</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1.3862944 2.079442 1.6094379 1.791759 1.098612 1.791759 0.6931472 0.9162907</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.6931472 2.079442 0.9162907 1.098612 1.791759 1.791759 0.6931472 1.6094379</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 1.3862944 2.079442 0.9162907 1.098612 1.098612 1.791759 0.6931472 1.6094379</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.6931472 2.079442 1.6094379 1.098612 1.098612 1.791759 1.3862944 1.6094379</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.6931472 2.079442 0.9162907 1.098612 1.791759 1.791759 1.3862944 1.6094379</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        STRC      PSTR     NMSR     TTRN    TFWSR     TTRW    TFWSS     TTSW</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.0986123 0.6931472 3.170987 1.699297 2.426967 1.453460 2.708255 1.619898</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1.0986123 1.3862944 3.095089 1.595418 2.486226 1.534342 2.840975 2.457086</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.4054651 1.3862944 3.373382 1.872427 2.743016 1.678373 3.857350 1.994898</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 1.0986123 1.3862944 3.373382 1.699297 2.645238 1.449567 2.708255 1.643336</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.4054651 1.3862944 3.373382 1.945526 2.708448 1.487245 2.923710 1.834308</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.4054651 1.3862944 3.095089 2.114809 3.040300 2.391512 4.495672 3.354308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.0986123 1.0986123 3.375758 1.699297 2.657660 1.449567 2.708255 1.775477</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.4054651 1.0986123 3.375758 1.945526 2.718152 1.487245 2.923710 1.919880</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.4054651 1.0986123 3.104555 2.114809 3.035732 2.391512 4.495672 3.069218</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 1.0986123 1.0986123 3.268920 2.545711 2.468624 1.468790 2.823164 1.846366</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 1.0986123 0.4054651 3.047027 1.699297 2.559362 2.619117 2.751346 2.129919</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.4054651 1.0986123 3.178519 1.699297 3.186016 1.920588 3.707393 1.993814</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       TTPW     AVPW     ARSR     SRDM     LEAV</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 3.202154 2.195050 1.846366 2.529176 52.87044</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 3.203195 2.371520 1.846366 2.573376 52.63613</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 3.901862 2.298856 1.846366 2.802176 54.30810</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 3.331475 2.153527 1.846366 3.155576 54.02485</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 3.568668 2.481814 1.846366 4.148376 56.33667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 4.404153 3.253056 1.751848 2.625176 58.46531</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 3.293098 2.262596 1.846366 3.168110 52.06992</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 3.490833 2.525408 1.846366 4.245367 54.31198</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 4.550316 3.142828 1.751848 2.592589 56.00337</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 3.231879 2.257787 1.751848 3.807867 52.61154</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 3.301464 2.702693 1.846366 2.491027 52.28820</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 4.211371 2.429234 1.846366 2.682867 53.30290</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

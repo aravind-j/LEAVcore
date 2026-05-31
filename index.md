@@ -2,7 +2,7 @@
 
 ![logo](https://raw.githubusercontent.com/aravind-j/LEAVcore/master/inst/extdata/LEAVcore.png)
 
-###### Version : [0.0.0.9000](https://aravind-j.github.io/LEAVcore/); Copyright (C) 2024-2026: [ICAR-NBPGR](https://nbpgr.org.in/); License: [GPL-2\|GPL-3](https://www.r-project.org/Licenses/)
+###### Version : [0.1.0](https://aravind-j.github.io/LEAVcore/); Copyright (C) 2024-2026: [ICAR-NBPGR](https://nbpgr.org.in/); License: [GPL-2\|GPL-3](https://www.r-project.org/Licenses/)
 
 ##### *Aravind, J., Roy, Suman and Singh, Anju M.*
 
@@ -22,7 +22,7 @@ Size](https://img.shields.io/github/languages/code-size/aravind-j/LEAVcore.svg)]
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2026--05--29-yellowgreen.svg)](https://github.com/aravind-j/LEAVcore/)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2026--05--31-yellowgreen.svg)](https://github.com/aravind-j/LEAVcore/)
 [![Website -
 pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/LEAVcore.svg)](https://aravind-j.github.io/LEAVcore/)
 
@@ -73,21 +73,18 @@ citation("LEAVcore")
 ``` R
 To cite the R package 'LEAVcore' in publications use:
 
-  Aravind, J., Roy, S., and Singh, A. M. (2026).  LEAVcore:
-  Constitution of Core Collections using Length of Encoded Attribute
-  Values. R package version 0.0.0.9000,
-  https://aravind-j.github.io/LEAVcore/.
+  Aravind, J., Roy, S., and Singh, A. M. (2026).  LEAVcore: Constitution of Core Collections using Length
+  of Encoded Attribute Values. R package version 0.1.0, https://aravind-j.github.io/LEAVcore/.
 
 A BibTeX entry for LaTeX users is
 
   @Manual{,
     title = {LEAVcore: Constitution of Core Collections using Length of Encoded Attribute Values},
     author = {J. Aravind and Suman Roy and Anju Mahendru Singh},
-    note = {R package version 0.0.0.9000 https://aravind-j.github.io/LEAVcore/},
+    note = {R package version 0.1.0 https://aravind-j.github.io/LEAVcore/},
     year = {2026},
   }
 
-This free and open-source software implements academic research by the
-authors and co-workers. If you use it, please support the project by
-citing the package.
+This free and open-source software implements academic research by the authors and co-workers. If you use
+it, please support the project by citing the package.
 ```

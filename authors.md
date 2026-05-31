@@ -21,10 +21,10 @@ Source:
 
 Aravind, J., Roy, S., and Singh, A. M. (). LEAVcore: Constitution of
 Core Collections using Length of Encoded Attribute Values. R package
-version 0.0.0.9000, https://aravind-j.github.io/LEAVcore/.
+version 0.1.0, https://aravind-j.github.io/LEAVcore/.
 
     @Manual{,
       title = {LEAVcore: Constitution of Core Collections using Length of Encoded Attribute Values},
       author = {J. Aravind and Suman Roy and Anju Mahendru Singh},
-      note = {R package version 0.0.0.9000 https://aravind-j.github.io/LEAVcore/},
+      note = {R package version 0.1.0 https://aravind-j.github.io/LEAVcore/},
     }
