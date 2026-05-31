@@ -6,3 +6,13 @@
 ^CITATION\.cff$
 ^\.github$
 ^codemeta\.json$
+^\.positai$
+^\.claude$
+^README\.Rmd$
+^README\.html$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^cran-comments\.md$
+^cran-comments-archive\.md$
+^LEAVcore\.pdf$
