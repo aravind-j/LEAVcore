@@ -104,7 +104,7 @@
 #' # Get data from EvaluateCore
 #' data("cassava_EC", package = "EvaluateCore")
 #'
-#' cassava_EC[sample(1:nrow(cassava_EC), 500), ]
+#' cassava_EC <- cassava_EC[sample(1:nrow(cassava_EC), 500), ]
 #'
 #' cassava_EC <- cbind(genotypes = rownames(cassava_EC), cassava_EC)
 #'
