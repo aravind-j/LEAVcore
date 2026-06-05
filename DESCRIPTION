@@ -1,6 +1,6 @@
 Package: LEAVcore
 Title: Constitution of Core Collections using Length of Encoded Attribute Values
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: c(
     person(given = "J.", family = "Aravind",
            email = "j.aravind@icar.org.in",
@@ -41,7 +41,9 @@ Suggests:
 RdMacros: mathjaxr,
     Rdpack
 Copyright: 2024-2026, ICAR-NBPGR
-URL: https://github.com/aravind-j/LEAVcore
+URL: https://cran.r-project.org/package=LEAVcore,
+   https://github.com/aravind-j/LEAVcore,
+   https://doi.org/10.5281/zenodo.20560184,
    https://aravind-j.github.io/LEAVcore/
 BugReports: https://github.com/aravind-j/LEAVcore/issues
 Config/roxygen2/version: 8.0.0
